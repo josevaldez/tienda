@@ -10,7 +10,7 @@ class modeloClientes extends CI_Model {
 		$res = array();
 		$this->db->select('c.*,d.idDireccion,d.calle,d.calleInt,d.calleExt,d.colonia,d.referencia,d.cp,d.pais,d.estado,d.municipio,d.localidad');
 		$this->db->from('yoco_clientes as c');
-		$this->db->join('yoco_clientes_direccion as d','d.idCliente = c.idCliente','LEFT');
+		$this->db->join('yoco_rel_clientes_direccion as d','d.idCliente = c.idCliente','LEFT');
 		$this->db->where('c.estatus', '1');
 		if($this->input->post('idCliente') && $this->input->post('idCliente') != ''){
 			$this->db->where('c.idCliente', $this->input->post('idCliente'));
@@ -83,18 +83,18 @@ class modeloClientes extends CI_Model {
 				$this->db->update('yoco_clientes', $dataCliente);
 				if($this->input->post('idDireccion') != ''){
 					$this->db->where('idDireccion', $this->input->post('idDireccion'));
-					$this->db->update('yoco_clientes_direccion', $dataDireccion);
+					$this->db->update('yoco_rel_clientes_direccion', $dataDireccion);
 				}
 				else{
 					$dataDireccion['idCliente'] = $this->input->post('idCliente');
-					$this->db->insert('yoco_clientes_direccion', $dataDireccion);
+					$this->db->insert('yoco_rel_clientes_direccion', $dataDireccion);
 				}
 			}
 			else{
 				$this->db->insert('yoco_clientes', $dataCliente);
 
 				$dataDireccion['idCliente'] = $this->db->insert_id();
-				$this->db->insert('yoco_clientes_direccion', $dataDireccion);
+				$this->db->insert('yoco_rel_clientes_direccion', $dataDireccion);
 			}
 
 			return array('error'=>false,'HTML'=>'Exito');

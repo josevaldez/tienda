@@ -48,10 +48,11 @@
 $active_group = 'default';
 $active_record = TRUE;
 
-$db['default']['hostname'] = 'localhost';
-$db['default']['username'] = 'yocomx_jvaldez'; //
-$db['default']['password'] = 'Yoco12345?!'; //
-$db['default']['database'] = 'yocomx_mitienda';
+
+$db['default']['hostname'] = 'localhost';//'208.43.236.106';//'localhost';
+$db['default']['username'] = 'root';//'yocomx_jvaldez@208.43.236.106'; //
+$db['default']['password'] = '';//'Yoco12345?!'; //
+$db['default']['database'] = 'yoco_tienda';'yocomx_mitienda';
 $db['default']['dbdriver'] = 'mysql';
 $db['default']['dbprefix'] = '';
 $db['default']['pconnect'] = TRUE;
