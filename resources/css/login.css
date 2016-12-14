@@ -1,0 +1,236 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto);
+@font-face {font-family: "Regular";
+    src: url("//db.onlinewebfonts.com/t/ffd0dcc47a9002be89cc7f900d4e144f.eot");
+    src: url("//db.onlinewebfonts.com/t/ffd0dcc47a9002be89cc7f900d4e144f.eot?#iefix") format("embedded-opentype"),
+    url("//db.onlinewebfonts.com/t/ffd0dcc47a9002be89cc7f900d4e144f.woff2") format("woff2"),
+    url("//db.onlinewebfonts.com/t/ffd0dcc47a9002be89cc7f900d4e144f.woff") format("woff"),
+    url("//db.onlinewebfonts.com/t/ffd0dcc47a9002be89cc7f900d4e144f.ttf") format("truetype"),
+    url("//db.onlinewebfonts.com/t/ffd0dcc47a9002be89cc7f900d4e144f.svg#AvenirNextLTW01-UltraLight") format("svg");
+}
+@font-face {font-family: "Avenir";
+    src: url("//db.onlinewebfonts.com/t/08c42df75dd2c636f46f3c564b3ddaa5.eot");
+    src: url("//db.onlinewebfonts.com/t/08c42df75dd2c636f46f3c564b3ddaa5.eot?#iefix") format("embedded-opentype"),
+    url("//db.onlinewebfonts.com/t/08c42df75dd2c636f46f3c564b3ddaa5.woff2") format("woff2"),
+    url("//db.onlinewebfonts.com/t/08c42df75dd2c636f46f3c564b3ddaa5.woff") format("woff"),
+    url("//db.onlinewebfonts.com/t/08c42df75dd2c636f46f3c564b3ddaa5.ttf") format("truetype"),
+    url("//db.onlinewebfonts.com/t/08c42df75dd2c636f46f3c564b3ddaa5.svg#AvenirNextLTW01-Regular") format("svg");
+}
+body{
+	background-color: #FAFAFA;
+	font-family: 'Avenir', sans-serif;
+	background-blend-mode: multiply;
+
+}
+button:hover{
+	background-color: #cb3a59;
+	border: none;
+}
+button{
+	border-color: #777;
+	border:none;
+	outline: none;
+}
+.hi-icon:hover > p{
+	color:#cb3a59;
+}
+.btn-info{
+	background-color: #777;
+	border-radius: 0px;
+	border: none;
+}
+.btn-info:hover{
+	background-color: #cb3a59;
+}
+a{
+	color:#000;
+}
+.noUnderLine{
+	text-decoration: none;
+}
+.vhContainer{
+	height: 90vh;
+}
+
+.vhFull{
+	height: 100%;
+	max-width: 1360px;
+}
+.form-login{
+	top:10%;
+}
+.topImg{
+	transform: translate(0%, 20%);
+	-webkit-transform: translate(0%, 20%);
+	-moz-transform:translate(0%, 20%);
+	-o-transform: translate(0%, 20%);
+	-ms-transform:translate(0%, 20%);
+}
+.logo2 {
+    border: 3px solid #e6e7e7;
+    border-radius: 15px;
+    color: #fff;
+    font-family: sans-serif;
+    font-size: 32px;
+    font-weight: 800;
+    height: 76px;
+    line-height: 27px;
+    margin: 3px auto;
+    padding: 9px;
+    text-align: center;
+    width: 73px;
+}
+.logo{
+	border: 6px solid #e6e7e7;
+	border-radius: 30px;
+	width: 180px;
+	height: 180px;
+	margin:0 auto;
+	color:#fff;
+	font-weight: 800;
+	font-size: 70px;
+	font-family: sans-serif;
+	line-height: 66px;
+    padding: 20px;
+    text-align: center;
+}
+.frmBox{
+	border-radius: 5px;
+	display: inline-block;
+	width: 100%;
+	height: auto;
+	padding:50px 0 50px 0;
+}
+
+footer{
+	padding: 20px 0;
+	border-top:1px solid #D30F42;
+	color:#D30F42;
+	/*font-weight: 600;*/
+}
+
+.center-row {
+	display:table;
+}
+.center {
+	display:table-cell;
+    vertical-align:middle;
+    float:none;
+}
+input[type=text], input[type=password]{
+	outline: none;
+	font-size: 20px;
+	background: transparent none repeat scroll 0 0;
+    border-color: -moz-use-text-color -moz-use-text-color #bababa;
+    border-radius: 0;
+    border-style: none none solid;
+    border-width: 0 0 1px;
+    box-shadow: none;
+    height: 30px;
+    padding: 0 10px;
+}
+
+input[type=submit]{
+	outline: none;
+	background-color:#fff;
+	color:#000;
+	border-radius: 0;
+}
+input[type=submit]:hover{
+	background-color:#cb3a59;
+	color:#fff;
+	border-radius: 0;
+}
+#formLogin { color: #fff; }
+
+@media only screen
+and (min-device-width : 375px)
+and (max-device-width : 667px)
+and (orientation : portrait) {
+			.vhContainer{
+		height: auto;
+	}
+	.vhFull{
+		height: auto;
+	}
+	.form-login{
+		margin-top: 5%;
+    	margin-bottom: 5%;
+    	top: 0;
+	}
+	footer{
+		position: relative !important;
+	}
+}
+
+@media only screen
+and (min-device-width : 375px)
+and (max-device-width : 667px)
+and (orientation : landscape) {
+
+		.vhContainer{
+		height: auto;
+	}
+	.vhFull{
+		height: auto;
+	}
+	.form-login{
+		margin-top: 5%;
+    	margin-bottom: 5%;
+    	top: 0;
+	}
+	footer{
+		position: relative !important;
+	}
+}
+
+@media only screen
+and (min-device-width : 414px)
+and (max-device-width : 736px)
+and (orientation : landscape) {
+		.vhContainer{
+		height: auto;
+	}
+	.vhFull{
+		height: auto;
+	}
+	.form-login{
+		margin-top: 5%;
+    	margin-bottom: 5%;
+    	top: 0;
+	}
+
+
+}
+
+@media only screen
+and (min-device-width : 414px)
+and (max-device-width : 736px)
+and (orientation : portrait) {
+	.vhContainer{
+		height: auto;
+	}
+	.vhFull{
+		height: auto;
+	}
+	.form-login{
+		margin-top: 5%;
+    	margin-bottom: 5%;
+    	top: 0;
+	}
+}
+
+@media only screen
+and (min-device-width : 320px)
+and (max-device-width : 568px) {
+		.vhContainer{
+		height: auto;
+	}
+	.vhFull{
+		height: auto;
+	}
+	.form-login{
+		margin-top: 5%;
+    	margin-bottom: 5%;
+    	top: 0;
+	}
+}

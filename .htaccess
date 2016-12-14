@@ -1,0 +1,4 @@
+RewriteEngine on
+RewriteBase /mitienda/
+RewriteCond $1 !^(index\.php|resources)
+RewriteRule ^(.*)$ index.php/$1 [L]

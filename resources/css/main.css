@@ -1,0 +1,99 @@
+.esconder{ display: none; }
+
+.back{
+		background: #7f7f7f;
+	}
+	.back:hover{
+		background: #cb3a59 !important;
+		color: #fff;
+	}
+	.list > li:hover{
+		color: #58585a;
+	}
+	.list li > div,li:hover{
+		color: #fff;
+	}
+	.name {
+    	font-size: 19px;
+    	font-weight: bold;
+    	margin-bottom: 0;
+	}
+	.midle{
+		margin-bottom: 0px;
+	}
+	.search2{
+	    background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+	    font-size: 25px;
+	    padding: 5px;
+	    border:none;
+	  }
+	    .right{
+	    	width: 100%;
+	    	margin-left:-10px;
+	    	background: rgba(255, 255, 255, .8);
+			text-align: center;
+	    }
+		.panelClient:hover >.right{
+			background: none;
+		}
+	li:hover > a{
+		color: #cb3a59;
+	}
+.list li {
+    min-height: 50px;
+    max-height: 50px;
+    background-image: none !important;
+}
+.list > .newProspecto {
+    height: 50px !important;
+}
+
+.list .plusBtn{
+	font-size: 50px !important;
+    line-height: 21px;
+}
+.grid .header-item{
+	display: none;
+}
+.left .left{ display: none; }
+.list .header-item{
+	 background: #58585a none repeat scroll 0 0;
+    color: #fff;
+    display: block !important;
+    font-size: 15px;
+    margin-bottom: 0;
+    text-transform: capitalize;
+    text-align: center;
+}
+.list .back {
+    background: rgba(0, 0, 0, 0) none repeat scroll 0 0 !important;
+    margin-bottom: 0px;
+    border-top: none;
+}
+.list .left{
+	text-align: center;
+}
+
+.dropdown-menu {
+    position: relative;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    border-radius: 0;
+    border: none;
+    background-color: transparent;
+    box-shadow: none;
+}
+.dropdown a {
+    color: #fff;
+}
+.dropdown a:hover{
+	text-decoration: none;
+	color: #cb3a59;
+}
+
+.dropdownMenu li:hover {
+    color: #cb3a59;
+    background: #fff;
+
+}
