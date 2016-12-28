@@ -244,7 +244,7 @@ $config['encryption_key'] = 'Ch4ng3Th1isL47#r%_eOr67Cfr3SKho0';
 | 'sess_time_to_update'		= how many seconds between CI refreshing Session Information
 |
 */
-$config['sess_cookie_name']		= 'ci_session';
+$config['sess_cookie_name']		= 'ci_session_yoco';
 $config['sess_expiration']		= 7200; //ie7 84200
 $config['sess_expire_on_close']	= TRUE;
 $config['sess_encrypt_cookie']	= TRUE;

@@ -8,13 +8,36 @@ class modeloClientes extends CI_Model {
 
 	public function listClientes(){
 		$res = array();
+
+		$idTienda = $this->session->userdata('idTienda');
+
 		$this->db->select('c.*,d.idDireccion,d.calle,d.calleInt,d.calleExt,d.colonia,d.referencia,d.cp,d.pais,d.estado,d.municipio,d.localidad');
 		$this->db->from('yoco_clientes as c');
 		$this->db->join('yoco_rel_clientes_direccion as d','d.idCliente = c.idCliente','LEFT');
 		$this->db->where('c.estatus', '1');
+		$this->db->where('c.idTienda', $idTienda);
 		if($this->input->post('idCliente') && $this->input->post('idCliente') != ''){
 			$this->db->where('c.idCliente', $this->input->post('idCliente'));
 			$this->db->limit(1);
+		}
+
+		if($this->input->post('inputSearch') && $this->input->post('inputSearch') != ''){
+
+			$this->db->where('( CONCAT(c.nombresCliente, c.apellidosCliente) LIKE "%'.$this->input->post('inputSearch').'%" OR CONCAT(c.apellidosCliente, c.nombresCliente) LIKE "%'.$this->input->post('inputSearch').'%" OR c.codigoCliente LIKE "%'.$this->input->post('inputSearch').'%" OR c.emailCliente LIKE "%'.$this->input->post('inputSearch').'%" OR c.rfcCliente LIKE "%'.$this->input->post('inputSearch').'%" ) ');
+
+			/*$this->db->or_like('( CONCAT(c.nombresCliente, c.apellidosCliente)' ,$this->input->post('inputSearch', 'both',FALSE));
+			$this->db->or_like('CONCAT(c.apellidosCliente, c.nombresCliente)' ,$this->input->post('inputSearch'), 'both',FALSE);
+			$this->db->or_like('c.codigoCliente' ,$this->input->post('inputSearch'), 'both',FALSE);
+			$this->db->or_like('c.emailCliente' ,$this->input->post('inputSearch'), 'both',FALSE);
+			$this->db->or_like('c.rfcCliente' ,$this->input->post('inputSearch').')', 'both',FALSE);
+
+			/*$this->db->or_like(array(
+				' CONCAT(c.nombresCliente, c.apellidosCliente)' =>$this->input->post('inputSearch'),
+				'CONCAT(c.apellidosCliente, c.nombresCliente)' =>$this->input->post('inputSearch'),
+				'c.codigoCliente' =>$this->input->post('inputSearch'),
+				'c.emailCliente' =>$this->input->post('inputSearch'),
+				'c.rfcCliente' =>$this->input->post('inputSearch')
+			), 'both',FALSE);*/
 		}
 
 		$query = $this->db->get();
@@ -49,9 +72,11 @@ class modeloClientes extends CI_Model {
 	}
 
 	public function saveDataCliente(){
+		$idTienda = $this->session->userdata('idTienda');
+		$idUsuario = $this->session->userdata('idUsuario');
 		if($this->input->post('codigoCliente') != '' && $this->input->post('nombre') != '' && $this->input->post('apellido') != '' && $this->input->post('email') != ''){
 			$dataCliente = array(
-				//'idCliente'=> '',
+				'idTienda'=> $idTienda,
 				'codigoCliente'=> $this->input->post('codigoCliente'),
 				'nombresCliente'=> $this->input->post('nombre'),
 				'apellidosCliente'=> $this->input->post('apellido'),
@@ -62,8 +87,8 @@ class modeloClientes extends CI_Model {
 				'rfcCliente'=> $this->input->post('rfc'),
 				'idCatConocio'=> $this->input->post('conocioid'),
 				'estatusFacturacion'=> (($this->input->post('estatusFacturacion') && $this->input->post('estatusFacturacion') != '') ? '1' : 0),
-				'idUsuario'=> '',
-				'fechaCaptura'=> '',
+				'idUsuario'=> $idUsuario,
+				'fechaCaptura'=> date('Y-m-d H:i:s'),
 				);
 			$dataDireccion = array(
 				//'idDireccion'=> $this->input->post('idDireccion'),
@@ -81,6 +106,10 @@ class modeloClientes extends CI_Model {
 			if($this->input->post('idCliente') != ''){
 				$this->db->where('idCliente', $this->input->post('idCliente'));
 				$this->db->update('yoco_clientes', $dataCliente);
+
+				if(isset($_FILES) && count($_FILES) > 0)
+				$fotoCliente = $this->guardarFotoCliente($idTienda, $this->input->post('idCliente'), $_FILES);
+
 				if($this->input->post('idDireccion') != ''){
 					$this->db->where('idDireccion', $this->input->post('idDireccion'));
 					$this->db->update('yoco_rel_clientes_direccion', $dataDireccion);
@@ -94,6 +123,9 @@ class modeloClientes extends CI_Model {
 				$this->db->insert('yoco_clientes', $dataCliente);
 
 				$dataDireccion['idCliente'] = $this->db->insert_id();
+				if(isset($_FILES) && count($_FILES) > 0)
+				$fotoCliente = $this->guardarFotoCliente($idTienda, $dataDireccion['idCliente'], $_FILES);
+
 				$this->db->insert('yoco_rel_clientes_direccion', $dataDireccion);
 			}
 
@@ -102,4 +134,54 @@ class modeloClientes extends CI_Model {
 		}
 	}
 
-}
+	public function guardarFotoCliente($idTienda = 0, $idCliente = 0){
+		//print_r($_FILES);
+		$config['upload_path']          = 'resources/fotosClientes/'.$idTienda;
+		$config['allowed_types']        = 'jpg|png';
+		$config['max_size']             = 1024;
+		$config['encrypt_name']         = true;
+		//$config['max_width']            = 1024;
+		//$config['max_height']           = 768;
+
+	    if(!is_dir($config['upload_path'])){
+	      mkdir($config['upload_path'],0755,TRUE);
+	    }
+
+		$this->load->library('upload', $config);
+
+		if ( ! $this->upload->do_upload('foto')){
+			return "ERROR";
+			//$error = array('error' => $this->upload->display_errors());
+			//$this->load->view('upload_form', $error);
+		}
+		else{
+			$foto = $this->upload->data();
+			$dataCliente = array('fotoCliente'=> $foto['file_name']);
+
+			$this->db->where('idCliente', $idCliente);
+			$this->db->update('yoco_clientes', $dataCliente);
+
+			return 'SUCCESS';
+			//$data = array('upload_data' => $this->upload->data());
+			//$this->load->view('upload_success', $data);
+		}
+
+	}
+
+	public function deleteCliente(){
+		$dataCliente = array(
+			'estatus'=> 0
+		);
+		$idCliente = $this->input->post('idCliente');
+		$idCliente = explode(',', $idCliente);
+		foreach ($idCliente as $key => $id) {
+			if($id != 0){
+				$this->db->where('idCliente', $id);
+				$this->db->update('yoco_clientes', $dataCliente);
+			}
+		}
+		return array('error'=>false,'HTML'=>'Exito');
+
+
+	}
+};

@@ -6,11 +6,14 @@
 				<span class="col-md-1 col-xs-12 np"><b>Clientes</b></span>
 				<form id="custom-search-form" class="form-search form-horizontal col-md-4 col-xs-8">
 	                <div class="input-append span12">
-	                    <input type="text" class="search-query col-xs-10" placeholder=" &#xf002; Búscar"/>
-	                    <button type="submit" class="col-xs-2 search2 btn glyphicon glyphicon-remove-circle"> </button>
+	                    <input type="text" id="inputSearch" class="search-query col-xs-10" placeholder=" &#xf002; Búscar"/>
+	                    <button type="button" id="btnSearch" class="col-xs-2 search2 btn glyphicon glyphicon-remove-circle"> </button>
 	                </div>
 	            </form>
-	            <span class="list-style-buttons pull-right col-xs-4 text-right">
+	            <span class="list-style-buttons pull-right col-xs-7 text-right">
+	            	<a href="javascript:void(0);" onclick="deleteCliente(0);" id="deleteClientes" class="switcher hidden"><span class="glyphicon glyphicon-trash"></span> Eliminar</a>
+
+			        {*<a href="javascript:void(0);" id="sendClientes" class="switcher hidden"><span class="glyphicon glyphicon-envelope"></span> Enviar Cotización</a>*}
 					<a href="#" id="listview" class="switcher "><span class="glyphicon glyphicon-th-list"></span></a>
 					<a href="#" id="gridview" class="switcher active"><span class="glyphicon glyphicon-th"></span></a>
 				</span>
@@ -45,3 +48,4 @@
 </div>
 
 <script type="text/javascript" src="{$INDEX_YOCO}/resources/js/clientes.js"></script>
+{include file="footer.tpl"}

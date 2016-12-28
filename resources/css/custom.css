@@ -28,7 +28,7 @@
 #formLogin ::-moz-placeholder{ color: #fff; opacity: 1; }
 #formLogin ::-moz-placeholder{ color: #fff; opacity: 1; }
 #formLogin ::-ms-input-placeholder{ color: #fff; opacity: 1; }
-.ui-dialog-buttonpane{ display: none; }
+/*.ui-dialog-buttonpane{ display: none; }*/
 .ui-widget-header{ border:none; background: transparent; }
 .flex-parent{
   display: -ms-flex;

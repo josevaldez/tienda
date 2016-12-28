@@ -9,6 +9,7 @@ $route['clientes'] = "clientes/index";
 $route['ajax/listarClientes'] = "clientes/listClientes";
 $route['ajax/dataCliente'] = "clientes/dataCliente";
 $route['ajax/guardarCliente'] = "clientes/saveDataCliente";
+$route['ajax/eliminarCliente'] = "clientes/deleteCliente";
 
 $route['(:any)'] = 'admin';
 $route['404_override'] = '';

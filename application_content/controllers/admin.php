@@ -70,7 +70,8 @@ class admin extends MY_Controller {
 		 		'perfilUsuario' =>  $valid_user['DATOS'][0]['id_tipousuario'],
 		 		'ultimoAcceso' =>  $valid_user['DATOS'][0]['ultimoAcceso'],
 		 		'tipoUsuario' =>  $valid_user['DATOS'][0]['describe_usuario'],
-		 		'idUsuario' 	=>  $valid_user['DATOS'][0]['idUsuario']
+		 		'idUsuario' 	=>  $valid_user['DATOS'][0]['idUsuario'],
+		 		'idTienda' 	=>  $valid_user['DATOS'][0]['idTienda']
 		 		);
 		 	$this->session->set_userdata($status);
 			header("Location: ".INDEX_YOCO."inicio");

@@ -13,7 +13,7 @@
     <script type="text/javascript" src="{$raiz}resources/js/jquery-1.10.2.min.js"></script>
     <script type="text/javascript" src="{$raiz}resources/js/jquery-ui.js"></script>
     <script type="text/javascript">
-    	var uri = '/{$raiz}/';
+    	var uri = '{$raiz}';
     </script>
     <script src="{$raiz}resources/js/general.js?_{$random}"></script>
     <script type="text/javascript" src="{$raiz}resources/js/jquery.gritter.min.js"></script>

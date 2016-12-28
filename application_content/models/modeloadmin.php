@@ -101,7 +101,7 @@ class modeloAdmin extends CI_Model {
 	public function obtenerDatosUsuario($idUsuario = ''){
 		if(empty($idUsuario)){return FALSE;}
 
-		$this->db->select('U.idUsuario,U.nombreUsuario,U.id_tipousuario,U.ultimoAcceso,TU.describe_usuario');
+		$this->db->select('U.idUsuario,U.nombreUsuario,U.id_tipousuario,U.ultimoAcceso,TU.describe_usuario, U.idTienda');
 		$this->db->from(self::TBL_USUARIOS." AS U");
 		$this->db->join(self::TBL_PERFILES. " AS TU", 'U.id_tipousuario = TU.idtipo_usuarios');
  		$this->db->where('U.idUsuario', $idUsuario);
