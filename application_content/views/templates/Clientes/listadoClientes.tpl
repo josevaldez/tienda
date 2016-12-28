@@ -21,9 +21,9 @@
 			<div class="panelBody" style="padding: 10px 0;">
 				<ul id="products" class="grid clearfix">
 					<!-- row 1 -->
-					<li class="clearfix panelClient text-center newProspecto" style="padding: 13px 10px 10px;">
-						<section class="left" style="display: block;">
-							<div class="plusBtn">+</div>
+					<li class="clearfix panelClient text-center newProspecto btnAddLista" style="padding: 13px 10px 10px;">
+						<section class="left btnAddLista" style="display: block;">
+							<div class="plusBtn btnAddLista">+</div>
 						</section>
 
 					</li>

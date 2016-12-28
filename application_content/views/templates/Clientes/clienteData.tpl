@@ -15,8 +15,8 @@
 	        	<input value="{$token}" type="hidden" name="{$token_name}" id="token">
 	        	<span class="glyphicon glyphicon-pencil  col-md-2"></span>
 	        </div>
-	        <input type="file" name="foto" id="foto" accept='image/*'>
-        	<div id="preview" class="profile glyphicon {if $CLIENTES['fotoCliente'] == ''}glyphicon-user{/if}"
+	        <input type="file" name="foto" class="hidden" id="foto" accept='image/*'>
+        	<div id="preview" class="profile mousehover glyphicon {if $CLIENTES['fotoCliente'] == ''}glyphicon-user{/if}"
         		{if $CLIENTES['fotoCliente'] != ''}
         			style="background: url(resources/fotosClientes/{$idTienda}/{$CLIENTES['fotoCliente']});background-size: 100% 100%; background-repeat: no-repeat;"
 				{/if} ></div>
@@ -100,7 +100,10 @@
 	{*<?php  include 'insights.php';?>*}
 </div>
 {literal}
-<script type="text/javascript">$('.cerrar').on('click', function(){$('.overlay-container').fadeOut().end().find('.window-container').removeClass('window-container-visible');
+<script type="text/javascript">
+$('[data-toggle="tooltip"]').tooltip();
+$('#fechaNac').datepicker({ format: 'DD/MM/YYYY'});
+$('.cerrar').on('click', function(){$('.overlay-container').fadeOut().end().find('.window-container').removeClass('window-container-visible');
 	if($.trim($('#codigoCliente').val()) != ''){
 		var dataForm = new FormData();
 		var _totalImg = $("[name='foto']")[0].files.length;

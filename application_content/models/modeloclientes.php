@@ -11,7 +11,7 @@ class modeloClientes extends CI_Model {
 
 		$idTienda = $this->session->userdata('idTienda');
 
-		$this->db->select('c.*,d.idDireccion,d.calle,d.calleInt,d.calleExt,d.colonia,d.referencia,d.cp,d.pais,d.estado,d.municipio,d.localidad');
+		$this->db->select('c.*,d.idDireccion,d.calle,d.calleInt,d.calleExt,d.colonia,d.referencia,d.cp,d.pais,d.estado,d.municipio,d.localidad, DATE_FORMAT(c.fechaNacimientoCliente,"%d%/%m%/%Y" ) AS fechaNacimientoCliente',FALSE);
 		$this->db->from('yoco_clientes as c');
 		$this->db->join('yoco_rel_clientes_direccion as d','d.idCliente = c.idCliente','LEFT');
 		$this->db->where('c.estatus', '1');
@@ -75,6 +75,11 @@ class modeloClientes extends CI_Model {
 		$idTienda = $this->session->userdata('idTienda');
 		$idUsuario = $this->session->userdata('idUsuario');
 		if($this->input->post('codigoCliente') != '' && $this->input->post('nombre') != '' && $this->input->post('apellido') != '' && $this->input->post('email') != ''){
+			$fechaNac = "0000-00-00";
+			if($this->input->post('fechaNac') && $this->input->post('fechaNac') != ''){
+				$f = explode('/',$this->input->post('fechaNac'));
+				$fechaNac = $f[2]."-".$f[1]."-".$f[0];
+			}
 			$dataCliente = array(
 				'idTienda'=> $idTienda,
 				'codigoCliente'=> $this->input->post('codigoCliente'),
@@ -82,7 +87,7 @@ class modeloClientes extends CI_Model {
 				'apellidosCliente'=> $this->input->post('apellido'),
 				'emailCliente'=> $this->input->post('email'),
 				'telefonoCliente'=> $this->input->post('telefono'),
-				'fechaNacimientoCliente'=> $this->input->post('fechaNac'),
+				'fechaNacimientoCliente'=> $fechaNac,
 				'edadCliente'=> $this->input->post('anos'),
 				'rfcCliente'=> $this->input->post('rfc'),
 				'idCatConocio'=> $this->input->post('conocioid'),

@@ -49,17 +49,21 @@ function cargarListado(){
 			    		console.log("controlUNPress");
 			    		var ele = e.target;
 			    		setTimeout(function(){$(ele).removeClass('ui-selected');},100);
-			    		if(!$(ele).hasClass('btnEliminarLista') && $(ele).hasClass('back')){
-				    		//$(ele).trigger('click');
+			    		if(!$(ele).hasClass('btnEliminarLista') && !$(ele).hasClass('newProspecto')  && $(ele).hasClass('back')){
 				    		cargarDataCliente($(ele).attr('data-idCliente'));
 				    	}
-				    	else if($(ele).hasClass('btnEliminarLista')){
+				    	else if($(ele).hasClass('btnEliminarLista') && !$(ele).hasClass('newProspecto')){
 				    		deleteCliente($(ele).attr('data-idCliente'));
+				    	}
+				    	else if($(ele).hasClass('btnAddLista') ){
+				    		$('.plusBtn').trigger('click');
+				    		setTimeout(function(){$('.plusBtn').removeClass('ui-selected');
+				    		$('.plusBtn').parent().removeClass('ui-selected');
+				    		$('.plusBtn').parent().parent().removeClass('ui-selected');},100);
 				    	}
 
 			    	}
 				} );
-
 			}
 		},
 		error: function (){$( "#products").unbind( "mousedown" );

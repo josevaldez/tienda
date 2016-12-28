@@ -17,6 +17,7 @@ $.fn.extend({
 		return this;
 	}
 });
+
 function obtenerValoresInput(tipo, div){
 	if((tipo == undefined)||(div  == undefined)){ return undefined; }
 	var res = [];
