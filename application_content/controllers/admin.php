@@ -105,6 +105,12 @@ class admin extends MY_Controller {
 		$this->smarty->view( 'home.tpl', $datos );
 	}
 
+	public function autocomplete($catalogo){
+		$termino = $this->input->get('q');
+		if(empty($termino)){echo json_encode(FALSE);}
+		$resMod = $this->modeloadmin->autocomplete($catalogo, $termino);
+		echo json_encode( $resMod );
+	}
 
 }
 

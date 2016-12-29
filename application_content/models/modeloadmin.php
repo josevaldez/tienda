@@ -257,4 +257,86 @@ class modeloAdmin extends CI_Model {
 		}
 	}
 
+	public function catalogo($cat = ''){
+		$res = array();
+		switch ($cat) {
+			case 'conocio':
+				$this->db->select('c.*');
+				$this->db->from('yoco_cat_conocio as c');
+				$this->db->where('c.estatus', '1');
+				break;
+		}
+		$query = $this->db->get();
+		$tmp = $query->num_rows();
+		if ($tmp > 0){$res = $query->result_array();}
+		return $res;
+	}
+
+	public function autocomplete($catalogo , $termino){
+		$idTienda = $this->session->userdata('idTienda');
+		$idUsuario = $this->session->userdata('idUsuario');
+		$data = array();
+		switch ($catalogo) {
+			case 'categorias':
+				$this->db->select("CONCAT(c1.descripcionCategoria,' - ',c2.descripcionCategoria,' - ', c3.descripcionCategoria) AS Categorias,
+					CONCAT(c1.descripcionCategoria,' - ',c2.descripcionCategoria,' - ', c3.descripcionCategoria) AS value,
+					c1.idCategoria AS idCat1,
+					c1.descripcionCategoria,
+					c1.idParentCategoria,
+					c2.idCategoria AS idCat2,
+					c2.descripcionCategoria,
+					c2.idParentCategoria,
+					c3.idCategoria AS idCat3,
+					c3.descripcionCategoria,
+					c3.idParentCategoria
+					",FALSE);
+				$this->db->from('yoco_categorias AS c1');
+				$this->db->join('yoco_categorias as c2','c1.idCategoria = c2.idParentCategoria AND c2.estatus = 1','LEFT');
+				$this->db->join('yoco_categorias as c3','c2.idCategoria = c3.idParentCategoria AND c3.estatus = 1','LEFT');
+				$this->db->where('c1.idParentCategoria', '0');
+				$this->db->where('c1.estatus', '1');
+				$this->db->where('c1.idTienda', $idTienda);
+				$this->db->like("CONCAT(c1.descripcionCategoria,' - ',c2.descripcionCategoria,' - ', c3.descripcionCategoria)", $termino);
+				$this->db->order_by('c1.descripcionCategoria,c2.descripcionCategoria,c3.descripcionCategoria');
+
+				$query = $this->db->get();
+				$res = $query->num_rows();
+				if ($res>0){
+					$data  =  $query->result();
+				}
+				break;
+			case 'sucursales':
+				$this->db->select("s.idSucursal,
+					s.idTienda,
+					s.nombre,s.nombre AS value,
+					s.direccion,
+					s.telefono,
+					s.email,
+					s.descripcion,
+					s.almacen,
+					s.estatus,
+					s.fechaCaptura,
+					s.fechaModificacion,
+					s.tipoSucursal",FALSE);
+				$this->db->from('yoco_sucursales AS s');
+				$this->db->join('yoco_rel_usuarios_sucursal AS us','s.idSucursal = us.idSucursal');
+				$this->db->where('us.idUsuario', $idUsuario);
+				$this->db->where('s.estatus', '1');
+				$this->db->where('s.idTienda', $idTienda);
+				$this->db->like("s.nombre", $termino);
+				$this->db->order_by('s.nombre');
+
+				$query = $this->db->get();
+				$res = $query->num_rows();
+				if ($res>0){
+					$data  =  $query->result();
+				}
+				break;
+			default:
+				return array();
+				break;
+		}
+		return $data;
+	}
+
 }
