@@ -17,17 +17,21 @@ class modeloArticulos extends CI_Model {
 									GROUP_CONCAT(CONCAT(c1.idCategoria,"-",c2.idCategoria,"-",c3.idCategoria) SEPARATOR ",") AS Categorias
 									FROM
 									yoco_categorias AS c1
-									LEFT JOIN yoco_categorias AS c2 ON c1.idCategoria = c2.idParentCategoria AND c2.estatus = 1 AND c2.idCategoria IN (SELECT idCategoria FROM yoco_rel_articulo_categoria WHERE idArticulo = a.idArticulo)
-									LEFT JOIN yoco_categorias AS c3 ON c2.idCategoria = c3.idParentCategoria AND c3.estatus = 1 AND c3.idCategoria IN (SELECT idCategoria FROM yoco_rel_articulo_categoria WHERE idArticulo = a.idArticulo)
+									LEFT JOIN yoco_categorias AS c2 ON c1.idCategoria = c2.idParentCategoria AND c2.estatus = 1
+									LEFT JOIN yoco_categorias AS c3 ON c2.idCategoria = c3.idParentCategoria AND c3.estatus = 1
 									WHERE c1.idParentCategoria = 0 AND c1.estatus = 1 AND c1.idCategoria IN (SELECT idCategoria FROM yoco_rel_articulo_categoria WHERE idArticulo = a.idArticulo)
+									AND c2.idCategoria IN (SELECT idCategoria FROM yoco_rel_articulo_categoria WHERE idArticulo = a.idArticulo)
+									AND c3.idCategoria IN (SELECT idCategoria FROM yoco_rel_articulo_categoria WHERE idArticulo = a.idArticulo)
 									ORDER BY c1.descripcionCategoria,c2.descripcionCategoria,c3.descripcionCategoria) AS idsCategoria,
 									(SELECT
 									GROUP_CONCAT(CONCAT(c1.descripcionCategoria,"-",c2.descripcionCategoria,"-",c3.descripcionCategoria) SEPARATOR ",") AS Categorias
 									FROM
 									yoco_categorias AS c1
-									LEFT JOIN yoco_categorias AS c2 ON c1.idCategoria = c2.idParentCategoria AND c2.estatus = 1 AND c2.idCategoria IN (SELECT idCategoria FROM yoco_rel_articulo_categoria WHERE idArticulo = a.idArticulo)
-									LEFT JOIN yoco_categorias AS c3 ON c2.idCategoria = c3.idParentCategoria AND c3.estatus = 1 AND c3.idCategoria IN (SELECT idCategoria FROM yoco_rel_articulo_categoria WHERE idArticulo = a.idArticulo)
+									LEFT JOIN yoco_categorias AS c2 ON c1.idCategoria = c2.idParentCategoria AND c2.estatus = 1
+									LEFT JOIN yoco_categorias AS c3 ON c2.idCategoria = c3.idParentCategoria AND c3.estatus = 1
 									WHERE c1.idParentCategoria = 0 AND c1.estatus = 1 AND c1.idCategoria IN (SELECT idCategoria FROM yoco_rel_articulo_categoria WHERE idArticulo = a.idArticulo)
+									AND c2.idCategoria IN (SELECT idCategoria FROM yoco_rel_articulo_categoria WHERE idArticulo = a.idArticulo)
+									AND c3.idCategoria IN (SELECT idCategoria FROM yoco_rel_articulo_categoria WHERE idArticulo = a.idArticulo)
 									ORDER BY
 									c1.descripcionCategoria,c2.descripcionCategoria,c3.descripcionCategoria)
 									AS nombresCategorias,
