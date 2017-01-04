@@ -1,5 +1,5 @@
 {foreach from=$ARTICULOS key = kc item = arrArticulo}
-<li class="clearfix alt panelClient back" {*onclick="javascript:cargarDataCliente('{$arrArticulo['idArticulo']}');"*} style="background: url(resources/images/clienteSF.png);" data-idArticulo='{$arrArticulo['idArticulo']}'>
+<li class="clearfix alt panelClient back" {*onclick="javascript:cargarDataCliente('{$arrArticulo['idArticulo']}');"*} style="background: url({if $arrArticulo['imagen'] != ''}resources/imagesArticulos/{$idTienda}/{$arrArticulo['idArticulo']}/{$arrArticulo['imagen']}{else}resources/images/clienteSF.png{/if});" data-idArticulo='{$arrArticulo['idArticulo']}'>
 	<section class="left">
 		<div class="col-md-1  pc">{$arrArticulo['codigoArticulo']}</div>
 		<div class="col-md-3 col-xs-3">{$arrArticulo['nombreArticulo']} ({$arrArticulo['nombreCortoArticulo']})</div>
@@ -10,7 +10,7 @@
 	</section>
 	<section class="right">
 		<p class="name">{$arrArticulo['nombreArticulo']}</p>
-		<p class="midle">{$arrArticulo['precioVenta']} años</p>
+		<p class="midle">$ {$arrArticulo['precioVenta']}</p>
 	</section>
 </li>
 {/foreach}

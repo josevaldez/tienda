@@ -12,7 +12,7 @@ class modeloArticulos extends CI_Model {
 		$idTienda = $this->session->userdata('idTienda');
 		$idUsuario = $this->session->userdata('idUsuario');
 
-		$this->db->select('a.*,
+		$this->db->select('a.*,ri.imagen,
 								(SELECT
 									GROUP_CONCAT(CONCAT(c1.idCategoria,"-",c2.idCategoria,"-",c3.idCategoria) SEPARATOR ",") AS Categorias
 									FROM
@@ -55,6 +55,7 @@ class modeloArticulos extends CI_Model {
 									AS idsSucursal
 ',FALSE);
 		$this->db->from('yoco_articulos as a');
+		$this->db->join('(SELECT * FROM (SELECT * FROM yoco_rel_articulo_imagenes ORDER BY portada DESC) AS yoco_rel_articulo_imagenes GROUP BY idArticulo ORDER BY portada DESC) AS ri','ri.idArticulo = a.idArticulo','LEFT','FALSE');
 		$this->db->where('a.estatus', '1');
 		$this->db->where('a.idTienda', $idTienda);
 		if($this->input->post('idArticulo') && $this->input->post('idArticulo') != ''){
@@ -74,11 +75,11 @@ class modeloArticulos extends CI_Model {
 		}
 		else{
 			if($this->input->post('idArticulo') && $this->input->post('idArticulo') != ''){
-				$res = array(array('idArticulo'=> '','codigoArticulo'=> '','nombreArticulo'=> '','nombreCortoArticulo'=> '','tituloArticulo'=> '','palabrasClaveArticulo'=> '','descripcionArticulo'=> '','precioCompra'=> '','precioMayoreo'=> '','iva'=> '','precioVenta'=> '','descuento'=> '','tipoArticulo'=> '1','estatus'=> '','idsCategoria'=> '','nombresCategorias'=> '','nombresSucursal'=> '','idsSucursal'=> ''));
+				$res = array(array('idArticulo'=> '','codigoArticulo'=> '','nombreArticulo'=> '','nombreCortoArticulo'=> '','tituloArticulo'=> '','palabrasClaveArticulo'=> '','descripcionArticulo'=> '','precioCompra'=> '','precioMayoreo'=> '','iva'=> '','precioVenta'=> '','descuento'=> '','tipoArticulo'=> '1','estatus'=> '','idsCategoria'=> '','nombresCategorias'=> '','nombresSucursal'=> '','idsSucursal'=> '', 'imagen' => ''));
 			}
 		}
 		if($this->input->post('idArticulo') && $this->input->post('idArticulo') == '-1'){
-			$res = array(array('idArticulo'=> '','codigoArticulo'=> '','nombreArticulo'=> '','nombreCortoArticulo'=> '','tituloArticulo'=> '','palabrasClaveArticulo'=> '','descripcionArticulo'=> '','precioCompra'=> '','precioMayoreo'=> '','iva'=> '','precioVenta'=> '','descuento'=> '','tipoArticulo'=> '1','estatus'=> '','idsCategoria'=> '','nombresCategorias'=> '','nombresSucursal'=> '','idsSucursal'=> ''));
+			$res = array(array('idArticulo'=> '','codigoArticulo'=> '','nombreArticulo'=> '','nombreCortoArticulo'=> '','tituloArticulo'=> '','palabrasClaveArticulo'=> '','descripcionArticulo'=> '','precioCompra'=> '','precioMayoreo'=> '','iva'=> '','precioVenta'=> '','descuento'=> '','tipoArticulo'=> '1','estatus'=> '','idsCategoria'=> '','nombresCategorias'=> '','nombresSucursal'=> '','idsSucursal'=> '', 'imagen' => ''));
 		}
 	    return $res;
 	}
@@ -152,36 +153,65 @@ class modeloArticulos extends CI_Model {
 		}
 	}
 
-	public function guardarFotoArticulo($idTienda = 0, $idArticulo = 0){
-		//print_r($_FILES);
-		$config['upload_path']          = 'resources/fotosClientes/'.$idTienda;
-		$config['allowed_types']        = 'jpg|png';
-		$config['max_size']             = 1024;
-		$config['encrypt_name']         = true;
-		//$config['max_width']            = 1024;
-		//$config['max_height']           = 768;
+	public function saveImagenArticulo($idTienda = 0, $idArticulo = 0){
+		if($this->input->post('idArticulo') && $this->input->post('idArticulo') != '' && $this->input->post('idArticulo') != '0'){
+			$idArticulo = $this->input->post('idArticulo');
+			$idTienda = $this->session->userdata('idTienda');
+			$config = array(
+	            'upload_path'   => 'resources/imagesArticulos/'.$idTienda.'/'.$idArticulo,
+	            'allowed_types' => 'jpg|png',
+	            'encrypt_name'  => true,
+	        );
 
-	    if(!is_dir($config['upload_path'])){
-	      mkdir($config['upload_path'],0755,TRUE);
-	    }
+	        if(!is_dir('resources/imagesArticulos/'.$idTienda)){
+		      mkdir('resources/imagesArticulos/'.$idTienda,0755,TRUE);
+		    }
+		    if(!is_dir('resources/imagesArticulos/tumb/'.$idTienda)){
+		      mkdir('resources/imagesArticulos/tumb/'.$idTienda,0755,TRUE);
+		    }
 
-		$this->load->library('upload', $config);
+		    if(!is_dir('resources/imagesArticulos/'.$idTienda.'/'.$idArticulo)){
+		      mkdir('resources/imagesArticulos/'.$idTienda.'/'.$idArticulo,0755,TRUE);
+		    }
+		    if(!is_dir('resources/imagesArticulos/tumb/'.$idTienda.'/'.$idArticulo)){
+		      mkdir('resources/imagesArticulos/tumb/'.$idTienda.'/'.$idArticulo,0755,TRUE);
+		    }
 
-		if ( ! $this->upload->do_upload('foto')){
-			return "ERROR";
-			//$error = array('error' => $this->upload->display_errors());
-			//$this->load->view('upload_form', $error);
+	        $this->load->library('upload', $config);
+
+	        $images = array();
+	        //echo"<pre>";print_r($_FILES);echo"</pre>";
+	        if(count($_FILES) > 0)
+	        foreach ($_FILES['foto']['name'] as $key => $image) {
+
+	            $_FILES['images[]']['name']= $_FILES['foto']['name'][$key];
+	            $_FILES['images[]']['type']= $_FILES['foto']['type'][$key];
+	            $_FILES['images[]']['tmp_name']= $_FILES['foto']['tmp_name'][$key];
+	            $_FILES['images[]']['error']= $_FILES['foto']['error'][$key];
+	            $_FILES['images[]']['size']= $_FILES['foto']['size'][$key];
+
+	            //$images[] = $fileName;
+
+	            $this->upload->initialize($config);
+
+	            if ($this->upload->do_upload('images[]')) {
+					$foto = $this->upload->data();
+	                $dataImagen = array(
+										'idArticulo'=> $idArticulo,
+										'imagen'=> $foto['file_name'],
+										'portada'=> 0,
+										'estatus'=> 1
+									);
+					$this->db->insert('yoco_rel_articulo_imagenes', $dataImagen);
+	            } else {
+	                //return false;
+	            }
+	        }
+
+			return array('error'=>false,'HTML'=>'');
 		}
 		else{
-			$foto = $this->upload->data();
-			$dataCliente = array('fotoCliente'=> $foto['file_name']);
-
-			$this->db->where('idArticulo', $idArticulo);
-			$this->db->update('yoco_articulos', $dataCliente);
-
-			return 'SUCCESS';
-			//$data = array('upload_data' => $this->upload->data());
-			//$this->load->view('upload_success', $data);
+			return array('error'=>true,'HTML'=>'');
 		}
 
 	}
@@ -199,7 +229,46 @@ class modeloArticulos extends CI_Model {
 			}
 		}
 		return array('error'=>false,'HTML'=>'Exito');
+	}
 
+	public function listImagenesArticulo(){
+		$this->db->select('a.*',FALSE);
+		$this->db->from('yoco_rel_articulo_imagenes as a');
+		$this->db->where('a.estatus', '1');
+		if($this->input->post('idArticulo') && $this->input->post('idArticulo') != '' && $this->input->post('idArticulo') != '0'){
+			$this->db->where('a.idArticulo', $this->input->post('idArticulo'));
+			$this->db->order_by('portada', 'desc');
+		}
+		else{
+			return array();die();
+		}
 
+		$query = $this->db->get();
+		$tmp = $query->num_rows();
+		if ($tmp > 0){
+			$res = $query->result_array();
+		}
+		else{
+			$res = array();
+		}
+	    return $res;
+	}
+
+	public function deleteImagenArticulo(){
+		$idTienda = $this->session->userdata('idTienda');
+		$idArticulo = $this->input->post('idArticulo');
+
+		$idImagen = $this->input->post('idImagen');
+		$imagen = $this->input->post('imagen');
+
+		$this->db->where('idRelArticuloImagenes', $idImagen);
+		$this->db->delete('yoco_rel_articulo_imagenes');
+
+		if(file_exists('resources/imagesArticulos/'.$idTienda.'/'.$idArticulo.'/'.$imagen))
+		unlink('resources/imagesArticulos/'.$idTienda.'/'.$idArticulo.'/'.$imagen);
+		if(file_exists('resources/imagesArticulos/tumb/'.$idTienda.'/'.$idArticulo.'/'.$imagen))
+		unlink('resources/imagesArticulos/tumb/'.$idTienda.'/'.$idArticulo.'/'.$imagen);
+
+		return array('error'=>false,'HTML'=>'Exito');
 	}
 };

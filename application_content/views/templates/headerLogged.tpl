@@ -123,7 +123,7 @@
             		{/if}
             		</li></a>
 	           	{/foreach}
-	           	<a href="{$INDEX_YOCO}/salir"><li>Salir</li></a>
+	           	<a href="{$INDEX_YOCO}salir"><li>Salir</li></a>
             </ul>
      </div>
 

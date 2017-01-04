@@ -129,7 +129,7 @@ function deleteClienteFuncion($idCliente){
 			else{
 				$('#loadData').hide();
 				cargarListado();
-				mensaje('Se elimino correctamente.','','SUCCESS');
+				mensaje('Se elimino correctamente.','','OK');
 			}
 		},
 		error: function (){/*$(element).next('div').html('Intente mas Tarde.');*/$('#loadData').hide();}

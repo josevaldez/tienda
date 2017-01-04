@@ -16,7 +16,10 @@
 	        </div>
 	        <input type="file" name="foto" class="hidden" id="foto" accept='image/*' multiple>
 
-        	<div id="preview" class="mousehover profile glyphicon glyphicon-picture" ></div>
+        	<div id="preview" class="mousehover profile glyphicon {if $ARTICULOS['imagen'] == ''}glyphicon-picture{/if}"
+        		{if $ARTICULOS['imagen'] != ''}
+        			style="background: url(resources/imagesArticulos/{$idTienda}/{$ARTICULOS['idArticulo']}/{$ARTICULOS['imagen']});background-size: 100% 100%; background-repeat: no-repeat;"
+				{/if}></div>
         	<div class="dropdown col-md-12">
 			    <button class="btn boton col-md-12 trans dropdown-toggle t3" type="button" data-toggle="dropdown">$1,111.00
 			    <span class="caret"></span></button>
@@ -27,7 +30,15 @@
 		  	</div>
     	</div>
     	<div class="col-md-1"></div>
-		<div class="col-md-8 newStyle">
+    	<div class="col-md-8 newStyle" style="display: none" id="imagenesArticulo">
+    		<button type="button" class="btnregresar btn btn-warning btn-outline">Regresar</button>
+    		{*BOTON DE AGREGAR FOTO*}
+    		<ul class="list"><li data-toggle="tooltip" title="Agregar Imagen" style="width: auto;" class="panelClient plusBtn btnNewImagen"><section class="left " style="display: block;">
+				<div class="plusBtn ">+</div></section></li></ul>
+			{*CONTENEDOR DE FOTOS*}
+			<div id="listImages"></div>
+    	</div>
+		<div class="col-md-8 newStyle" id="dataArticulo">
 			<div class="row">
 				<div class="col-md-1">
 					<span class="glyphicon glyphicon-tag"></span>
@@ -99,10 +110,18 @@
 </div>
 	{*<?php  include 'insights.php';?>*}
 
-
-
+<script type="text/javascript" src="{$INDEX_YOCO}/resources/js/modernizr.custom.53451.js"></script>
+<script type="text/javascript" src="{$INDEX_YOCO}/resources/js/jquery.gallery.js"></script>
+<link rel="stylesheet" type="text/css" href="{$INDEX_YOCO}/resources/css/slide.css" />
 {literal}
+<style type="text/css">
+.plusBtn:hover{
+	background-color: #cb3a59;
+}
+</style>
+
 <script type="text/javascript">
+
 function split( val ) {
 	return val.split( /,\s*/ );
 }
@@ -253,10 +272,10 @@ $('[data-toggle="tooltip"]').tooltip();
 $('.cerrar').on('click', function(){$('.overlay-container').fadeOut().end().find('.window-container').removeClass('window-container-visible');
 	if($.trim($('#codigo').val()) != ''){
 		var dataForm = new FormData();
-		var _totalImg = $("[name='foto']")[0].files.length;
+		/*var _totalImg = $("[name='foto']")[0].files.length;
 		if(_totalImg > 0){
 			for (ii = 0; ii < _totalImg; ii++) {dataForm.append('foto', $('#foto')[0].files[ii]);}
-		}else{dataForm.append('foto', $('#foto')[0].files[0]);}
+		}else{dataForm.append('foto', $('#foto')[0].files[0]);}*/
 
 		dataForm.append('csrf_yoco_tok_name', $("#token").val());
 		dataForm.append('codigo', $("#codigo").val());
@@ -300,10 +319,77 @@ $('.cerrar').on('click', function(){$('.overlay-container').fadeOut().end().find
 	}
 });
 $('#preview').click(function(){
+	cargarImages();
+});
+
+$('.btnNewImagen').click(function(){
 	$('#foto').trigger('click');
 });
+
+function cargarImages(){
+	$('#listImages').html('');
+	$.ajax({
+		url : "ajax/obtenerImagenesArticulo",
+		data : {
+			'csrf_yoco_tok_name' : function(){ return ($('#token').val() != "") ? $('#token').val() : "";},
+			'idArticulo' : function(){ return ($('#idArticulo').val() != "0") ? $('#idArticulo').val() : "0";},
+		},
+		dataType : "json", type: "POST",
+		beforeSend: function(){$('#loadData').show();},
+		success: function(data){
+			if(data.error){
+				//$('#products').append('Intente mas Tarde.');
+			}
+			else{
+				$('#listImages').html(data.HTML);
+				$('#dataArticulo').hide();
+				$('#imagenesArticulo').show();
+				$('#loadData').hide();
+			}
+		},
+		error: function (){/*$(element).next('div').html('Intente mas Tarde.');*/$('#loadData').hide();}
+	});
+}
+
 $("#foto").change(function(){
-    readURL(this);
+    //readURL(this);
+    guardarImagenArticulo();
+});
+
+function guardarImagenArticulo(){
+	var dataForm = new FormData();
+	var _totalImg = $("[name='foto']")[0].files.length;
+	if(_totalImg > 0){
+		for (ii = 0; ii < _totalImg; ii++) {dataForm.append('foto[]', $('#foto')[0].files[ii]);}
+	}else{dataForm.append('foto[]', $('#foto')[0].files[0]);}
+
+	dataForm.append('csrf_yoco_tok_name', $("#token").val());
+	dataForm.append('idArticulo', $("#idArticulo").val());
+
+	$.ajax({
+		url : "ajax/guardarImagenArticulo",
+		data : dataForm,
+		processData: false,
+    	contentType: false,
+    	cache: false,
+		dataType : "json", type: "POST",
+		beforeSend: function(){$('#loadData').show();},
+		success: function(data){
+			if(data.error){
+				//$('#products').append('Intente mas Tarde.');
+			}
+			else{
+				//mensaje('La Acción se realizo correctamente.');
+				cargarImages();
+			}
+		},
+		error: function (){/*$(element).next('div').html('Intente mas Tarde.');*/}
+	});
+}
+
+$('.btnregresar').click(function(){
+	$('#imagenesArticulo').hide();
+	$('#dataArticulo').show();
 });
 
 function readURL(input) {
@@ -318,5 +404,32 @@ function readURL(input) {
 		}
 		reader.readAsDataURL(input.files[0]);
 	}
+}
+function deleteImagen(idImagen , imagen){
+	pregunta('Desea eliminar esta Imagen?', '','INFO', 'deleteImagenFuncion', {'idImagen' : idImagen, 'imagen':imagen});
+}
+function deleteImagenFuncion($data){
+	$.ajax({
+		url : "ajax/eliminarImagenArticulo",
+		data : {
+			'csrf_yoco_tok_name' : function(){ return ($('#token').val() != "") ? $('#token').val() : "";},
+			'idImagen' : $data.idImagen,
+			'imagen' : $data.imagen,
+			'idArticulo': $("#idArticulo").val()
+		},
+		dataType : "json", type: "POST",
+		beforeSend: function(){$('#loadData').show();},
+		success: function(data){
+			if(data.error){
+				mensaje('No se pudo realizar la acción.','Favor de intentar mas tarde.','ERROR');
+			}
+			else{
+				$('#loadData').hide();
+				cargarImages();
+				mensaje('Se elimino correctamente la imagen.','','OK');
+			}
+		},
+		error: function (){/*$(element).next('div').html('Intente mas Tarde.');*/$('#loadData').hide();}
+	});
 }
 </script>{/literal}

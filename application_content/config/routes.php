@@ -17,6 +17,10 @@ $route['ajax/listarArticulos'] = "articulos/listArticulos";
 $route['ajax/dataArticulo'] = "articulos/dataArticulo";
 $route['ajax/guardarArticulo'] = "articulos/saveDataArticulo";
 $route['ajax/eliminarArticulo'] = "articulos/deleteArticulo";
+$route['ajax/obtenerImagenesArticulo'] = "articulos/getImagenesArticulo";
+$route['ajax/guardarImagenArticulo'] = "articulos/saveImagenArticulo";
+$route['ajax/asignatPortadaArticulo'] = "articulos/setPortadaArticulo";
+$route['ajax/eliminarImagenArticulo'] = "articulos/deleteImagenArticulo";
 
 $route['ajax/autocomplete/categoriasTienda'] = "admin/autocomplete/categorias";
 $route['ajax/autocomplete/sucursalesTienda'] = "admin/autocomplete/sucursales";
