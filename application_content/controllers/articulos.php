@@ -42,6 +42,7 @@ class articulos extends MY_Controller {
 		$res = array('error'=>true,'HTML'=>'');
 		$datos = $this->funcionesBasicas('Clientes');
 		$datos['ARTICULOS'] = $this->modeloarticulos->listArticulos()[0];
+		$datos['ARTICULOS']['TAGS'] = explode(',',$datos['ARTICULOS']['palabrasClaveArticulo']);
 		$datos['CATCONOCIO'] = $this->modeloadmin->catalogo('conocio');
 		//echo "<pre>";print_r($datos['ARTICULOS']);die();
 		$datos['idTienda'] = $this->session->userdata('idTienda');

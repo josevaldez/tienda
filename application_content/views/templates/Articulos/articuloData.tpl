@@ -38,6 +38,7 @@
 			{*CONTENEDOR DE FOTOS*}
 			<div id="listImages"></div>
     	</div>
+
 		<div class="col-md-8 newStyle" id="dataArticulo">
 			<div class="row">
 				<div class="col-md-1">
@@ -95,7 +96,7 @@
 				<div class="col-md-5">
 					<input data-toggle="tooltip" data-placement="top" title="Título" class="under" type="text" name="titulo" placeholder="Título" id="titulo" value="{$ARTICULOS['tituloArticulo']}">
 				</div>
-				<div class="col-md-6">
+				<div class="col-md-6 tagsLabel">
 					<input data-toggle="tooltip" data-placement="top" title="Palabras Clave" class="under" type="text" name="palabras" placeholder="Palabras Clave" id="palabras" value="{$ARTICULOS['palabrasClaveArticulo']}">
 				</div>
 			</div>
@@ -105,6 +106,19 @@
 				</div>
 			</div>
 		</div>
+		<div class="fondoGris hidden"></div>
+    	<div class="divTags hidden">
+    		<div class="col-sm-12 form-inline">
+    		<input type="text" name="tagsInput" id="tagsInput" data-toggle="tooltip" data-placement="top" title="Palabras Clave" placeholder="Palabras Clave">
+    		<button type="button" data-toggle="tooltip" data-placement="top" title="Agregar" onclick="javascript:actualizarTags(this,2);"><i class="glyphicon glyphicon-plus"></i></button>
+    		<div class="clearfix"></div>
+    		<ul class="listTags">
+    		{foreach from=$ARTICULOS['TAGS'] key = kt item = tag}
+    			<li><button type="button" data-toggle="tooltip" data-placement="top" title="Eliminar tag" onclick="javascript:actualizarTags(this,3);"><i class="glyphicon glyphicon-remove"></i></button> {$tag}</li>
+    		{/foreach}
+    		</ul>
+    		</div>
+    	</div>
 		</form>
 	</div>
 </div>
@@ -121,7 +135,37 @@
 </style>
 
 <script type="text/javascript">
-
+$('#tagsInput').onEnter(function(){
+	actualizarTags($(this), 2);
+});
+function actualizarTags($element, accion){
+	if(accion == 3){
+		$($element).parent('li').remove();
+	}
+	else if(accion == 2){
+		if($.trim($('#tagsInput').val()) != ''){
+			var tagNuevo = $.trim($('#tagsInput').val());
+			$('.listTags').append('<li><button type="button" data-toggle="tooltip" data-placement="top" title="Eliminar tag" onclick="javascript:actualizarTags(this,3);"><i class="glyphicon glyphicon-remove"></i></button> '+tagNuevo+'</li>');
+			$('#tagsInput').val('');
+		}
+	}
+	var tags = "";
+	$('.listTags').find('li').each(function(index, el) {
+		el = $(el).remove('button');
+		el = $(el).remove('div');
+		console.log($.trim($(el).text()));
+		if(tags == ""){
+			tags = $.trim($(el).text());
+		}
+		else{
+			tags = tags + ', ' + $.trim($(el).text());
+		}
+	});
+	$('.tagsLabel input').val(tags);
+}
+$('.fondoGris,.tagsLabel').click(function(event) {
+	$('.fondoGris, .divTags').toggleClass('hidden');
+});
 function split( val ) {
 	return val.split( /,\s*/ );
 }
