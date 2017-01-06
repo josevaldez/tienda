@@ -319,6 +319,10 @@ $('.cerrar').on('click', function(){$('.overlay-container').fadeOut().end().find
 	}
 });
 $('#preview').click(function(){
+	if($('#idArticulo').val() == "0" || $('#idArticulo').val() == ""){
+		mensaje('Tiene que guardar el Artículo para subir fotos de este','','INFO');
+		return false;
+	}
 	cargarImages();
 });
 
