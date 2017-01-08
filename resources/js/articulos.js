@@ -38,7 +38,7 @@ function cargarListado(){
 			    $( "#products" ).bind( "mousedown", function ( e ) {
 			    	if(e.metaKey != false || e.ctrlKey != false){
 			    		//CLICK CON CONTROL
-			    		console.log("controlPress");
+			    		//console.log("controlPress");
 
 			    		$('#deleteClientes, #sendClientes').removeClass('hidden');
 
@@ -46,7 +46,7 @@ function cargarListado(){
 			    	else{
 			    		//CLICK SIN CONTROL
 			    		$('#deleteClientes, #sendClientes').addClass('hidden');
-			    		console.log("controlUNPress");
+			    		//console.log("controlUNPress");
 			    		var ele = e.target;
 			    		setTimeout(function(){$(ele).removeClass('ui-selected');},100);
 			    		if(!$(ele).hasClass('btnEliminarLista') && !$(ele).hasClass('newProspecto')  && $(ele).hasClass('back')){
