@@ -13,6 +13,7 @@ $route['ajax/eliminarCliente'] = "clientes/deleteCliente";
 
 //ARTICULOS
 $route['articulos'] = "articulos/index";
+$route['catalogoArticulos'] = "articulos/articulosView";
 $route['ajax/listarArticulos'] = "articulos/listArticulos";
 $route['ajax/dataArticulo'] = "articulos/dataArticulo";
 $route['ajax/guardarArticulo'] = "articulos/saveDataArticulo";
@@ -24,6 +25,13 @@ $route['ajax/eliminarImagenArticulo'] = "articulos/deleteImagenArticulo";
 
 $route['ajax/autocomplete/categoriasTienda'] = "admin/autocomplete/categorias";
 $route['ajax/autocomplete/sucursalesTienda'] = "admin/autocomplete/sucursales";
+
+//CATEGORIAS
+$route['categorias'] = "articulos/categoriasView";
+$route['ajax/listarCategorias'] = "articulos/listCategorias";
+$route['ajax/dataCategoria'] = "articulos/dataCategoria";
+$route['ajax/guardarCategoria'] = "articulos/saveDataCategoria";
+$route['ajax/eliminarCategoria'] = "articulos/deleteCategoria";
 
 $route['(:any)'] = 'admin';
 $route['404_override'] = '';

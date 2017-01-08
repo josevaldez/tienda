@@ -271,4 +271,178 @@ class modeloArticulos extends CI_Model {
 
 		return array('error'=>false,'HTML'=>'Exito');
 	}
+
+	public function listCategorias($nivel = ""){
+		$res = array();
+
+		$idTienda = $this->session->userdata('idTienda');
+		$idUsuario = $this->session->userdata('idUsuario');
+		if(isset($_POST['idCategoria'])){
+			$this->db->select("c1.*");
+			$this->db->from('yoco_categorias AS c1');
+			$this->db->where('c1.idCategoria', $this->input->post('idCategoria'));
+			$this->db->where('c1.estatus', '1');
+			$this->db->where('c1.idTienda', $idTienda);
+			$this->db->order_by('c1.descripcionCategoria');
+		}
+		else{
+			$this->db->select("CONCAT(c1.descripcionCategoria,' - ',c2.descripcionCategoria,' - ', c3.descripcionCategoria) AS Categorias,
+				CONCAT(c1.descripcionCategoria,' - ',c2.descripcionCategoria,' - ', c3.descripcionCategoria) AS value,
+				c1.idCategoria AS idCat1,
+				c1.descripcionCategoria AS descripcionCategoria1,
+				c1.idParentCategoria,
+				c2.idCategoria AS idCat2,
+				c2.descripcionCategoria AS descripcionCategoria2,
+				c2.idParentCategoria,
+				c3.idCategoria AS idCat3,
+				c3.descripcionCategoria AS descripcionCategoria3,
+				c3.idParentCategoria,
+				c1.imagen AS imagen1,
+				c2.imagen AS imagen2,
+				c3.imagen AS imagen3
+			",FALSE);
+			$this->db->from('yoco_categorias AS c1');
+			$this->db->join('yoco_categorias as c2','c1.idCategoria = c2.idParentCategoria AND c2.estatus = 1','LEFT');
+			$this->db->join('yoco_categorias as c3','c2.idCategoria = c3.idParentCategoria AND c3.estatus = 1','LEFT');
+			$this->db->where('c1.idParentCategoria', '0');
+			$this->db->where('c1.estatus', '1');
+			$this->db->where('c1.idTienda', $idTienda);
+			//$this->db->like("CONCAT(c1.descripcionCategoria,' - ',c2.descripcionCategoria,' - ', c3.descripcionCategoria)", $termino);
+			$this->db->order_by('c1.descripcionCategoria,c2.descripcionCategoria,c3.descripcionCategoria');
+
+			if($this->input->post('inputSearch') && $this->input->post('inputSearch') != ''){
+
+				$this->db->like("CONCAT(c1.descripcionCategoria,' - ',c2.descripcionCategoria,' - ', c3.descripcionCategoria)", $this->input->post('inputSearch'));
+			}
+		}
+
+		$query = $this->db->get();
+		$tmp = $query->num_rows();
+		if ($tmp > 0){
+			$res = $query->result_array();
+
+		}
+		else{
+			/*if($this->input->post('idCategoria') && $this->input->post('idCategoria') != ''){
+				$res = array(array('idCategoria'=> '','codigoArticulo'=> '','nombreArticulo'=> '','nombreCortoArticulo'=> '','tituloArticulo'=> '','palabrasClaveArticulo'=> '','descripcionArticulo'=> '','precioCompra'=> '','precioMayoreo'=> '','iva'=> '','precioVenta'=> '','descuento'=> '','tipoArticulo'=> '1','estatus'=> '','idsCategoria'=> '','nombresCategorias'=> '','nombresSucursal'=> '','idsSucursal'=> '', 'imagen' => ''));
+			}*/
+		}
+		if($this->input->post('idCatPadre')){
+			$res = array(array('idCategoria'=> '','descripcionCategoria'=> '','idParentCategoria'=> '','imagen'=> '','estatus'=> '','idTienda'=> ''));
+		}
+	    return $res;
+	}
+
+	public function saveDataCategoria(){
+		$idTienda = $this->session->userdata('idTienda');
+		$idUsuario = $this->session->userdata('idUsuario');
+		if($this->input->post('Descripcion') != ''){
+
+			$dataCliente = array(
+				'idTienda'=> $idTienda,
+				'descripcionCategoria'=> $this->input->post('Descripcion'),
+				'idParentCategoria'=> (($this->input->post('idCatPadre') != '-1') ? $this->input->post('idCatPadre') : 0),
+				'estatus'=> 1,
+			);
+			if($this->input->post('idCategoria') != ''){
+				$this->db->where('idCategoria', $this->input->post('idCategoria'));
+				unset($dataCliente['idParentCategoria']);
+				$this->db->update('yoco_categorias', $dataCliente);
+
+				if(isset($_FILES) && count($_FILES) > 0)
+				$fotoCliente = $this->guardarImagenCategoria($idTienda, $this->input->post('idCategoria'), $_FILES);
+
+
+			}
+			else{
+				$this->db->insert('yoco_categorias', $dataCliente);
+
+				$idCategoria = $this->db->insert_id();
+				if(isset($_FILES) && count($_FILES) > 0)
+				$fotoCliente = $this->guardarImagenCategoria($idTienda, $idCategoria, $_FILES);
+			}
+
+			return array('error'=>false,'HTML'=>'Exito');
+
+		}
+	}
+
+	public function guardarImagenCategoria($idTienda = 0, $idCategoria = 0){
+		//print_r($_FILES);
+		$config['upload_path']          = 'resources/imagenesCategorias/'.$idTienda;
+		$config['allowed_types']        = 'jpg|png';
+		$config['max_size']             = 1024;
+		$config['encrypt_name']         = true;
+		//$config['max_width']            = 1024;
+		//$config['max_height']           = 768;
+
+	    if(!is_dir($config['upload_path'])){
+	      mkdir($config['upload_path'],0755,TRUE);
+	    }
+
+		$this->load->library('upload', $config);
+
+		if ( ! $this->upload->do_upload('foto')){
+			return "ERROR";
+			//$error = array('error' => $this->upload->display_errors());
+			//$this->load->view('upload_form', $error);
+		}
+		else{
+			$foto = $this->upload->data();
+			$dataCliente = array('imagen'=> $foto['file_name']);
+
+			$this->db->where('idCategoria', $idCategoria);
+			$this->db->update('yoco_categorias', $dataCliente);
+
+			return 'SUCCESS';
+			//$data = array('upload_data' => $this->upload->data());
+			//$this->load->view('upload_success', $data);
+		}
+
+	}
+
+	public function deleteCategoria(){
+		$this->db->trans_start();
+		$dataCliente = array(
+			'estatus'=> 0
+		);
+		$idCategoria = $this->input->post('idCategoria');
+		$this->db->where('idCategoria', $idCategoria);
+		$this->db->update('yoco_categorias', $dataCliente);
+
+		$this->db->select('a.*',FALSE);
+		$this->db->from('yoco_categorias as a');
+		$this->db->where('a.estatus', '1');
+		$this->db->where('a.idParentCategoria', $idCategoria);
+
+		$query = $this->db->get();
+		$tmp = $query->num_rows();
+		if ($tmp > 0){
+			$res1 = $query->result_array();
+			foreach ($res1 as $key1 => $cat1) {
+				$this->db->where('idCategoria', $cat1['idCategoria']);
+				$this->db->update('yoco_categorias', $dataCliente);
+
+				$this->db->select('a.*',FALSE);
+				$this->db->from('yoco_categorias as a');
+				$this->db->where('a.estatus', '1');
+				$this->db->where('a.idParentCategoria', $cat1['idCategoria']);
+
+				$query = $this->db->get();
+				$tmp = $query->num_rows();
+				if ($tmp > 0){
+					$res2 = $query->result_array();
+					foreach ($res2 as $key2 => $cat2) {
+						$this->db->where('idCategoria', $cat2['idCategoria']);
+						$this->db->update('yoco_categorias', $dataCliente);
+					}
+				}
+
+			}
+		}
+		$this->db->trans_complete();
+		return array('error'=>false,'HTML'=>'Exito');
+	}
+
+
 };

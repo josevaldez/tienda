@@ -6,7 +6,7 @@
 }
 .dg-wrapper img{ width: 100%; max-height: 100%;}
 .dg-wrapper{
-	margin-left: 173px !important;
+	margin-left: 34% !important;
 	width: 481px;
 	/*height: 316px;*/
 	height: 270px;
@@ -65,7 +65,7 @@
 .dg-container nav{
 	width: 100%;
 	position: absolute;
-	z-index: 1000;
+	/*z-index: 1000;
 	/*top: 30%;*/
 	top: 10%;
 	padding:0 5%;

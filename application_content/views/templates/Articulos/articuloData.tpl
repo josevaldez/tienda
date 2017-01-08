@@ -3,18 +3,19 @@
 	<div class="panelHeader col-xs-12 col-sm-12 col-md-12 col-lg-12">
 		<span class="col-md-1"><b>Articulos</b></span>
 		<span class="cerrar pull-right"></span>
+		<input type="file" name="foto" class="hidden" id="foto" accept='image/*' multiple>
 	</div>
 
     <div class="panelBody col-sm-12 col-md-11 col-lg-12">
     	<form id="clienteForm">
-    	<div class="col-md-3">
+    	<div class="col-md-3 ocultar">
         	<div class="row">
 	        	<span class="glyphicon glyphicon-barcode col-md-2"></span>
 	        	<input class="" type="hidden" name="idArticulo" id="idArticulo" value="{$ARTICULOS['idArticulo']}">
 	        	<input data-toggle="tooltip" data-placement="top" title="Codigó" class="under col-md-7" type="text" name="codigo" id="codigo" value="{$ARTICULOS['codigoArticulo']}">
 	        	<span class="glyphicon glyphicon-pencil  col-md-2"></span>
 	        </div>
-	        <input type="file" name="foto" class="hidden" id="foto" accept='image/*' multiple>
+
 
         	<div id="preview" class="mousehover profile glyphicon {if $ARTICULOS['imagen'] == ''}glyphicon-picture{/if}"
         		{if $ARTICULOS['imagen'] != ''}
@@ -30,11 +31,10 @@
 		  	</div>
     	</div>
     	<div class="col-md-1"></div>
-    	<div class="col-md-8 newStyle" style="display: none" id="imagenesArticulo">
-    		<button type="button" class="btnregresar btn btn-warning btn-outline">Regresar</button>
+    	<div class="col-md-12 newStyle" style="display: none" id="imagenesArticulo">
+    		{*<button type="button" class="btnregresar btn btn-warning btn-outline">Regresar</button>*}
     		{*BOTON DE AGREGAR FOTO*}
-    		<ul class="list"><li data-toggle="tooltip" title="Agregar Imagen" style="width: auto;" class="panelClient plusBtn btnNewImagen"><section class="left " style="display: block;">
-				<div class="plusBtn ">+</div></section></li></ul>
+    		<ul class="list" id="btnad2"><li data-toggle="tooltip" title="Agregar Imagen" style="width: auto;" class="panelClient plusBtn btnNewImagen2"><section class="left " style="display: block;"><div class="plusBtn ">+</div></section></li></ul>
 			{*CONTENEDOR DE FOTOS*}
 			<div id="listImages"></div>
     	</div>
@@ -55,9 +55,9 @@
 				<div class="col-md-1">
 					<span class="glyphicon glyphicon-bookmark"></span>
 				</div>
-				<div class="col-md-5">
+				<div class="col-md-5 categoriasLabel">
 					<input type="hidden" name="categoriasId" id="categoriasId" value="{$ARTICULOS['idsCategoria']}">
-					<input data-toggle="tooltip" data-placement="top" title="Categorías" class="under" type="text" name="categorias" placeholder="Categorías" id="categorias" value="{$ARTICULOS['nombresCategorias']}{if $ARTICULOS['nombresCategorias'] != ''},{/if}">
+					<input data-toggle="tooltip" data-placement="top" title="Categorías" class="under" type="text" name="categoriasText" id="categoriasText" placeholder="Categorías" value="{$ARTICULOS['nombresCategorias']}{if $ARTICULOS['nombresCategorias'] != ''},{/if}">
 				</div>
 				<div class="col-md-1">
 					<span class="glyphicon glyphicon-home"></span>
@@ -119,6 +119,18 @@
     		</ul>
     		</div>
     	</div>
+    	<div class="divCategorias hidden">
+    		<div class="col-sm-12 form-inline">
+    		<input type="text" name="categorias" id="categorias" data-toggle="tooltip" data-placement="top" title="Buscar Categorias" placeholder="Buscar Categorias">
+    		{*<button type="button" data-toggle="tooltip" data-placement="top" title="Agregar" onclick="javascript:actualizarCategorias(this,2);"><i class="glyphicon glyphicon-plus"></i></button>*}
+    		<div class="clearfix"></div>
+    		<ul class="listCategorias">
+    		{foreach from=$ARTICULOS['CATEGORIASID'] key = kt item = categoria}
+    			<li data-id = "{trim($categoria)}"><button type="button" data-toggle="tooltip" data-placement="top" title="Eliminar tag" onclick="javascript:actualizarCategorias(this,3);"><i class="glyphicon glyphicon-remove"></i></button> {$ARTICULOS['CATEGORIASTEXT'][$kt]}</li>
+    		{/foreach}
+    		</ul>
+    		</div>
+    	</div>
 		</form>
 	</div>
 </div>
@@ -135,6 +147,9 @@
 </style>
 
 <script type="text/javascript">
+$('.btnNewImagen2').click(function(){
+	$('#foto').trigger('click');
+});
 $('#tagsInput').onEnter(function(){
 	actualizarTags($(this), 2);
 });
@@ -163,8 +178,17 @@ function actualizarTags($element, accion){
 	});
 	$('.tagsLabel input').val(tags);
 }
-$('.fondoGris,.tagsLabel').click(function(event) {
+$('.fondoGris').click(function(event) {
 	$('.fondoGris, .divTags').toggleClass('hidden');
+	$('.divCategorias,.divTags, .fondoGris').addClass('hidden');
+});
+$('.tagsLabel').click(function(event) {
+	$('.fondoGris, .divTags').toggleClass('hidden');
+	$('.divCategorias').addClass('hidden');
+});
+$('.categoriasLabel').click(function(event) {
+	$('.fondoGris, .divCategorias').toggleClass('hidden');
+	$('.divTags').addClass('hidden');
 });
 function split( val ) {
 	return val.split( /,\s*/ );
@@ -177,7 +201,7 @@ $( "#categorias" )
 	.on( "keydown", function( event ) {
 		if ( event.keyCode === $.ui.keyCode.TAB && $( this ).autocomplete( "instance" ).menu.active ) {
 			event.preventDefault();
-		}
+		}/*
 		if(event.keyCode == 8){
 			$('#categorias').val('');
 			$('#categoriasId').val('');
@@ -197,7 +221,7 @@ $( "#categorias" )
 				}
 				console.log(te);
 			}*/
-		}
+		//}
 	})
 	.autocomplete({
 		minLength: 3,
@@ -227,12 +251,16 @@ $( "#categorias" )
 			terms.push( "" );
 			this.value = terms.join( ", " );
 			var ids = ui.item.idCat1+"-"+ui.item.idCat2+"-"+ui.item.idCat3;
-			if($('#categoriasId').val() != ''){
+			/*if($('#categoriasId').val() != ''){
 				$('#categoriasId').val($('#categoriasId').val() + ',' + ids);
 			}
 			else{
 				$('#categoriasId').val(ids);
-			}
+			}*/
+			var tagNuevo = $.trim(this.value);
+			$('.listCategorias').append('<li data-id="'+ids+'"><button type="button" data-toggle="tooltip" data-placement="top" title="Eliminar categoria" onclick="javascript:actualizarCategorias(this,3);"><i class="glyphicon glyphicon-remove"></i></button> '+tagNuevo+'</li>');
+			$('#categorias').val('');
+			actualizarCategorias('','');
 			return false;
 		}
 	});
@@ -313,7 +341,56 @@ $('.btnServicios').click(function(event) {
 });
 $('[data-toggle="tooltip"]').tooltip();
 //$('#fechaNac').datepicker({ format: 'DD/MM/YYYY'});
-$('.cerrar').on('click', function(){$('.overlay-container').fadeOut().end().find('.window-container').removeClass('window-container-visible');
+$('.cerrar').on('click', function(){
+	if($('#imagenesArticulo').is(":visible") ){
+		$('#imagenesArticulo').hide();
+		$('#dataArticulo').show();
+		$('.ocultar').show();
+		var idImagen = 0;
+		var urlImagen = "";
+		$('.dg-wrapper').find('a.editThemeBtn').each(function(index, el) {
+			if($(el).hasClass('dg-center')){
+				idImagen = $(el).children('div').children('label').children('input').val();
+				urlImagen = $(el).children('img').attr('src');
+			}
+		});
+/*ACTUALIZA LA PORTADA QUE ES LA IMAGEN QUE SE QUEDO EN EL CENTRO*/
+		if(idImagen != 0){
+			$('#preview').css('background', 'url('+urlImagen+")");
+			$('#preview').css('background-size', '100% 100%');
+			$('#preview').css('background-repeat', 'no-repeat');
+			$('#preview').removeClass('glyphicon');
+			$('#preview').removeClass('glyphicon-picture');
+
+			var dataForm = new FormData();
+
+			dataForm.append('csrf_yoco_tok_name', $("#token").val());
+			dataForm.append('idArticulo', $("#idArticulo").val());
+			dataForm.append('idImagen', idImagen);
+
+			$.ajax({
+				url : "ajax/asignatPortadaArticulo",
+				data : dataForm,
+				processData: false,
+		    	contentType: false,
+		    	cache: false,
+				dataType : "json", type: "POST",
+				beforeSend: function(){$('#loadData').show();},
+				success: function(data){
+					if(data.error){
+						$('#loadData').hide();
+					}
+					else{
+						cargarImages();
+						$('#loadData').hide();
+					}
+				},
+				error: function (){$('#loadData').hide();}
+			});
+		}
+		return false;
+	}
+	$('.overlay-container').fadeOut().end().find('.window-container').removeClass('window-container-visible');
 	if($.trim($('#codigo').val()) != ''){
 		var dataForm = new FormData();
 		/*var _totalImg = $("[name='foto']")[0].files.length;
@@ -370,10 +447,6 @@ $('#preview').click(function(){
 	cargarImages();
 });
 
-$('.btnNewImagen').click(function(){
-	$('#foto').trigger('click');
-});
-
 function cargarImages(){
 	$('#listImages').html('');
 	$.ajax({
@@ -389,16 +462,35 @@ function cargarImages(){
 				//$('#products').append('Intente mas Tarde.');
 			}
 			else{
+				$('#loadData').hide();
 				$('#listImages').html(data.HTML);
 				$('#dataArticulo').hide();
 				$('#imagenesArticulo').show();
-				$('#loadData').hide();
+				$('.ocultar').hide();
+				if(data.TOTAL != 0){
+					//clickImagen();
+					$('#btnad2').hide();
+				}
+				if(data.TOTAL == 0){
+					//clickImagen();
+					$('#btnad2').show();
+				}/*
+				else{
+					$('#listImages').html(data.HTML);
+					$('#dataArticulo').hide();
+					$('#imagenesArticulo').show();
+					$('.ocultar').hide();
+				}*/
+				//$("[name='foto']").click();
+				//console.log($("[name='foto']").attr('id'));
 			}
 		},
 		error: function (){/*$(element).next('div').html('Intente mas Tarde.');*/$('#loadData').hide();}
 	});
 }
-
+function clickImagen(){
+	setTimeout(function(){$("#foto").click();$('#loadData').hide();},500);
+}
 $("#foto").change(function(){
     //readURL(this);
     guardarImagenArticulo();
@@ -438,6 +530,7 @@ function guardarImagenArticulo(){
 $('.btnregresar').click(function(){
 	$('#imagenesArticulo').hide();
 	$('#dataArticulo').show();
+	$('.ocultar').show();
 });
 
 function readURL(input) {
@@ -479,5 +572,31 @@ function deleteImagenFuncion($data){
 		},
 		error: function (){/*$(element).next('div').html('Intente mas Tarde.');*/$('#loadData').hide();}
 	});
+}
+
+function actualizarCategorias($element, accion){
+	if(accion == 3){
+		$($element).parent('li').remove();
+	}
+	var tags = "";var tags2 = "";
+	$('.listCategorias').find('li').each(function(index, el) {
+		el = $(el).remove('button');
+		el = $(el).remove('div');
+		console.log($.trim($(el).attr('data-id')));
+		if(tags == ""){
+			tags = $.trim($(el).attr('data-id'));
+		}
+		else{
+			tags = tags + ', ' + $.trim($(el).attr('data-id'));
+		}
+		if(tags2 == ""){
+			tags2 = $.trim($(el).text());
+		}
+		else{
+			tags2 = tags2 + ', ' + $.trim($(el).text());
+		}
+	});
+	$('.categoriasLabel').find('input').first().val(tags);
+	$('.categoriasLabel').find('input').last().val(tags2);
 }
 </script>{/literal}
