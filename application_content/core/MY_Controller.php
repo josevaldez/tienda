@@ -34,6 +34,8 @@ class My_Controller extends CI_Controller
 		$ultimaActividad = $this->session->userdata('ultimoAcceso');
 		$datos['NOMBREUSUARIO'] = $this->session->userdata('nombreUsuario');
 
+		$datos['estatusMenu'] = $this->session->userdata('estatusMenu');
+
 		$datos['ULTIMACONEXION'] = "<img src='".INDEX_YOCO."resources/images/ico_reloj.png' class='icon16' alt='Hora ingreso' /> No existe registro de su última actividad";
 		if(!empty($ultimaActividad)){
 			if(substr($ultimaActividad, 8, 2) != '00'){

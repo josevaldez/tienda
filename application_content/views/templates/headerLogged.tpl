@@ -61,7 +61,6 @@
     z-index: 9999"></div>
 	<div id="loadDatatext" style="z-index: 10000; top:45%; left: 45%" class="alert alert-warning col-sm-3">Cargando... <img src="{$raiz}resources/images/load_transparent.gif" width="20px"> <span>Por favor, espere.</span></div>
 </div>
-
 {literal}
 <script type="text/javascript">
 	$(document).ready(function(){
@@ -70,10 +69,10 @@
 			$("#nav-icon4").trigger("click");
 
 			$('#logo').toggleClass('esconder');
+            funcionMenuGuardar(2);
 		});
 
 		$('#nav-icon1,#nav-icon2,#nav-icon3,#nav-icon4').click(function(){
-			console.log("ss");
 			if($(this).hasClass('open')){
 				$( ".nav5" ).hide();
 				setTimeout(function(){
@@ -83,8 +82,29 @@
 			$(this).toggleClass('open');
 			$('.dropdownMenu').toggle("slide", { direction: "Right" }, 800);
 			$('.brand').toggleClass('esconder');
+
 		});
+        $('#nav-icon4').click(function(){
+            funcionMenuGuardar(1);
+        });
 	});
+
+    function funcionMenuGuardar($estatus){
+        $.ajax({
+        url : "ajax/guardarMenuEstatus",
+        data : {
+            'csrf_yoco_tok_name' : function(){ return ($('#token').val() != "") ? $('#token').val() : "";},
+            'estatus' : $estatus,
+        },
+        dataType : "json", type: "POST",
+        beforeSend: function(){},
+        success: function(data){
+        },
+        error: function (){$( "#products").unbind( "mousedown" );
+                $( "#products" ).selectable();cont++;/*$(element).next('div').html('Intente mas Tarde.');*/}
+    });
+
+    }
 </script>
 {/literal}
 
@@ -96,15 +116,15 @@
         <div class="container col-xs-12" style="position: relative;">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header col-md-12 col-xs-12">
-                <a id="logo" class="navbar-brand" href="#"><div class="logo2"><span style="margin-left: -14px;">YO<span> <br> CO</span></span></div></a>
-                <p class="brand pc" >
-                  <span style="font-size: 32px;">Chuchito de la Colina</span>
+                <a id="logo" class="navbar-brand {if $estatusMenu == 2}esconder{/if}" href="#"><div class="logo2"><span style="margin-left: -14px;">YO<span> <br> CO</span></span></div></a>
+                <p class="brand pc {if $estatusMenu == 2}esconder{/if}" >
+                  <span style="font-size: 32px;">Chuchito de la Colina </span>
                   <span style="style="font-size: 32px;">&#8226;</span>
                   Almacenes Tokio
                 </p>
             </div>
-            <div class="col-xs-3 col-sm-3 col-md-1 col-lg-1 pull-right text-right nav5"  style="display:none;margin-top: 18px; position: absolute; right: 0px; z-index: 99999999;">
-                <div id="nav-icon4">
+            <div class="col-xs-3 col-sm-3 col-md-1 col-lg-1 pull-right text-right nav5"  style="{if $estatusMenu == 1}display:none;{/if}margin-top: 18px; position: absolute; right: 0px; z-index: 99999999;">
+                <div id="nav-icon4" {if $estatusMenu == 2}class="open"{/if}>
                   <span></span>
                   <span></span>
                   <span></span>
@@ -112,7 +132,7 @@
 
             </div>
         </div>
-        <div class="dropdownMenu">
+        <div class="dropdownMenu" style="{if $estatusMenu == 2}display: block{/if}">
             <ul>
             	{foreach from = $SISTEMAS item = valueS key = key}
             		<a class="{if $SECCIONACTUAL == $valueS['seccionTitulo']} activo{/if}"  class="{$valueS['seccionMenuCss']}" href="{$INDEX_YOCO}{$valueS['seccionUrl']}"><li>

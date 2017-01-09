@@ -4,6 +4,8 @@ $route['default_controller'] = "admin";
 $route['inicio'] = "admin/portada";
 $route['salir'] = "admin/salir";
 
+$route['ajax/guardarMenuEstatus'] = "admin/saveEstatusMenu";
+
 //CLIENTES
 $route['clientes'] = "clientes/index";
 $route['ajax/listarClientes'] = "clientes/listClientes";

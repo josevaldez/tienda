@@ -71,7 +71,8 @@ class admin extends MY_Controller {
 		 		'ultimoAcceso' =>  $valid_user['DATOS'][0]['ultimoAcceso'],
 		 		'tipoUsuario' =>  $valid_user['DATOS'][0]['describe_usuario'],
 		 		'idUsuario' 	=>  $valid_user['DATOS'][0]['idUsuario'],
-		 		'idTienda' 	=>  $valid_user['DATOS'][0]['idTienda']
+		 		'idTienda' 	=>  $valid_user['DATOS'][0]['idTienda'],
+		 		'estatusMenu' => 1
 		 		);
 		 	$this->session->set_userdata($status);
 			header("Location: ".INDEX_YOCO."inicio");
@@ -110,6 +111,11 @@ class admin extends MY_Controller {
 		if(empty($termino)){echo json_encode(FALSE);}
 		$resMod = $this->modeloadmin->autocomplete($catalogo, $termino);
 		echo json_encode( $resMod );
+	}
+
+	public function saveEstatusMenu(){
+		$estatus = $this->input->post('estatus');
+		$this->session->set_userdata('estatusMenu', $estatus);
 	}
 
 }
