@@ -6,7 +6,7 @@
 				<span class="col-md-1 col-xs-12 np"><b>Clientes</b></span>
 				<form id="custom-search-form" class="form-search form-horizontal col-md-4 col-xs-8">
 	                <div class="input-append span12">
-	                    <input type="text" id="inputSearch" class="search-query col-xs-10" placeholder=" &#xf002; Búscar"/>
+	                    <input type="text" id="inputSearch" class="search-query col-xs-10" placeholder="Buscar"/>
 	                    <button type="button" id="btnSearch" class="col-xs-2 search2 btn glyphicon glyphicon-remove-circle"> </button>
 	                </div>
 	            </form>

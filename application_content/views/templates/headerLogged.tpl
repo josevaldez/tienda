@@ -59,7 +59,7 @@
     left: 0;
     text-align: center;
     z-index: 9999"></div>
-	<div id="loadDatatext" style="z-index: 10000; top:45%; left: 45%" class="alert alert-warning col-sm-3">Cargando... <img src="{$raiz}resources/images/load_transparent.gif" width="20px"> <span>Por favor, espere.</span></div>
+	<div id="loadDatatext" style="z-index: 10000; top:45%; left: 45%" class="alert alert-warning col-sm-3"><img src="{$raiz}resources/images/load_transparent.gif" width="20px"></div>
 </div>
 {literal}
 <script type="text/javascript">

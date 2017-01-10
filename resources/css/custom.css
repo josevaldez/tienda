@@ -592,8 +592,10 @@ border: 3px solid rgb(255, 255, 255);
     font-size: 13px;
     height: 28px !important;
     text-align: center;
-    font-family: FontAwesome;
+    font-family: Avenir;
+    color: #333;
     margin-top:9px;
+    border:none;
 }
 .toptop{
 	margin-top: 115px;

@@ -15,8 +15,14 @@
     url("//db.onlinewebfonts.com/t/08c42df75dd2c636f46f3c564b3ddaa5.ttf") format("truetype"),
     url("//db.onlinewebfonts.com/t/08c42df75dd2c636f46f3c564b3ddaa5.svg#AvenirNextLTW01-Regular") format("svg");
 }*/
+@font-face {
+font-family: 'Avenir';
+font-style: normal;
+font-weight: normal;
+src: local('../fonts/Avenir LT Std 35 Light'), url('../fonts/AvenirLTStd-Light.woff') format('woff');
+}
 body{
-	background-color: #FAFAFA;
+	background-color: #fafafa;
 	font-family: 'Avenir', sans-serif;
 	background-blend-mode: multiply;
 
@@ -127,6 +133,7 @@ input[type=text], input[type=password]{
     box-shadow: none;
     height: 30px;
     padding: 0 10px;
+    color: #fff;
 }
 
 input[type=submit]{
