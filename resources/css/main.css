@@ -126,6 +126,18 @@
     left: 35%;
     max-width: 300px;
 }
+#contentPrecio{
+    position: absolute;
+    background: white;
+    padding: 15px;
+    margin: 0 auto;
+    top: 0px;
+    left: 28%;
+    max-width: 500px;
+}
+#contentPrecio input{
+    text-align: right;
+}
 .listCategorias{
 	list-style: none;
 	width: 100%;
@@ -182,3 +194,12 @@
 
 /*************************************090117************************************/
 #loadDatatext{ background: none; border: none; }
+.totalPrecioBack{
+    background: #cb3a59;
+    color: white;
+    margin-bottom: -16px;
+}
+.totalPrecioBack input
+{
+    color: white !important;
+}

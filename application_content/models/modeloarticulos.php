@@ -98,13 +98,17 @@ class modeloArticulos extends CI_Model {
 				'tituloArticulo'=> $this->input->post('titulo'),
 				'palabrasClaveArticulo'=> $this->input->post('palabras'),
 				'descripcionArticulo'=> $this->input->post('descripcion'),
-				/*'precioCompra'=> $this->input->post('anos'),
-				'precioMayoreo'=> $this->input->post('rfc'),
-				'iva'=> $this->input->post('conocioid'),
-				'precioVenta'=> $this->input->post('conocioid'),
-				'descuento'=> $this->input->post('conocioid'),*/
+
+				'precioCompra'=> $this->input->post('precioCosto'),
+				'gananciaPorcentaje'=> $this->input->post('gananciaPorcentaje'),
+				'gananciaPrecio'=> $this->input->post('gananciaPrecio'),
+				'descuentoPorcentaje'=> $this->input->post('descuentoPorcentaje'),
+				'descuentoPrecio'=> $this->input->post('descuentoPrecio'),
+				'ivaPorcentaje'=> $this->input->post('ivaPorcentaje'),
+				'ivaPrecio'=> $this->input->post('ivaPrecio'),
+				'precioVenta'=> $this->input->post('totalPrecio'),
+
 				'tipoArticulo'=> $this->input->post('tipoArticulo'),
-				//'idUsuario'=> $idUsuario,
 				'fechaRegistro'=> date('Y-m-d H:i:s'),
 				);
 			$idArticulo = 0;
