@@ -25,14 +25,14 @@
 						</div>
 					</div>
 					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center hidden"><br>
-						<b style="  color:#666; font-size: 17px; font-weight: 600; letter-spacing: 2px; display: none;">INICIO DE SESIÓN</b>
+						<b style="  color:#666; font-size: 16px; font-weight: 600; letter-spacing: 2px; display: none;">INICIO DE SESIÓN</b>
 					</div>
 
 					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center"><br>
-						<input style="font-size: 14px;" type="text" name="username" id="username" value="{ci_form_validation field='username'}" class="correo col-lg-offset-2 col-lg-8" placeholder="Correo electrónico"/>
+						<input style="font-size: 16px;" type="text" name="username" id="username" value="{ci_form_validation field='username'}" class="correo col-lg-offset-2 col-lg-8" placeholder="Correo electrónico"/>
 
 						<br>
-						<input style="font-size: 14px;" name="password" class="col-lg-offset-2 col-lg-8" placeholder="Contraseña" id="contrasenia" type="password"><br>
+						<input style="font-size: 16px;" name="password" class="col-lg-offset-2 col-lg-8" placeholder="Contraseña" id="contrasenia" type="password"><br>
 						<div class="hidden">
 							<label for="captcha">Texto 'captcha':<br />
 							<center><img src="{$raiz}resources/captcha/{$captcha}.jpg" alt="CAPTCHA" class="img-thumbnail">

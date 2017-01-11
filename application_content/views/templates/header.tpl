@@ -35,7 +35,7 @@
     <![endif]-->
 
 </head>
-<body style="background-color: #bbb; background-image: url('{$dataBack[0]['rutaImagen']}');">
+<body style="background-color: #999; background-image: url('{$dataBack[0]['rutaImagen']}');">
 <div id="loadData" ><div id="loadDatacontent" ></div>
 	<div id="loadDatatext" class="alert alert-warning col-sm-3"><img src="{$raiz}resources/images/load_transparent.gif" width="20px"></span></div>
 </div>
