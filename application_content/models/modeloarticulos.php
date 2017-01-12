@@ -75,11 +75,11 @@ class modeloArticulos extends CI_Model {
 		}
 		else{
 			if($this->input->post('idArticulo') && $this->input->post('idArticulo') != ''){
-				$res = array(array('idArticulo'=> '','codigoArticulo'=> '','nombreArticulo'=> '','nombreCortoArticulo'=> '','tituloArticulo'=> '','palabrasClaveArticulo'=> '','descripcionArticulo'=> '','precioCompra'=> '','precioMayoreo'=> '','iva'=> '','precioVenta'=> '','descuento'=> '','tipoArticulo'=> '1','estatus'=> '','idsCategoria'=> '','nombresCategorias'=> '','nombresSucursal'=> '','idsSucursal'=> '', 'imagen' => ''));
+				$res = array(array('idArticulo'=> '','codigoArticulo'=> '','nombreArticulo'=> '','nombreCortoArticulo'=> '','tituloArticulo'=> '','palabrasClaveArticulo'=> '','descripcionArticulo'=> '','precioCompra'=> '','precioMayoreo'=> '','iva'=> '','precioVenta'=> '','descuento'=> '','tipoArticulo'=> '1','estatus'=> '','idsCategoria'=> '','nombresCategorias'=> '','nombresSucursal'=> '','idsSucursal'=> '', 'imagen' => '','gananciaPorcentaje'=> '','gananciaPrecio'=> '','descuentoPorcentaje'=> '','descuentoPrecio'=> '','ivaPorcentaje'=> '','ivaPrecio'=> '','precioVenta'=> ''));
 			}
 		}
 		if($this->input->post('idArticulo') && $this->input->post('idArticulo') == '-1'){
-			$res = array(array('idArticulo'=> '','codigoArticulo'=> '','nombreArticulo'=> '','nombreCortoArticulo'=> '','tituloArticulo'=> '','palabrasClaveArticulo'=> '','descripcionArticulo'=> '','precioCompra'=> '','precioMayoreo'=> '','iva'=> '','precioVenta'=> '','descuento'=> '','tipoArticulo'=> '1','estatus'=> '','idsCategoria'=> '','nombresCategorias'=> '','nombresSucursal'=> '','idsSucursal'=> '', 'imagen' => ''));
+			$res = array(array('idArticulo'=> '','codigoArticulo'=> '','nombreArticulo'=> '','nombreCortoArticulo'=> '','tituloArticulo'=> '','palabrasClaveArticulo'=> '','descripcionArticulo'=> '','precioCompra'=> '','precioMayoreo'=> '','iva'=> '','precioVenta'=> '','descuento'=> '','tipoArticulo'=> '1','estatus'=> '','idsCategoria'=> '','nombresCategorias'=> '','nombresSucursal'=> '','idsSucursal'=> '', 'imagen' => '','gananciaPorcentaje'=> '','gananciaPrecio'=> '','descuentoPorcentaje'=> '','descuentoPrecio'=> '','ivaPorcentaje'=> '','ivaPrecio'=> '','precioVenta'=> ''));
 		}
 	    return $res;
 	}
