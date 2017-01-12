@@ -197,9 +197,20 @@ class modeloAdmin extends CI_Model {
 		$query = $this->db->get();
 		$tmp = $query->num_rows();
 		if ($tmp > 0){
-			$res =  $query->result_array();
+			//$res =  $query->result_array();
+			$rTemp =  $query->result_array();
+			foreach ($rTemp as $key => $value){
+				if(empty($value['seccionSubMenu'])){
+					//$res[$key] = $value;
+					$res[$value['seccionUrl']] = $value;
+				}else{
+					$res[$value['seccionSubMenu']][] = $value;
+				}
+
+			}
 		}
 		$userOpciones['OPCIONES'] = $res;
+		//echo "<pre>";print_r($res);echo "</pre>";die();
 	    return $userOpciones;
 	}
 

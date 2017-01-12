@@ -46,16 +46,6 @@
 		</div>
 	</div>
 </div>
-{literal}
-<style type="text/css">
-	.newStyle input[type=text]{
-		width: 100%;
 
-	}
-	.newStyle .col-md-1{
-		/*margin: 0 -25px;*/
-	}
-</style>
-{/literal}
 <script type="text/javascript" src="{$INDEX_YOCO}/resources/js/articulos.js"></script>
 {include file="footer.tpl"}

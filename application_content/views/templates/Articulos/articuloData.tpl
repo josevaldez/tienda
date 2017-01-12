@@ -12,7 +12,7 @@
         	<div class="row">
 	        	<span class="glyphicon glyphicon-barcode col-md-2"></span>
 	        	<input class="" type="hidden" name="idArticulo" id="idArticulo" value="{$ARTICULOS['idArticulo']}">
-	        	<input data-toggle="tooltip" data-placement="top" title="Codigó" class="under col-md-7" type="text" name="codigo" id="codigo" value="{$ARTICULOS['codigoArticulo']}">
+	        	<input data-toggle="tooltip" data-placement="top" title="Codigó" class="under col-md-7 classNumber" type="text" name="codigo" id="codigo" value="{$ARTICULOS['codigoArticulo']}">
 	        	<span class="glyphicon glyphicon-pencil  col-md-2"></span>
 	        </div>
 
@@ -38,25 +38,28 @@
 		<div class="col-md-8 newStyle" id="dataArticulo">
 			<div class="row">
 				<div class="col-md-1">
-					<span class="glyphicon glyphicon-tag"></span>
+					<span class="glyphicon glyphicon-tag col-md-12"></span>
 				</div>
 				<div class="col-md-5">
 					<input data-toggle="tooltip" data-placement="top" title="Nombre" class="under" type="text" name="nombre" placeholder="Nombre" id="nombre" value="{$ARTICULOS['nombreArticulo']}">
 				</div>
-				<div class="col-md-6">
+				<div class="col-md-1">
+					<span class="glyphicon glyphicon-scissors col-md-12"></span>
+				</div>
+				<div class="col-md-5">
 					<input data-toggle="tooltip" data-placement="top" title="Abreviatura" class="under" type="text" name="abreviatura" placeholder="Abreviatura" id="abreviatura" value="{$ARTICULOS['nombreCortoArticulo']}">
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-1">
-					<span class="glyphicon glyphicon-bookmark"></span>
+					<span class="glyphicon glyphicon-bookmark col-md-12"></span>
 				</div>
 				<div class="col-md-5 categoriasLabel">
 					<input type="hidden" name="categoriasId" id="categoriasId" value="{$ARTICULOS['idsCategoria']}">
 					<input data-toggle="tooltip" data-placement="top" title="Categorías" class="under" type="text" name="categoriasText" id="categoriasText" placeholder="Categorías" value="{$ARTICULOS['nombresCategorias']}{if $ARTICULOS['nombresCategorias'] != ''},{/if}">
 				</div>
 				<div class="col-md-1">
-					<span class="glyphicon glyphicon-home"></span>
+					<span class="glyphicon glyphicon-home col-md-12"></span>
 				</div>
 				<div class="col-md-5">
 					<input type="hidden" name="sucursalesId" id="sucursalesId" value="{$ARTICULOS['idsSucursal']}">
@@ -68,10 +71,16 @@
 				<div class="col-md-2">
 					<button class="btn boton btnProducto" type="button">Producto <span class="glyphicon glyphicon-ok {if $ARTICULOS['tipoArticulo'] != 1}hidden{/if}"></span></button>
 				</div>
-				<div class="col-md-5">
+				<div class="col-md-1">
+					<span class="glyphicon glyphicon-th-large col-md-12"></span>
+				</div>
+				<div class="col-md-4">
 					<input data-toggle="tooltip" data-placement="top" title="Tamaño" class="under" type="text" name="tamano" placeholder="Tamaño" id="tamano">
 				</div>
-				<div class="col-md-5">
+				<div class="col-md-1">
+					<span class="glyphicon glyphicon-tint col-md-12"></span>
+				</div>
+				<div class="col-md-4">
 					<input data-toggle="tooltip" data-placement="top" title="Colores" class="under" type="text" name="colores" placeholder="Colores" id="colores">
 				</div>
 
@@ -80,24 +89,33 @@
 				<div class="col-md-2">
 					<button class="btn boton btnServicios" type="button">Servicios <span class="glyphicon glyphicon-ok {if $ARTICULOS['tipoArticulo'] != 2}hidden{/if}"></span></button>
 				</div>
-				<div class="col-md-10">
+				<div class="col-md-1">
+					<span class="glyphicon glyphicon-time col-md-12"></span>
+				</div>
+				<div class="col-md-9">
 					<input data-toggle="tooltip" data-placement="top" title="Horario" class="under" type="text" name="horario" placeholder="Horario" id="horario">
 				</div>
 			</div>
 
 			<div class="row">
 				<div class="col-md-1">
-					<span class="glyphicon glyphicon-edit"></span>
+					<span class="glyphicon glyphicon-edit col-md-12"></span>
 				</div>
 				<div class="col-md-5">
 					<input data-toggle="tooltip" data-placement="top" title="Título" class="under" type="text" name="titulo" placeholder="Título" id="titulo" value="{$ARTICULOS['tituloArticulo']}">
 				</div>
-				<div class="col-md-6 tagsLabel">
+				<div class="col-md-1">
+					<span class="glyphicon glyphicon-pushpin col-md-12"></span>
+				</div>
+				<div class="col-md-5 tagsLabel">
 					<input data-toggle="tooltip" data-placement="top" title="Palabras Clave" class="under" type="text" name="palabras" placeholder="Palabras Clave" id="palabras" value="{$ARTICULOS['palabrasClaveArticulo']}">
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-md-12">
+				<div class="col-md-1">
+					<span class="glyphicon glyphicon-align-justify col-md-12"></span>
+				</div>
+				<div class="col-md-11">
 					<input data-toggle="tooltip" data-placement="top" title="Descripción" class="under" type="text" name="descripcion" placeholder="Descripción" id="descripcion" value="{$ARTICULOS['descripcionArticulo']}">
 				</div>
 			</div>
@@ -649,7 +667,7 @@ $('#precioCosto').change(function(){
 			}
 
 			if($.trim($('#descuentoPorcentaje').val()) != '' && $.trim($('#descuentoPorcentaje').val()) != '0'){
-				descuentoPorcentaje  = parseFloat($.trim($('#precioCosto').val()))  * (parseFloat($.trim($('#descuentoPorcentaje').val())) / 100);
+				descuentoPorcentaje  = (parseFloat($.trim($('#precioCosto').val())) + parseFloat($.trim($('#gananciaPrecio').val()))) * (parseFloat($.trim($('#descuentoPorcentaje').val())) / 100);
 				descuentoPorcentaje = descuentoPorcentaje.toFixed(2);
 				$('#descuentoPrecio').val(descuentoPorcentaje);
 			}
@@ -731,7 +749,7 @@ $('#descuentoPorcentaje').change(function(){
 			return false;
 		}
 		try {
-			descuentoPorcentaje  = parseFloat($.trim($('#precioCosto').val()))  * (parseFloat($.trim($('#descuentoPorcentaje').val())) / 100);
+			descuentoPorcentaje  = (parseFloat($.trim($('#precioCosto').val())) + parseFloat($.trim($('#gananciaPrecio').val()))) * (parseFloat($.trim($('#descuentoPorcentaje').val())) / 100);
 			descuentoPorcentaje = descuentoPorcentaje.toFixed(2);
 			$('#descuentoPrecio').val(descuentoPorcentaje);
 		}
@@ -753,7 +771,7 @@ $('#descuentoPrecio').change(function(){
 			return false;
 		}*/
 		try {
-			descuentoPrecio = (parseFloat($.trim($('#descuentoPrecio').val())) * 100) / parseFloat($.trim($('#precioCosto').val()));
+			descuentoPrecio = (parseFloat($.trim($('#descuentoPrecio').val())) * 100) / (parseFloat($.trim($('#precioCosto').val())) + parseFloat($.trim($('#gananciaPrecio').val())) );
 			descuentoPrecio = descuentoPrecio.toFixed(2);
 			$('#descuentoPorcentaje').val(descuentoPrecio);
 		}

@@ -135,13 +135,33 @@
         <div class="dropdownMenu" style="{if $estatusMenu == 2}display: block{/if}">
             <ul>
             	{foreach from = $SISTEMAS item = valueS key = key}
-            		<a class="{if $SECCIONACTUAL == $valueS['seccionTitulo']} activo{/if}"  class="{$valueS['seccionMenuCss']}" href="{$INDEX_YOCO}{$valueS['seccionUrl']}"><li>
+            		{*<a class="{if $SECCIONACTUAL == $valueS['seccionTitulo']} activo{/if}"  class="{$valueS['seccionMenuCss']}" href="{$INDEX_YOCO}{$valueS['seccionUrl']}"><li>
             		{if $valueS['seccionBotonTitulo'] == 'TEXTO'}
             			{$valueS['seccionTitulo']}
             		{else if $valueS['seccionBotonTitulo'] == 'ICONO'}
             			<span class="{$valueS['iconoMenu']}"></span>
             		{/if}
-            		</li></a>
+                    </li></a>*}
+                    {if $key == 'Articulos'}
+                        <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Articulos </a>
+                        <ul class="dropdown-menu">
+                        {foreach from=$valueS item=opciones key=key_item}
+                            {$url = $opciones['seccionUrl']}
+                            <li><a href="{$INDEX_YOCO}{$url}">{$opciones['seccionTitulo']}</a></li>
+                            {*<li><a href="{$opciones['seccionUrl']}">{$opciones['seccionTitulo']}</a></li>*}
+                        {/foreach}
+                        </ul>
+                        </li>
+                    {else}
+                        <a class="{if $SECCIONACTUAL == $valueS['seccionTitulo']} activo{/if}"  class="{$valueS['seccionMenuCss']}" href="{$INDEX_YOCO}{$valueS['seccionUrl']}"><li>
+                            {if $valueS['seccionBotonTitulo'] == 'TEXTO'}
+                                {$valueS['seccionTitulo']}
+                            {else if $valueS['seccionBotonTitulo'] == 'ICONO'}
+                                <span class="{$valueS['iconoMenu']}"></span>
+                            {/if}
+                        </li></a>
+                    {/if}
 	           	{/foreach}
 	           	<a href="{$INDEX_YOCO}salir"><li>Salir</li></a>
             </ul>

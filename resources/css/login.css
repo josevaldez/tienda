@@ -29,7 +29,7 @@ body{
 }
 button:hover{
 	background-color: #cb3a59;
-	border: none;
+	/*border: none;*/
 }
 button{
 	border-color: #777;

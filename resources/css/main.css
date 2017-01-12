@@ -76,7 +76,7 @@
 	text-align: center;
 }
 
-.dropdown-menu {
+.nuevoDropMenu .dropdown-menu {
     position: relative;
     width: 100%;
     padding: 0;
@@ -204,4 +204,17 @@
 .totalPrecioBack input
 {
     color: white !important;
+}
+
+.newStyle input[type=text],.newStyle input[type=Email],.newStyle input[type= tel],.newStyle input[type= RFC]{
+        width: 100%;
+}
+.ui-dialog button {
+    padding: 5px 15px;
+}
+.classNumber{
+    text-align: right !important;
+}
+.switcher:hover .glyphicon {
+    color :#cb3a59 !important
 }

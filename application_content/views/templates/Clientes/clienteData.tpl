@@ -10,7 +10,7 @@
     	<div class="col-md-3">
         	<div class="row">
 	        	<span class="glyphicon glyphicon-barcode col-md-2"></span>
-	        	<input data-toggle="tooltip" data-placement="top" title="cliente" id="codigoCliente" value="{$CLIENTES['codigoCliente']}" class="under col-md-7" type="text" name="codigoCliente">
+	        	<input data-toggle="tooltip" data-placement="top" title="cliente" id="codigoCliente" value="{$CLIENTES['codigoCliente']}" class="under col-md-7 classNumber" type="text" name="codigoCliente">
 	        	<input value="{$CLIENTES['idCliente']}" type="hidden" name="idCliente" id="idCliente">
 	        	<input value="{$token}" type="hidden" name="{$token_name}" id="token">
 	        	<span class="glyphicon glyphicon-pencil  col-md-2"></span>
@@ -22,22 +22,42 @@
 				{/if} ></div>
     	</div>
     	<div class="col-md-1"></div>
-		<div class="col-md-7">
+		<div class="col-md-7 newStyle">
 				<div class="row">
-					<span class="glyphicon glyphicon-user col-md-1"></span>
-					<input data-toggle="tooltip" data-placement="top" title="Nombre" class="under col-md-4" type="text" name="nombre" id="nombre" placeholder="Nombre" value="{$CLIENTES['nombresCliente']}">
-					<input data-toggle="tooltip" data-placement="top" title="Apellidos" class="under col-md-6" type="text" name="apellido" id="apellido" placeholder="Apellidos" value="{$CLIENTES['apellidosCliente']}">
+					<div class="col-md-1">
+						<span class="glyphicon glyphicon-user col-md-12"></span>
+					</div>
+					<div class="col-md-6">
+						<input data-toggle="tooltip" data-placement="top" title="Nombre" class="under" type="text" name="nombre" id="nombre" placeholder="Nombre" value="{$CLIENTES['nombresCliente']}">
+					</div>
+					<div class="col-md-5">
+						<input data-toggle="tooltip" data-placement="top" title="Apellidos" class="under" type="text" name="apellido" id="apellido" placeholder="Apellidos" value="{$CLIENTES['apellidosCliente']}">
+					</div>
 				</div>
 				<div class="row">
-					<span class="glyphicon glyphicon-envelope col-md-1"></span>
-					<input data-toggle="tooltip" data-placement="top" title="Email" class="under col-md-5" type="Email" name="email" id="Email" placeholder="Email" value="{$CLIENTES['emailCliente']}">
-					<span class="glyphicon glyphicon-earphone col-md-1"></span>
-					<input data-toggle="tooltip" data-placement="top" title="Teléfono(celular, fijo)" class="under col-md-4" type=" tel" name="telefono" id="telefono" placeholder="Teléfono(celular, fijo)" value="{$CLIENTES['telefonoCliente']}">
+					<div class="col-md-1">
+						<span class="glyphicon glyphicon-envelope col-md-12"></span>
+					</div>
+					<div class="col-md-5">
+						<input data-toggle="tooltip" data-placement="top" title="Email" class="under" type="Email" name="email" id="Email" placeholder="Email" value="{$CLIENTES['emailCliente']}">
+					</div>
+					<div class="col-md-1">
+						<span class="glyphicon glyphicon-earphone col-md-12"></span>
+					</div>
+					<div class="col-md-5">
+						<input data-toggle="tooltip" data-placement="top" title="Teléfono(celular, fijo)" class="under classNumber" type="tel" name="telefono" id="telefono" placeholder="Teléfono(celular, fijo)" value="{$CLIENTES['telefonoCliente']}">
+					</div>
 				</div>
 				<div class="row">
-					<span class="glyphicon glyphicon-calendar col-md-1"></span>
-					<input data-toggle="tooltip" data-placement="top" title="Fecha de nacimiento" class="under col-md-4"  type="text" placeholder="Fecha de nacimiento" name="fechaNac" id="fechaNac" value="{$CLIENTES['fechaNacimientoCliente']}">
-					<input type="text" name="anos" id="anos" placeholder="años" class="under col-md-2" value="{$CLIENTES['edadCliente']}">
+					<div class="col-md-1">
+						<span class="glyphicon glyphicon-calendar col-md-12"></span>
+					</div>
+					<div class="col-md-4">
+						<input data-toggle="tooltip" data-placement="top" title="Fecha de nacimiento" class="under"  type="text" placeholder="Fecha de nacimiento" name="fechaNac" id="fechaNac" value="{$CLIENTES['fechaNacimientoCliente']}">
+					</div>
+					<div class="col-md-3">
+						<input type="text" name="anos" id="anos" placeholder="años" class="under classNumber" value="{$CLIENTES['edadCliente']}">
+					</div>
 					<div class="dropdown col-md-4">
 				 		<input type="hidden" id="conocioid" name="conocioid" value="{$CLIENTES['idCatConocio']}">
 					    <button class="btn trans dropdown-toggle" id="btnConocio" type="button" data-toggle="dropdown">
@@ -59,27 +79,48 @@
 					    </ul>
 					</div>
 				</div>
-				<div class="dropdown col-md-12">
-				    <p style="  text-indent: -15px; cursor: pointer;" class="trans dropdown-toggle" type="button" data-toggle="dropdown">Más
+				<div class="dropdown col-md-12 nuevoDropMenu">
+				    <p style="  text-indent: -15px; cursor: pointer;" class="trans dropdown-toggle" type="button" data-toggle="dropdown"><b>Más</b>
 				    <span class="caret"></span></p>
 				    <input value="{$CLIENTES['idDireccion']}" type="hidden" name="idDireccion" id="idDireccion">
 				    <div class="dropdown-menu trans">
-				    	<span class="glyphicon glyphicon-calendar col-md-3">Domicilio:</span> <input data-toggle="tooltip" data-placement="top" title="calle" class="under col-md-4" type=" text" name="calle" id="calle" placeholder="Calle" value="{$CLIENTES['calle']}">
-				    	<input data-toggle="tooltip" data-placement="top" title="#ext" class="under col-md-2" type=" text" name="int" id="int" placeholder="#int" value="{$CLIENTES['calleInt']}">
-				    	<input data-toggle="tooltip" data-placement="top" title="#ext" class="under col-md-2" type=" text" name="ext" id="ext" placeholder="#ext" value="{$CLIENTES['calleExt']}">
-				    	<div class="col-md-3"></div>
-				    	<input data-toggle="tooltip" data-placement="top" title="colonia" class="under col-md-4" type=" text" name="colonia" id="colonia" placeholder="colonia" value="{$CLIENTES['colonia']}">
-				    	<input data-toggle="tooltip" data-placement="top" title="referencia" class="under col-md-4" type=" text" name="referencia" id="referencia" placeholder="referencia" value="{$CLIENTES['referencia']}">
-				    	<div class="col-md-3"></div>
-				    	<input data-toggle="tooltip" data-placement="top" title="código postal" class="under col-md-4" type=" text" name="codigopostal" id="codigopostal" placeholder="código postal" value="{$CLIENTES['cp']}">
-				    	<input data-toggle="tooltip" data-placement="top" title="pais" class="under col-md-2" type=" text" name="pais" id="pais" placeholder="pais" value="{$CLIENTES['pais']}">
-				    	<input data-toggle="tooltip" data-placement="top" title="estado" class="under col-md-2" type=" text" name="estado" id="estado" placeholder="estado" value="{$CLIENTES['estado']}">
-				    	<div class="col-md-3"></div>
-				    	<input data-toggle="tooltip" data-placement="top" title="municipio" class="under
-				    	col-md-2" type=" text" name="municipio" id="municipio" placeholder="municipio" value="{$CLIENTES['municipio']}">
-				    	<input data-toggle="tooltip" data-placement="top" title="localidad" class="under
-				    	col-md-2" type=" text" name="localidad" id="localidad" placeholder="localidad" value="{$CLIENTES['localidad']}">
-
+				    <div class="row">
+				    	<div class="col-md-1" style="padding: 0px;">
+				    		<span class="glyphicon glyphicon-home col-md-12"></span>
+				    	</div>
+						<div class="col-md-11" style="padding: 0px;">
+							<div class="col-md-6">
+					    		<input data-toggle="tooltip" data-placement="top" title="calle" class="under" type="text" name="calle" id="calle" placeholder="Calle" value="{$CLIENTES['calle']}">
+					    	</div>
+					    	<div class="col-md-3">
+					    		<input data-toggle="tooltip" data-placement="top" title="#ext" class="under classNumber" type="text" name="int" id="int" placeholder="#int" value="{$CLIENTES['calleInt']}">
+					    	</div>
+					    	<div class="col-md-3">
+					    		<input data-toggle="tooltip" data-placement="top" title="#ext" class="under classNumber" type="text" name="ext" id="ext" placeholder="#ext" value="{$CLIENTES['calleExt']}">
+					    	</div>
+					    	<div class="col-md-6">
+					    		<input data-toggle="tooltip" data-placement="top" title="colonia" class="under" type="text" name="colonia" id="colonia" placeholder="colonia" value="{$CLIENTES['colonia']}">
+					    	</div>
+					    	<div class="col-md-6">
+					    		<input data-toggle="tooltip" data-placement="top" title="referencia" class="under" type="text" name="referencia" id="referencia" placeholder="referencia" value="{$CLIENTES['referencia']}">
+					    	</div>
+					    	<div class="col-md-4">
+					    		<input data-toggle="tooltip" data-placement="top" title="código postal" class="under classNumber" type="text" name="codigopostal" id="codigopostal" placeholder="código postal" value="{$CLIENTES['cp']}">
+					    	</div>
+					    	<div class="col-md-4">
+					    		<input data-toggle="tooltip" data-placement="top" title="pais" class="under" type="text" name="pais" id="pais" placeholder="pais" value="{$CLIENTES['pais']}">
+					    	</div>
+					    	<div class="col-md-4">
+					    		<input data-toggle="tooltip" data-placement="top" title="estado" class="under" type="text" name="estado" id="estado" placeholder="estado" value="{$CLIENTES['estado']}">
+					    	</div>
+					    	<div class="col-md-4">
+					    		<input data-toggle="tooltip" data-placement="top" title="municipio" class="under" type="text" name="municipio" id="municipio" placeholder="municipio" value="{$CLIENTES['municipio']}">
+					    	</div>
+					    	<div class="col-md-4">
+					    		<input data-toggle="tooltip" data-placement="top" title="localidad" class="under" type="text" name="localidad" id="localidad" placeholder="localidad" value="{$CLIENTES['localidad']}">
+					    	</div>
+				    	</div>
+				    </div>
 				    </div>
 				    <div style="clearfix"></div>
 			  </div>
@@ -87,12 +128,18 @@
 									<b>Facturacion</b>
 								</div>
 								<div class="row">
-									<span class="glyphicon glyphicon-qrcode col-md-1"></span>
-									<input data-toggle="tooltip" data-placement="top" title="RFC" class="under col-md-4" type="RFC" name="rfc" id="rfc" placeholder="RFC" value="{$CLIENTES['rfcCliente']}">
+									<div class="col-md-1">
+										<span class="glyphicon glyphicon-qrcode col-md-12"></span>
+									</div>
+									<div class="col-md-4">
+										<input data-toggle="tooltip" data-placement="top" title="RFC" class="under" type="RFC" name="rfc" id="rfc" placeholder="RFC" value="{$CLIENTES['rfcCliente']}">
+									</div>
+									<div class="col-md-7">
 									<label>
 									    <input type="checkbox" name="estatusFacturacion" id="estatusFacturacion" value="1" {if $CLIENTES['estatusFacturacion'] == '1'} checked="checked"{/if}>
 									    Utilizar la dirección personal para facturación.
 									</label>
+									</div>
 								</div>
     	</div>
 	</div>
