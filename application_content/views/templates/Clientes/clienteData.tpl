@@ -79,11 +79,11 @@
 					    </ul>
 					</div>
 				</div>
-				<div class="dropdown col-md-12 nuevoDropMenu">
-				    <p style="  text-indent: -15px; cursor: pointer;" class="trans dropdown-toggle" type="button" data-toggle="dropdown"><b>Más</b>
+				<div class="col-md-12 nuevoDropMenu">
+				    <p style="  text-indent: -15px; cursor: pointer;" class="trans masDireccion" type="button"><b>Más</b>
 				    <span class="caret"></span></p>
 				    <input value="{$CLIENTES['idDireccion']}" type="hidden" name="idDireccion" id="idDireccion">
-				    <div class="dropdown-menu trans">
+				    <div class="trans contentMas hidden">
 				    <div class="row">
 				    	<div class="col-md-1" style="padding: 0px;">
 				    		<span class="glyphicon glyphicon-home col-md-12"></span>
@@ -108,13 +108,30 @@
 					    		<input data-toggle="tooltip" data-placement="top" title="código postal" class="under classNumber" type="text" name="codigopostal" id="codigopostal" placeholder="código postal" value="{$CLIENTES['cp']}">
 					    	</div>
 					    	<div class="col-md-4">
-					    		<input data-toggle="tooltip" data-placement="top" title="pais" class="under" type="text" name="pais" id="pais" placeholder="pais" value="{$CLIENTES['pais']}">
+					    		<select data-toggle="tooltip" data-placement="top" title="pais" class="under" name="pais" id="pais" placeholder="pais">
+					    			<option value="0" selected="">Selecione</option>
+					    			{foreach from=$PAISES item = arrPais key = k}
+					    				<option value="{$arrPais['id']}" {if $CLIENTES['pais'] == $arrPais['id']} selected="" {/if}>{$arrPais['nombre']}</option>
+					    			{/foreach}
+					    		</select>
 					    	</div>
 					    	<div class="col-md-4">
-					    		<input data-toggle="tooltip" data-placement="top" title="estado" class="under" type="text" name="estado" id="estado" placeholder="estado" value="{$CLIENTES['estado']}">
+					    		<select data-toggle="tooltip" data-placement="top" title="estado" class="under" name="estado" id="estado" placeholder="estado">
+					    			{if $CLIENTES['estado'] != '' && $CLIENTES['estado'] != 0}
+					    				<option value="{$CLIENTES['estado']}" selected="">{$CLIENTES['nombreEstado']}</option>
+					    			{else}
+					    				<option value="0" selected="">Selecione el País</option>
+					    			{/if}
+					    		</select>
 					    	</div>
 					    	<div class="col-md-4">
-					    		<input data-toggle="tooltip" data-placement="top" title="municipio" class="under" type="text" name="municipio" id="municipio" placeholder="municipio" value="{$CLIENTES['municipio']}">
+					    		<select data-toggle="tooltip" data-placement="top" title="municipio" class="under" name="municipio" id="municipio" placeholder="municipio">
+					    			{if $CLIENTES['municipio'] != '' && $CLIENTES['municipio'] != 0}
+					    				<option value="{$CLIENTES['municipio']}" selected="">{$CLIENTES['nombreMunicipio']}</option>
+					    			{else}
+					    				<option value="0" selected="">Selecione el Estado</option>
+					    			{/if}
+					    		</select>
 					    	</div>
 					    	<div class="col-md-4">
 					    		<input data-toggle="tooltip" data-placement="top" title="localidad" class="under" type="text" name="localidad" id="localidad" placeholder="localidad" value="{$CLIENTES['localidad']}">
@@ -148,6 +165,53 @@
 </div>
 {literal}
 <script type="text/javascript">
+$('#pais').change(function(event) {
+	idPais = $('#pais').val();
+	$.ajax({
+		url : "ajax/paises/estados",
+		data : {
+			'csrf_yoco_tok_name' : function(){ return ($('#token').val() != "") ? $('#token').val() : "";},
+			'idPais' : idPais,
+		},
+		dataType : "json", type: "POST",
+		beforeSend: function(){},
+		success: function(data){
+			if(data.error){
+			}
+			else{
+				$('#estado').find('option').remove();
+				$('#estado').append(data.HTML);
+				$('#municipio').find('option').remove();
+				$('#municipio').append('<option value="0" selected="">Selecione el Estado</option>')
+			}
+		},
+		error: function (){/*$(element).next('div').html('Intente mas Tarde.');*/}
+	});
+});
+$('#estado').change(function(event) {
+	idEstado = $('#estado').val();
+	$.ajax({
+		url : "ajax/paises/municipios",
+		data : {
+			'csrf_yoco_tok_name' : function(){ return ($('#token').val() != "") ? $('#token').val() : "";},
+			'idEstado' : idEstado,
+		},
+		dataType : "json", type: "POST",
+		beforeSend: function(){},
+		success: function(data){
+			if(data.error){
+			}
+			else{
+				$('#municipio').find('option').remove();
+				$('#municipio').append(data.HTML);
+			}
+		},
+		error: function (){/*$(element).next('div').html('Intente mas Tarde.');*/}
+	});
+});
+$('.masDireccion').click(function(event) {
+	$('.contentMas').toggleClass('hidden');
+});
 $('[data-toggle="tooltip"]').tooltip();
 $('#fechaNac').datepicker({ format: 'DD/MM/YYYY'});
 $('.cerrar').on('click', function(){$('.overlay-container').fadeOut().end().find('.window-container').removeClass('window-container-visible');

@@ -56,7 +56,10 @@
 				</div>
 				<div class="col-md-5 categoriasLabel">
 					<input type="hidden" name="categoriasId" id="categoriasId" value="{$ARTICULOS['idsCategoria']}">
-					<input data-toggle="tooltip" data-placement="top" title="Categorías" class="under" type="text" name="categoriasText" id="categoriasText" placeholder="Categorías" value="{$ARTICULOS['nombresCategorias']}{if $ARTICULOS['nombresCategorias'] != ''},{/if}">
+					<div data-toggle="tooltip" data-placement="top" title="Categorías" class="textoCategoiras under col-md-12" style="color: #777;min-height: 30px;padding-top: 5px;">
+					{if $ARTICULOS['nombresCategorias'] != ''}{$ARTICULOS['nombresCategorias']}{else}Categorias{/if}
+					</div>
+					{*<input data-toggle="tooltip" data-placement="top" title="Categorías" class="under" type="text" name="categoriasText" id="categoriasText" placeholder="Categorías" value="{$ARTICULOS['nombresCategorias']}{if $ARTICULOS['nombresCategorias'] != ''},{/if}">*}
 				</div>
 				<div class="col-md-1">
 					<span class="glyphicon glyphicon-home col-md-12"></span>
@@ -69,7 +72,7 @@
 			<input type="hidden" name="tipoArticulo" id="tipoArticulo" value="{$ARTICULOS['tipoArticulo']}">
 			<div class="row">
 				<div class="col-md-2">
-					<button class="btn boton btnProducto" type="button">Producto <span class="glyphicon glyphicon-ok {if $ARTICULOS['tipoArticulo'] != 1}hidden{/if}"></span></button>
+					<button class="btn boton btnProducto" type="button">Producto <span class="glyphicon glyphicon-ok {if $ARTICULOS['tipoArticulo'] != 1}hidden{/if}" style="margin: -7px 0 -7px 0px;"></span></button>
 				</div>
 				<div class="col-md-1">
 					<span class="glyphicon glyphicon-th-large col-md-12"></span>
@@ -87,7 +90,7 @@
 			</div>
 			<div class="row">
 				<div class="col-md-2">
-					<button class="btn boton btnServicios" type="button">Servicios <span class="glyphicon glyphicon-ok {if $ARTICULOS['tipoArticulo'] != 2}hidden{/if}"></span></button>
+					<button class="btn boton btnServicios" type="button">Servicios <span class="glyphicon glyphicon-ok {if $ARTICULOS['tipoArticulo'] != 2}hidden{/if}" style="margin: -7px 0 -7px 0px;"></span></button>
 				</div>
 				<div class="col-md-1">
 					<span class="glyphicon glyphicon-time col-md-12"></span>
@@ -161,9 +164,11 @@
     		{*<button type="button" data-toggle="tooltip" data-placement="top" title="Agregar" onclick="javascript:actualizarCategorias(this,2);"><i class="glyphicon glyphicon-plus"></i></button>*}
     		<div class="clearfix"></div>
     		<ul class="listCategorias">
+    		{if $ARTICULOS['CATEGORIASID']|@count > 0}
     		{foreach from=$ARTICULOS['CATEGORIASID'] key = kt item = categoria}
     			<li data-id = "{trim($categoria)}"><button type="button" data-toggle="tooltip" data-placement="top" title="Eliminar tag" onclick="javascript:actualizarCategorias(this,3);"><i class="glyphicon glyphicon-remove"></i></button> {$ARTICULOS['CATEGORIASTEXT'][$kt]}</li>
     		{/foreach}
+    		{/if}
     		</ul>
     		</div>
     	</div>
@@ -644,7 +649,7 @@ function actualizarCategorias($element, accion){
 		}
 	});
 	$('.categoriasLabel').find('input').first().val(tags);
-	$('.categoriasLabel').find('input').last().val(tags2);
+	$('.categoriasLabel').find('.textoCategoiras').html(tags2);
 }
 $('#btnPrecio').click(function(){
 	$('#contentPrecio').show();

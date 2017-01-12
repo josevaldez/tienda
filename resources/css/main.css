@@ -218,3 +218,7 @@
 .switcher:hover .glyphicon {
     color :#cb3a59 !important
 }
+select{
+    width: 100%;
+    height: 30px;
+}

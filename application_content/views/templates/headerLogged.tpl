@@ -106,6 +106,11 @@
 
     }
 </script>
+<style type="text/css">
+    input[type=text], input[type=password]{
+        color: #777;
+    }
+</style>
 {/literal}
 
 <header>

@@ -11,9 +11,14 @@ class modeloClientes extends CI_Model {
 
 		$idTienda = $this->session->userdata('idTienda');
 
-		$this->db->select('c.*,d.idDireccion,d.calle,d.calleInt,d.calleExt,d.colonia,d.referencia,d.cp,d.pais,d.estado,d.municipio,d.localidad, DATE_FORMAT(c.fechaNacimientoCliente,"%d%/%m%/%Y" ) AS fechaNacimientoCliente',FALSE);
+		$this->db->select('c.*,d.idDireccion,d.calle,d.calleInt,d.calleExt,d.colonia,d.referencia,d.cp,d.pais,d.estado,d.municipio,d.localidad, DATE_FORMAT(c.fechaNacimientoCliente,"%d%/%m%/%Y" ) AS fechaNacimientoCliente, cp.nombre AS nombrePais, ce.nombre AS nombreEstado, cc.nombre AS nombreMunicipio',FALSE);
 		$this->db->from('yoco_clientes as c');
 		$this->db->join('yoco_rel_clientes_direccion as d','d.idCliente = c.idCliente','LEFT');
+
+		$this->db->join('yoco_cat_paises as cp','cp.id = d.pais','LEFT');
+		$this->db->join('yoco_cat_paises_estados as ce','ce.id = d.estado','LEFT');
+		$this->db->join('yoco_cat_paises_estados_ciudad as cc','cc.id = d.municipio','LEFT');
+
 		$this->db->where('c.estatus', '1');
 		$this->db->where('c.idTienda', $idTienda);
 		if($this->input->post('idCliente') && $this->input->post('idCliente') != ''){
@@ -56,21 +61,6 @@ class modeloClientes extends CI_Model {
 	    return $res;
 	}
 
-	public function catalogo($cat = ''){
-		$res = array();
-		switch ($cat) {
-			case 'conocio':
-				$this->db->select('c.*');
-				$this->db->from('yoco_cat_conocio as c');
-				$this->db->where('c.estatus', '1');
-				break;
-		}
-		$query = $this->db->get();
-		$tmp = $query->num_rows();
-		if ($tmp > 0){$res = $query->result_array();}
-		return $res;
-	}
-
 	public function saveDataCliente(){
 		$idTienda = $this->session->userdata('idTienda');
 		$idUsuario = $this->session->userdata('idUsuario');
@@ -106,7 +96,7 @@ class modeloClientes extends CI_Model {
 				'pais'=> $this->input->post('pais'),
 				'estado'=> $this->input->post('estado'),
 				'municipio'=> $this->input->post('municipio'),
-				'localidad'=> $this->input->post('localida'),
+				'localidad'=> $this->input->post('localidad'),
 			);
 			if($this->input->post('idCliente') != ''){
 				$this->db->where('idCliente', $this->input->post('idCliente'));

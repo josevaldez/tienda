@@ -28,7 +28,8 @@ class clientes extends MY_Controller {
 		$res = array('error'=>true,'HTML'=>'');
 		$datos = $this->funcionesBasicas('Clientes');
 		$datos['CLIENTES'] = $this->modeloclientes->listClientes()[0];
-		$datos['CATCONOCIO'] = $this->modeloclientes->catalogo('conocio');
+		$datos['CATCONOCIO'] = $this->modeloadmin->catalogo('conocio');
+		$datos['PAISES'] = $this->modeloadmin->catalogo('paises');
 		//echo "<pre>";print_r($datos['CLIENTES']);die();
 		$datos['idTienda'] = $this->session->userdata('idTienda');
 
@@ -47,6 +48,28 @@ class clientes extends MY_Controller {
 	public function deleteCliente(){
 		$res = array('error'=>true,'HTML'=>'');
 		$res = $this->modeloclientes->deleteCliente();
+		echo json_encode($res);
+	}
+
+	public function getListPaises($catalogo){
+		$res = array('error'=>true,'HTML'=>'');
+		$idBuscar = 0;
+		if($this->input->post('idPais'))
+			$idBuscar = $this->input->post('idPais');
+		if($this->input->post('idEstado'))
+			$idBuscar = $this->input->post('idEstado');
+		$data = $this->modeloadmin->catalogo($catalogo,$idBuscar);
+		$html = "";
+		if($catalogo == 'estados'){
+			$html = '<option value="0" selected="">Selecione el País</option>';
+		}
+		else{
+			$html = '<option value="0" selected="">Selecione el Estado</option>';
+		}
+		foreach ($data as $key => $arrData) {
+			$html .='<option value="'.$arrData['id'].'">'.$arrData['nombre'].'</option>';
+		}
+		$res = array('error'=>false,'HTML'=>$html);
 		echo json_encode($res);
 	}
 

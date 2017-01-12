@@ -12,6 +12,7 @@ $(function () {
 		cargarListado();
 	});
 	$('#btnSearch').click(function(event) {
+		$('#inputSearch').val('');
 		cargarListado();
 	});
 });

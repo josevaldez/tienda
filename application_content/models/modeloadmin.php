@@ -268,13 +268,34 @@ class modeloAdmin extends CI_Model {
 		}
 	}
 
-	public function catalogo($cat = ''){
+	public function catalogo($cat = '',$idBuscar = 0){
 		$res = array();
 		switch ($cat) {
 			case 'conocio':
 				$this->db->select('c.*');
 				$this->db->from('yoco_cat_conocio as c');
 				$this->db->where('c.estatus', '1');
+				break;
+			case 'paises':
+				$this->db->select('c.*');
+				$this->db->from('yoco_cat_paises as c');
+				$this->db->order_by('c.nombre');
+				break;
+			case 'estados':
+				$this->db->select('c.*');
+				$this->db->from('yoco_cat_paises_estados as c');
+				if($idBuscar != 0){
+					$this->db->where('c.pais_id',$idBuscar);
+				}
+				$this->db->order_by('c.nombre');
+				break;
+			case 'municipios':
+				$this->db->select('c.*');
+				$this->db->from('yoco_cat_paises_estados_ciudad as c');
+				if($idBuscar != 0){
+					$this->db->where('c.estado_id',$idBuscar);
+				}
+				$this->db->order_by('c.nombre');
 				break;
 		}
 		$query = $this->db->get();

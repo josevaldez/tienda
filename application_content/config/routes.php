@@ -12,6 +12,7 @@ $route['ajax/listarClientes'] = "clientes/listClientes";
 $route['ajax/dataCliente'] = "clientes/dataCliente";
 $route['ajax/guardarCliente'] = "clientes/saveDataCliente";
 $route['ajax/eliminarCliente'] = "clientes/deleteCliente";
+$route['ajax/paises/(:any)'] = "clientes/getListPaises/$1";
 
 //ARTICULOS
 $route['articulos'] = "articulos/index";

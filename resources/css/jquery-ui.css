@@ -884,7 +884,7 @@ body .ui-tooltip {
 .ui-widget-content .ui-state-focus,
 .ui-widget-header .ui-state-focus {
 	border: 1px solid #1a7c4b;
-	background: #00bd5e url("../images/ui-bg_highlight-soft_25_00bd5e_1x100.png") 50% 50% repeat-x;
+	background: #cb3a59 url("../images/ui-bg_highlight-soft_25_00bd5e_1x100.png") 50% 50% repeat-x;
 	font-weight: bold;
 	color: #ffffff;
 }
@@ -905,12 +905,12 @@ body .ui-tooltip {
 	border: 1px solid #dddddd;
 	background: #ffffff url("../images/ui-bg_highlight-soft_65_ffffff_1x100.png") 50% 50% repeat-x;
 	font-weight: bold;
-	color: #00bd5e;
+	color: #cb3a59;
 }
 .ui-state-active a,
 .ui-state-active a:link,
 .ui-state-active a:visited {
-	color: #00bd5e;
+	color: #cb3a59;
 	text-decoration: none;
 }
 

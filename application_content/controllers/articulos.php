@@ -58,7 +58,7 @@ class articulos extends MY_Controller {
 		$datos['ARTICULOS'] = $this->modeloarticulos->listArticulos()[0];
 		$datos['ARTICULOS']['TAGS'] = explode(',',$datos['ARTICULOS']['palabrasClaveArticulo']);
 		$datos['CATCONOCIO'] = $this->modeloadmin->catalogo('conocio');
-		$datos['ARTICULOS']['CATEGORIASID'] = explode(',',$datos['ARTICULOS']['idsCategoria']);
+		$datos['ARTICULOS']['CATEGORIASID'] = (($datos['ARTICULOS']['idsCategoria'] != '') ? explode(',',$datos['ARTICULOS']['idsCategoria']) : array());
 		$datos['ARTICULOS']['CATEGORIASTEXT'] = explode(',',$datos['ARTICULOS']['nombresCategorias']);
 		//echo "<pre>";print_r($datos['ARTICULOS']);die();
 		$datos['idTienda'] = $this->session->userdata('idTienda');
