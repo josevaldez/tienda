@@ -3,7 +3,7 @@
 	<div class="panelHeader col-xs-12 col-sm-12 col-md-12 col-lg-12">
 		<span class="col-md-1"><b>Articulos</b></span>
 		<span class="cerrar pull-right"></span>
-		<input type="file" name="foto" class="hidden" id="foto" accept='image/*' multiple>
+		<input type="file" name="foto" style="position: absolute; top: -1000px; left: -10000px" id="foto" accept='image/*' multiple>
 	</div>
 
     <div class="panelBody col-sm-12 col-md-11 col-lg-12">

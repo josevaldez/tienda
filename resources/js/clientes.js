@@ -14,6 +14,15 @@ $(function () {
 	$('#btnSearch').click(function(event) {
 		$('#inputSearch').val('');
 		cargarListado();
+		$('#btnSearch').hide();
+	});
+	$('#inputSearch').keypress(function(event) {
+		if($.trim($('#inputSearch').val()) != ''){
+			$('#btnSearch').show();
+		}
+		else{
+			$('#btnSearch').hide();
+		}
 	});
 });
 

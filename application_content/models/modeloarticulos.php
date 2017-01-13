@@ -129,26 +129,31 @@ class modeloArticulos extends CI_Model {
 				//$fotoCliente = $this->guardarFotoArticulo($idTienda, $dataDireccion['idArticulo'], $_FILES);
 			}
 
-			$dataSucursal = array('estatus' => 0);
-			$this->db->where('idArticulo', $idArticulo);
-			$this->db->update('yoco_rel_articulo_sucursal', $dataSucursal);
+			if($this->input->post('sucursalesId') != ''){
+				$dataSucursal = array('estatus' => 0);
+				$this->db->where('idArticulo', $idArticulo);
+				$this->db->update('yoco_rel_articulo_sucursal', $dataSucursal);
 
-			$sucursalesId = $this->input->post('sucursalesId');
-			$sucursalesId = explode(',',$sucursalesId);
-			foreach ($sucursalesId as $key => $sucursal) {
-				$this->db->query("INSERT INTO yoco_rel_articulo_sucursal (idArticulo,idSucursal) VALUES (".$idArticulo.",".$sucursal.") ON DUPLICATE KEY UPDATE estatus = 1;");
+				$sucursalesId = $this->input->post('sucursalesId');
+				$sucursalesId = explode(',',$sucursalesId);
+				foreach ($sucursalesId as $key => $sucursal) {
+					$this->db->query("INSERT INTO yoco_rel_articulo_sucursal (idArticulo,idSucursal) VALUES (".$idArticulo.",".$sucursal.") ON DUPLICATE KEY UPDATE estatus = 1;");
+				}
 			}
 
-			$this->db->where('idArticulo', $idArticulo);
-			$this->db->delete('yoco_rel_articulo_categoria');
+			if($this->input->post('categoriasId') != ''){
+				$this->db->where('idArticulo', $idArticulo);
+				$this->db->delete('yoco_rel_articulo_categoria');
 
-			$categoriasId = $this->input->post('categoriasId');
-			$categoriasId = explode(',',$categoriasId);
-			foreach ($categoriasId as $key => $categoriaArr) {
-				$categoriaArr = explode('-',$categoriaArr);
-				foreach ($categoriaArr as $key2 => $categoria) {
-					$this->db->query("INSERT INTO yoco_rel_articulo_categoria (idArticulo,idCategoria) VALUES (".$idArticulo.",".$categoria.") ON DUPLICATE KEY UPDATE idCategoria = ".$categoria.";");
+				$categoriasId = $this->input->post('categoriasId');
+				$categoriasId = explode(',',$categoriasId);
+				foreach ($categoriasId as $key => $categoriaArr) {
+					$categoriaArr = explode('-',$categoriaArr);
+					foreach ($categoriaArr as $key2 => $categoria) {
+						$this->db->query("INSERT INTO yoco_rel_articulo_categoria (idArticulo,idCategoria) VALUES (".$idArticulo.",".$categoria.") ON DUPLICATE KEY UPDATE idCategoria = ".$categoria.";");
+					}
 				}
+
 			}
 			$this->db->trans_complete();
 

@@ -224,7 +224,17 @@ select{
 }
 /***********cambios***********/
     #btnSearch{ background-color: #transparent; float: right; font-size: 18px; margin-top: 11px; width: 19px;}
-    #inputSearch{border: medium none;color: #000 !important;font-size: 17px;height: 18px !important;margin-top: 19px;}
-    #search3{ border-bottom: 1px solid #bbb; display: table; margin-top: -10px}
+    #inputSearch{border: medium none;color: #000 !important;font-size: 17px;height: 18px !important;margin-top: 19px;line-height:17px;}
+    #search3{ border-bottom: 1px solid #bbb; display: table; margin-top: -10px;overflow: visible;}
     .panelHeader{ font-family: montserrat; padding-left: 4px; }
     #clientBox{ margin: 10px; }
+
+.ventanaModalNew{
+    left: 50%;
+    transform: translate(-50%, 0%);
+    width: 80%;
+
+    -webkit-transform: translate(-50%, 0%);
+    -moz-transform: translate(-50%, 0%);
+    -ms-transform: translate(-50%, 0%);
+}

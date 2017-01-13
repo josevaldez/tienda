@@ -15,7 +15,7 @@
 	        	<input value="{$token}" type="hidden" name="{$token_name}" id="token">
 	        	<span class="glyphicon glyphicon-pencil  col-md-2"></span>
 	        </div>
-	        <input type="file" name="foto" class="hidden" id="foto" accept='image/*'>
+	        <input type="file" name="foto" style="position: absolute; top: -1000px; left: -10000px" id="foto" accept='image/*'>
         	<div id="preview" class="profile mousehover glyphicon {if $CLIENTES['fotoCliente'] == ''}glyphicon-user{/if}"
         		{if $CLIENTES['fotoCliente'] != ''}
         			style="background: url(resources/fotosClientes/{$idTienda}/{$CLIENTES['fotoCliente']});background-size: 100% 100%; background-repeat: no-repeat;"
@@ -74,7 +74,7 @@
 					    <span class="caret"></span></button>
 					    <ul class="dropdown-menu trans">
 							{foreach from=$CATCONOCIO key = kc item = arrCat}
-								<li><a href="javascript:$('#conocioid').val({$arrCat['idConocio']}); $('#btnConocio').html('{$arrCat['descripcion']} <span class=\'caret\'></span></button>');">{$arrCat['descripcion']}</a></li>
+								<li><a href="javascript:void(0);" onclick="javascript:$('#conocioid').val({$arrCat['idConocio']}); $('#btnConocio').html('{$arrCat['descripcion']} <span class=\'caret\'></span></button>');">{$arrCat['descripcion']}</a></li>
 							{/foreach}
 					    </ul>
 					</div>
