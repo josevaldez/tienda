@@ -24,6 +24,7 @@
     <link rel="stylesheet" type="text/css" href="{$raiz}resources/css/jquery.gritter.css" />
 
     <link href="{$raiz}resources/css/bootstrap.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
 
     <script src="{$raiz}resources/js/bootstrap.min.js"></script>
 	<script src="{$raiz}resources/js/modernizr.custom.js"></script>
@@ -149,7 +150,7 @@
                     </li></a>*}
                     {if $key == 'Articulos'}
                         <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Articulos </a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Artículos </a>
                         <ul class="dropdown-menu">
                         {foreach from=$valueS item=opciones key=key_item}
                             {$url = $opciones['seccionUrl']}

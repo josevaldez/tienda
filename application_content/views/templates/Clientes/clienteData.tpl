@@ -45,7 +45,7 @@
 						<span class="glyphicon glyphicon-earphone col-md-12"></span>
 					</div>
 					<div class="col-md-5">
-						<input data-toggle="tooltip" data-placement="top" title="Teléfono(celular, fijo)" class="under classNumber" type="tel" name="telefono" id="telefono" placeholder="Teléfono(celular, fijo)" value="{$CLIENTES['telefonoCliente']}">
+						<input data-toggle="tooltip" data-placement="top" title="Teléfono" class="under classNumber" type="tel" name="telefono" id="telefono" placeholder="Teléfono" value="{$CLIENTES['telefonoCliente']}">
 					</div>
 				</div>
 				<div class="row">
@@ -80,7 +80,7 @@
 					</div>
 				</div>
 				<div class="col-md-12 nuevoDropMenu">
-				    <p style="  text-indent: -15px; cursor: pointer;" class="trans masDireccion" type="button"><b>Más</b>
+				    <p style="  text-indent: -30px; font-size: 15px; cursor: pointer;" class="trans masDireccion" type="button"><b>Dirección</b>
 				    <span class="caret"></span></p>
 				    <input value="{$CLIENTES['idDireccion']}" type="hidden" name="idDireccion" id="idDireccion">
 				    <div class="trans contentMas hidden">
@@ -90,51 +90,51 @@
 				    	</div>
 						<div class="col-md-11" style="padding: 0px;">
 							<div class="col-md-6">
-					    		<input data-toggle="tooltip" data-placement="top" title="calle" class="under" type="text" name="calle" id="calle" placeholder="Calle" value="{$CLIENTES['calle']}">
+					    		<input data-toggle="tooltip" data-placement="top" title="Calle" class="under" type="text" name="calle" id="calle" placeholder="Calle" value="{$CLIENTES['calle']}">
 					    	</div>
 					    	<div class="col-md-3">
-					    		<input data-toggle="tooltip" data-placement="top" title="#ext" class="under classNumber" type="text" name="int" id="int" placeholder="#int" value="{$CLIENTES['calleInt']}">
+					    		<input data-toggle="tooltip" data-placement="top" title="Número interior" class="under classNumber" type="text" name="int" id="int" placeholder="#int" value="{$CLIENTES['calleInt']}">
 					    	</div>
 					    	<div class="col-md-3">
-					    		<input data-toggle="tooltip" data-placement="top" title="#ext" class="under classNumber" type="text" name="ext" id="ext" placeholder="#ext" value="{$CLIENTES['calleExt']}">
+					    		<input data-toggle="tooltip" data-placement="top" title="Número exterior" class="under classNumber" type="text" name="ext" id="ext" placeholder="#ext" value="{$CLIENTES['calleExt']}">
 					    	</div>
 					    	<div class="col-md-6">
-					    		<input data-toggle="tooltip" data-placement="top" title="colonia" class="under" type="text" name="colonia" id="colonia" placeholder="colonia" value="{$CLIENTES['colonia']}">
+					    		<input data-toggle="tooltip" data-placement="top" title="Colonia" class="under" type="text" name="colonia" id="colonia" placeholder="Colonia" value="{$CLIENTES['colonia']}">
 					    	</div>
 					    	<div class="col-md-6">
-					    		<input data-toggle="tooltip" data-placement="top" title="referencia" class="under" type="text" name="referencia" id="referencia" placeholder="referencia" value="{$CLIENTES['referencia']}">
+					    		<input data-toggle="tooltip" data-placement="top" title="Referencia" class="under" type="text" name="referencia" id="referencia" placeholder="Referencia" value="{$CLIENTES['referencia']}">
 					    	</div>
 					    	<div class="col-md-4">
-					    		<input data-toggle="tooltip" data-placement="top" title="código postal" class="under classNumber" type="text" name="codigopostal" id="codigopostal" placeholder="código postal" value="{$CLIENTES['cp']}">
+					    		<input data-toggle="tooltip" data-placement="top" title="Código postal" class="under classNumber" type="text" name="codigopostal" id="codigopostal" placeholder="Código postal" value="{$CLIENTES['cp']}">
 					    	</div>
 					    	<div class="col-md-4">
-					    		<select data-toggle="tooltip" data-placement="top" title="pais" class="under" name="pais" id="pais" placeholder="pais">
-					    			<option value="0" selected="">Selecione</option>
+					    		<select data-toggle="tooltip" data-placement="top" title="País" class="under" name="pais" id="pais" placeholder="País">
+					    			<option value="0" selected="">Seleccione</option>
 					    			{foreach from=$PAISES item = arrPais key = k}
 					    				<option value="{$arrPais['id']}" {if $CLIENTES['pais'] == $arrPais['id']} selected="" {/if}>{$arrPais['nombre']}</option>
 					    			{/foreach}
 					    		</select>
 					    	</div>
 					    	<div class="col-md-4">
-					    		<select data-toggle="tooltip" data-placement="top" title="estado" class="under" name="estado" id="estado" placeholder="estado">
+					    		<select data-toggle="tooltip" data-placement="top" title="Estado" class="under" name="estado" id="estado" placeholder="estado">
 					    			{if $CLIENTES['estado'] != '' && $CLIENTES['estado'] != 0}
 					    				<option value="{$CLIENTES['estado']}" selected="">{$CLIENTES['nombreEstado']}</option>
 					    			{else}
-					    				<option value="0" selected="">Selecione el País</option>
+					    				<option value="0" selected="">Seleccione</option>
 					    			{/if}
 					    		</select>
 					    	</div>
 					    	<div class="col-md-4">
-					    		<select data-toggle="tooltip" data-placement="top" title="municipio" class="under" name="municipio" id="municipio" placeholder="municipio">
+					    		<select data-toggle="tooltip" data-placement="top" title="Municipio" class="under" name="municipio" id="municipio" placeholder="municipio">
 					    			{if $CLIENTES['municipio'] != '' && $CLIENTES['municipio'] != 0}
 					    				<option value="{$CLIENTES['municipio']}" selected="">{$CLIENTES['nombreMunicipio']}</option>
 					    			{else}
-					    				<option value="0" selected="">Selecione el Estado</option>
+					    				<option value="0" selected="">Seleccione</option>
 					    			{/if}
 					    		</select>
 					    	</div>
 					    	<div class="col-md-4">
-					    		<input data-toggle="tooltip" data-placement="top" title="localidad" class="under" type="text" name="localidad" id="localidad" placeholder="localidad" value="{$CLIENTES['localidad']}">
+					    		<input data-toggle="tooltip" data-placement="top" title="Localidad" class="under" type="text" name="localidad" id="localidad" placeholder="Localidad" value="{$CLIENTES['localidad']}">
 					    	</div>
 				    	</div>
 				    </div>
@@ -142,7 +142,7 @@
 				    <div style="clearfix"></div>
 			  </div>
 				<div class="row">
-									<b>Facturacion</b>
+									<b>Facturación</b>
 								</div>
 								<div class="row">
 									<div class="col-md-1">

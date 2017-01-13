@@ -1,5 +1,5 @@
 {include file="headerLogged.tpl"}
-<div class="container ">
+<div class="container">
 	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" id="clientBox">
 		<div class="panelClients cliente-grid">
 			<div class="panelHeader col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -28,7 +28,7 @@
 
 					</li>
 					<li class="clearfix alt header-item ">
-						<div class="col-md-1">clave</div>
+						<div class="col-md-1">Clave</div>
 						<div class="col-md-3">Nombre</div>
 						<div class="col-md-1">Edad</div>
 						<div class="col-md-3">Email</div>

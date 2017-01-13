@@ -21,14 +21,14 @@
 	.midle{
 		margin-bottom: 0px;
 	}
-    #btnSearch{ background-color: #fff; }
+
 	.search2{
 	    background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
 	    font-size: 25px;
 	    padding: 0px;
 	    border:none;
 	  }
-    #search3{ border-bottom: 1px solid #bbb; display: table; }
+
 	    .right{
 	    	width: 100%;
 	    	margin-left:-10px;
@@ -222,3 +222,9 @@ select{
     width: 100%;
     height: 30px;
 }
+/***********cambios***********/
+    #btnSearch{ background-color: #transparent; float: right; font-size: 18px; margin-top: 11px; width: 19px;}
+    #inputSearch{border: medium none;color: #000 !important;font-size: 17px;height: 18px !important;margin-top: 19px;}
+    #search3{ border-bottom: 1px solid #bbb; display: table; margin-top: -10px}
+    .panelHeader{ font-family: montserrat; padding-left: 4px; }
+    #clientBox{ margin: 10px; }
