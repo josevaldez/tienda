@@ -27,6 +27,7 @@ class modeloClientes extends CI_Model {
 
 		$this->db->where('c.estatus', '1');
 		$this->db->where('c.idTienda', $idTienda);
+		$this->db->group_by('c.idCliente');
 		if($this->input->post('idCliente') && $this->input->post('idCliente') != ''){
 			$this->db->where('c.idCliente', $this->input->post('idCliente'));
 			$this->db->limit(1);
@@ -56,12 +57,14 @@ class modeloClientes extends CI_Model {
 	public function saveDataCliente(){
 		$idTienda = $this->session->userdata('idTienda');
 		$idUsuario = $this->session->userdata('idUsuario');
+		$this->db->trans_start();
 		if($this->input->post('codigoCliente') != '' && $this->input->post('nombre') != '' && $this->input->post('apellido') != '' && $this->input->post('email') != ''){
 			$fechaNac = "0000-00-00";
 			if($this->input->post('fechaNac') && $this->input->post('fechaNac') != ''){
 				$f = explode('/',$this->input->post('fechaNac'));
 				$fechaNac = $f[2]."-".$f[1]."-".$f[0];
 			}
+			echo $fechaNac;
 			$dataCliente = array(
 				'idTienda'=> $idTienda,
 				'codigoCliente'=> $this->input->post('codigoCliente'),
@@ -72,7 +75,7 @@ class modeloClientes extends CI_Model {
 				'fechaNacimientoCliente'=> $fechaNac,
 				'edadCliente'=> $this->input->post('anos'),
 				'rfcCliente'=> $this->input->post('rfc'),
-				'idCatConocio'=> $this->input->post('conocioid'),
+				'idCatConocio'=> ($this->input->post('conocioid') ? $this->input->post('conocioid') : NULL),
 				'estatusFacturacion'=> $this->input->post('estatusFacturacion'),
 				'idUsuario'=> $idUsuario,
 				'fechaCaptura'=> date('Y-m-d H:i:s'),
@@ -129,7 +132,6 @@ class modeloClientes extends CI_Model {
 			if($this->input->post('idCliente') != ''){
 				$this->db->where('idCliente', $this->input->post('idCliente'));
 				$this->db->update('yoco_clientes', $dataCliente);
-
 				if(isset($_FILES) && count($_FILES) > 0)
 				$fotoCliente = $this->guardarFotoCliente($idTienda, $this->input->post('idCliente'), $_FILES);
 
@@ -148,13 +150,14 @@ class modeloClientes extends CI_Model {
 					$this->db->update('yoco_rel_clientes_direccion', $dataDireccion2);
 				}
 				else{
-					$dataDireccion2['idCliente'] = $this->input->post('idCliente');
-					$this->db->insert('yoco_rel_clientes_direccion', $dataDireccion2);
+					if($this->input->post('estatusFacturacion') == 0){
+						$dataDireccion2['idCliente'] = $this->input->post('idCliente');
+						$this->db->insert('yoco_rel_clientes_direccion', $dataDireccion2);
+					}
 				}
 			}
 			else{
 				$this->db->insert('yoco_clientes', $dataCliente);
-
 				$dataDireccion['idCliente'] = $this->db->insert_id();
 				if(isset($_FILES) && count($_FILES) > 0)
 				$fotoCliente = $this->guardarFotoCliente($idTienda, $dataDireccion['idCliente'], $_FILES);
@@ -162,11 +165,12 @@ class modeloClientes extends CI_Model {
 				$this->db->insert('yoco_rel_clientes_direccion', $dataDireccion);
 
 				if($this->input->post('estatusFacturacion') == 0){
-					$dataDireccion2['idCliente'] = $this->db->insert_id();
+					$dataDireccion2['idCliente'] = $dataDireccion['idCliente'];
 					$this->db->insert('yoco_rel_clientes_direccion', $dataDireccion2);
 				}
 
 			}
+			$this->db->trans_complete();
 
 			return array('error'=>false,'HTML'=>'Exito');
 

@@ -325,7 +325,7 @@ $('#estatusFacturacion').change(function(){
 });
 
 $('[data-toggle="tooltip"]').tooltip();
-$('#fechaNac').datepicker({ format: 'DD/MM/YYYY'});
+$('#fechaNac').datepicker({ dateFormat: 'dd/mm/yy'});
 $('.cerrar').on('click', function(){$('.overlay-container').fadeOut().end().find('.window-container').removeClass('window-container-visible');
 	if($.trim($('#codigoCliente').val()) != ''){
 		var dataForm = new FormData();
