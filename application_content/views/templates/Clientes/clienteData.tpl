@@ -83,7 +83,7 @@
 				    <p style="  text-indent: -30px; font-size: 15px; cursor: pointer;" class="trans masDireccion" type="button"><b>Dirección</b>
 				    <span class="caret"></span></p>
 				    <input value="{$CLIENTES['idDireccion']}" type="hidden" name="idDireccion" id="idDireccion">
-				    <div class="trans contentMas hidden">
+				    <div class="trans contentMas {if $CLIENTES['estatusFacturacion'] == '1'}hidden{/if}">
 				    <div class="row">
 				    	<div class="col-md-1" style="padding: 0px;">
 				    		<span class="glyphicon glyphicon-home col-md-12"></span>
@@ -140,24 +140,85 @@
 				    </div>
 				    </div>
 				    <div style="clearfix"></div>
-			  </div>
+			  	</div>
 				<div class="row">
-									<b>Facturación</b>
-								</div>
-								<div class="row">
-									<div class="col-md-1">
-										<span class="glyphicon glyphicon-qrcode col-md-12"></span>
-									</div>
-									<div class="col-md-4">
-										<input data-toggle="tooltip" data-placement="top" title="RFC" class="under" type="RFC" name="rfc" id="rfc" placeholder="RFC" value="{$CLIENTES['rfcCliente']}">
-									</div>
-									<div class="col-md-7">
-									<label>
-									    <input type="checkbox" name="estatusFacturacion" id="estatusFacturacion" value="1" {if $CLIENTES['estatusFacturacion'] == '1'} checked="checked"{/if}>
-									    Utilizar la dirección personal para facturación.
-									</label>
-									</div>
-								</div>
+					<b>Facturación</b>
+				</div>
+				<div class="row">
+					<div class="col-md-1">
+						<span class="glyphicon glyphicon-qrcode col-md-12"></span>
+					</div>
+					<div class="col-md-4">
+						<input data-toggle="tooltip" data-placement="top" title="RFC" class="under" type="RFC" name="rfc" id="rfc" placeholder="RFC" value="{$CLIENTES['rfcCliente']}">
+					</div>
+					<div class="col-md-7">
+					<label>
+					    <input type="checkbox" name="estatusFacturacion" id="estatusFacturacion" value="1" {if $CLIENTES['estatusFacturacion'] == '1'} checked="checked"{/if}>
+					    Utilizar la dirección personal para facturación.
+					</label>
+					</div>
+				</div>
+
+				{*//////////////////////////////DIRECCION 2//////////////////////////*}
+				<input value="{$CLIENTES['idDireccion2']}" type="hidden" name="idDireccion2" id="idDireccion2">
+				<div class="trans contentMas2 {if $CLIENTES['estatusFacturacion'] == '1'}hidden{/if}">
+				    <div class="row">
+				    	<div class="col-md-1" style="padding: 0px;">
+				    		<span class="glyphicon glyphicon-home col-md-12"></span>
+				    	</div>
+						<div class="col-md-11" style="padding: 0px;">
+							<div class="col-md-6">
+					    		<input data-toggle="tooltip" data-placement="top" title="Calle" class="under" type="text" name="calle2" id="calle2" placeholder="Calle" value="{$CLIENTES['calle2']}">
+					    	</div>
+					    	<div class="col-md-3">
+					    		<input data-toggle="tooltip" data-placement="top" title="Número interior" class="under classNumber" type="text" name="int2" id="int2" placeholder="#int" value="{$CLIENTES['calleInt2']}">
+					    	</div>
+					    	<div class="col-md-3">
+					    		<input data-toggle="tooltip" data-placement="top" title="Número exterior" class="under classNumber" type="text" name="ext2" id="ext2" placeholder="#ext" value="{$CLIENTES['calleExt2']}">
+					    	</div>
+					    	<div class="col-md-6">
+					    		<input data-toggle="tooltip" data-placement="top" title="Colonia" class="under" type="text" name="colonia2" id="colonia2" placeholder="Colonia" value="{$CLIENTES['colonia2']}">
+					    	</div>
+					    	<div class="col-md-6">
+					    		<input data-toggle="tooltip" data-placement="top" title="Referencia" class="under" type="text" name="referencia2" id="referencia2" placeholder="Referencia" value="{$CLIENTES['referencia2']}">
+					    	</div>
+					    	<div class="col-md-4">
+					    		<input data-toggle="tooltip" data-placement="top" title="Código postal" class="under classNumber" type="text" name="codigopostal2" id="codigopostal2" placeholder="Código postal" value="{$CLIENTES['cp2']}">
+					    	</div>
+					    	<div class="col-md-4">
+					    		<select data-toggle="tooltip" data-placement="top" title="País" class="under" name="pais2" id="pais2" placeholder="País">
+					    			<option value="0" selected="">Seleccione</option>
+					    			{foreach from=$PAISES item = arrPais key = k}
+					    				<option value="{$arrPais['id']}" {if $CLIENTES['pais2'] == $arrPais['id']} selected="" {/if}>{$arrPais['nombre']}</option>
+					    			{/foreach}
+					    		</select>
+					    	</div>
+					    	<div class="col-md-4">
+					    		<select data-toggle="tooltip" data-placement="top" title="Estado" class="under" name="estado2" id="estado2" placeholder="estado">
+					    			{if $CLIENTES['estado2'] != '' && $CLIENTES['estado2'] != 0}
+					    				<option value="{$CLIENTES['estado2']}" selected="">{$CLIENTES['nombreEstado2']}</option>
+					    			{else}
+					    				<option value="0" selected="">Seleccione</option>
+					    			{/if}
+					    		</select>
+					    	</div>
+					    	<div class="col-md-4">
+					    		<select data-toggle="tooltip" data-placement="top" title="Municipio" class="under" name="municipio2" id="municipio2" placeholder="municipio">
+					    			{if $CLIENTES['municipio2'] != '' && $CLIENTES['municipio2'] != 0}
+					    				<option value="{$CLIENTES['municipio2']}" selected="">{$CLIENTES['nombreMunicipio2']}</option>
+					    			{else}
+					    				<option value="0" selected="">Seleccione</option>
+					    			{/if}
+					    		</select>
+					    	</div>
+					    	<div class="col-md-4">
+					    		<input data-toggle="tooltip" data-placement="top" title="Localidad" class="under" type="text" name="localidad2" id="localidad2" placeholder="Localidad" value="{$CLIENTES['localidad2']}">
+					    	</div>
+				    	</div>
+				    </div>
+				</div>
+				<div style="clearfix"></div>
+				{*//////////////////////////////DIRECCION 2//////////////////////////*}
     	</div>
 	</div>
 	</form>
@@ -209,9 +270,60 @@ $('#estado').change(function(event) {
 		error: function (){/*$(element).next('div').html('Intente mas Tarde.');*/}
 	});
 });
+
+//////////////// DIRECCION2
+$('#pais2').change(function(event) {
+	idPais = $('#pais2').val();
+	$.ajax({
+		url : "ajax/paises/estados",
+		data : {
+			'csrf_yoco_tok_name' : function(){ return ($('#token').val() != "") ? $('#token').val() : "";},
+			'idPais' : idPais,
+		},
+		dataType : "json", type: "POST",
+		beforeSend: function(){},
+		success: function(data){
+			if(data.error){
+			}
+			else{
+				$('#estado2').find('option').remove();
+				$('#estado2').append(data.HTML);
+				$('#municipio2').find('option').remove();
+				$('#municipio2').append('<option value="0" selected="">Selecione el Estado</option>')
+			}
+		},
+		error: function (){/*$(element).next('div').html('Intente mas Tarde.');*/}
+	});
+});
+$('#estado2').change(function(event) {
+	idEstado = $('#estado2').val();
+	$.ajax({
+		url : "ajax/paises/municipios",
+		data : {
+			'csrf_yoco_tok_name' : function(){ return ($('#token').val() != "") ? $('#token').val() : "";},
+			'idEstado' : idEstado,
+		},
+		dataType : "json", type: "POST",
+		beforeSend: function(){},
+		success: function(data){
+			if(data.error){
+			}
+			else{
+				$('#municipio2').find('option').remove();
+				$('#municipio2').append(data.HTML);
+			}
+		},
+		error: function (){/*$(element).next('div').html('Intente mas Tarde.');*/}
+	});
+});
 $('.masDireccion').click(function(event) {
 	$('.contentMas').toggleClass('hidden');
 });
+
+$('#estatusFacturacion').change(function(){
+	$('.contentMas2').toggleClass('hidden');
+});
+
 $('[data-toggle="tooltip"]').tooltip();
 $('#fechaNac').datepicker({ format: 'DD/MM/YYYY'});
 $('.cerrar').on('click', function(){$('.overlay-container').fadeOut().end().find('.window-container').removeClass('window-container-visible');
@@ -244,7 +356,34 @@ $('.cerrar').on('click', function(){$('.overlay-container').fadeOut().end().find
 		dataForm.append('municipio', $("#municipio").val());
 		dataForm.append('localidad', $("#localidad").val());
 		dataForm.append('rfc', $("#rfc").val());
-		dataForm.append('estatusFacturacion', $("#estatusFacturacion").val());
+		dataForm.append('estatusFacturacion', ( $('#estatusFacturacion').is(':checked') ? 1 : 0 ));
+
+		dataForm.append('idDireccion2', $("#idDireccion2").val());
+
+		if($('#estatusFacturacion').is(':checked')){
+			dataForm.append('calle2', '');
+			dataForm.append('int2', '');
+			dataForm.append('ext2', '');
+			dataForm.append('colonia2', '');
+			dataForm.append('referencia2', '');
+			dataForm.append('codigopostal2', '');
+			dataForm.append('pais2', '');
+			dataForm.append('estado2', '');
+			dataForm.append('municipio2', '');
+			dataForm.append('localidad2', '');
+		}
+		else{
+			dataForm.append('calle2', $("#calle2").val());
+			dataForm.append('int2', $("#int2").val());
+			dataForm.append('ext2', $("#ext2").val());
+			dataForm.append('colonia2', $("#colonia2").val());
+			dataForm.append('referencia2', $("#referencia2").val());
+			dataForm.append('codigopostal2', $("#codigopostal2").val());
+			dataForm.append('pais2', $("#pais2").val());
+			dataForm.append('estado2', $("#estado2").val());
+			dataForm.append('municipio2', $("#municipio2").val());
+			dataForm.append('localidad2', $("#localidad2").val());
+		}
 
 		$.ajax({
 			url : "ajax/guardarCliente",

@@ -11,13 +11,19 @@ class modeloClientes extends CI_Model {
 
 		$idTienda = $this->session->userdata('idTienda');
 
-		$this->db->select('c.*,d.idDireccion,d.calle,d.calleInt,d.calleExt,d.colonia,d.referencia,d.cp,d.pais,d.estado,d.municipio,d.localidad, DATE_FORMAT(c.fechaNacimientoCliente,"%d%/%m%/%Y" ) AS fechaNacimientoCliente, cp.nombre AS nombrePais, ce.nombre AS nombreEstado, cc.nombre AS nombreMunicipio',FALSE);
+		$this->db->select('c.*,d.idDireccion,d.calle,d.calleInt,d.calleExt,d.colonia,d.referencia,d.cp,d.pais,d.estado,d.municipio,d.localidad, DATE_FORMAT(c.fechaNacimientoCliente,"%d%/%m%/%Y" ) AS fechaNacimientoCliente, cp.nombre AS nombrePais, ce.nombre AS nombreEstado, cc.nombre AS nombreMunicipio, d2.idDireccion AS idDireccion2, d2.calle AS calle2, d2.calleInt AS calleInt2, d2.calleExt AS calleExt2, d2.colonia AS colonia2, d2.referencia AS referencia2, d2.cp AS cp2, d2.pais AS pais2, d2.estado AS estado2, d2.municipio AS municipio2, d2.localidad AS localidad2,cp2.nombre AS nombrePais2, ce2.nombre AS nombreEstado2, cc2.nombre AS nombreMunicipio2',FALSE);
 		$this->db->from('yoco_clientes as c');
-		$this->db->join('yoco_rel_clientes_direccion as d','d.idCliente = c.idCliente','LEFT');
+		$this->db->join('yoco_rel_clientes_direccion as d','d.idCliente = c.idCliente AND d.estatusFacturacion = 0','LEFT');
 
 		$this->db->join('yoco_cat_paises as cp','cp.id = d.pais','LEFT');
 		$this->db->join('yoco_cat_paises_estados as ce','ce.id = d.estado','LEFT');
 		$this->db->join('yoco_cat_paises_estados_ciudad as cc','cc.id = d.municipio','LEFT');
+
+		$this->db->join('yoco_rel_clientes_direccion as d2','d2.idCliente = c.idCliente AND d2.estatusFacturacion = 1','LEFT');
+
+		$this->db->join('yoco_cat_paises as cp2','cp2.id = d2.pais','LEFT');
+		$this->db->join('yoco_cat_paises_estados as ce2','ce2.id = d2.estado','LEFT');
+		$this->db->join('yoco_cat_paises_estados_ciudad as cc2','cc2.id = d2.municipio','LEFT');
 
 		$this->db->where('c.estatus', '1');
 		$this->db->where('c.idTienda', $idTienda);
@@ -29,20 +35,6 @@ class modeloClientes extends CI_Model {
 		if($this->input->post('inputSearch') && $this->input->post('inputSearch') != ''){
 
 			$this->db->where('( CONCAT(c.nombresCliente, c.apellidosCliente) LIKE "%'.$this->input->post('inputSearch').'%" OR CONCAT(c.apellidosCliente, c.nombresCliente) LIKE "%'.$this->input->post('inputSearch').'%" OR c.codigoCliente LIKE "%'.$this->input->post('inputSearch').'%" OR c.emailCliente LIKE "%'.$this->input->post('inputSearch').'%" OR c.rfcCliente LIKE "%'.$this->input->post('inputSearch').'%" ) ');
-
-			/*$this->db->or_like('( CONCAT(c.nombresCliente, c.apellidosCliente)' ,$this->input->post('inputSearch', 'both',FALSE));
-			$this->db->or_like('CONCAT(c.apellidosCliente, c.nombresCliente)' ,$this->input->post('inputSearch'), 'both',FALSE);
-			$this->db->or_like('c.codigoCliente' ,$this->input->post('inputSearch'), 'both',FALSE);
-			$this->db->or_like('c.emailCliente' ,$this->input->post('inputSearch'), 'both',FALSE);
-			$this->db->or_like('c.rfcCliente' ,$this->input->post('inputSearch').')', 'both',FALSE);
-
-			/*$this->db->or_like(array(
-				' CONCAT(c.nombresCliente, c.apellidosCliente)' =>$this->input->post('inputSearch'),
-				'CONCAT(c.apellidosCliente, c.nombresCliente)' =>$this->input->post('inputSearch'),
-				'c.codigoCliente' =>$this->input->post('inputSearch'),
-				'c.emailCliente' =>$this->input->post('inputSearch'),
-				'c.rfcCliente' =>$this->input->post('inputSearch')
-			), 'both',FALSE);*/
 		}
 
 		$query = $this->db->get();
@@ -52,11 +44,11 @@ class modeloClientes extends CI_Model {
 		}
 		else{
 			if($this->input->post('idCliente') && $this->input->post('idCliente') != ''){
-				$res = array(array('idCliente'=> '','codigoCliente'=> '','nombresCliente'=> '','apellidosCliente'=> '','emailCliente'=> '','telefonoCliente'=> '','fechaNacimientoCliente'=> '','edadCliente'=> '','rfcCliente'=> '','idCatConocio'=> '','fotoCliente'=> '','estatus'=> '','estatusFacturacion'=> '','idUsuario'=> '','fechaCaptura'=> '','ultimaModificacion'=> '','idDireccion'=> '','calle'=> '','calleInt'=> '','calleExt'=> '','colonia'=> '','referencia'=> '','cp'=> '','pais'=> '','estado'=> '','municipio'=> '','localidad'=> ''));
+				$res = array(array('idCliente'=> '','codigoCliente'=> '','nombresCliente'=> '','apellidosCliente'=> '','emailCliente'=> '','telefonoCliente'=> '','fechaNacimientoCliente'=> '','edadCliente'=> '','rfcCliente'=> '','idCatConocio'=> '','fotoCliente'=> '','estatus'=> '','estatusFacturacion'=> '','idUsuario'=> '','fechaCaptura'=> '','ultimaModificacion'=> '','idDireccion'=> '','calle'=> '','calleInt'=> '','calleExt'=> '','colonia'=> '','referencia'=> '','cp'=> '','pais'=> '','estado'=> '','municipio'=> '','localidad'=> '','idDireccion2'=> '','calle2'=> '','calleInt2'=> '','calleExt2'=> '','colonia2'=> '','referencia2'=> '','cp2'=> '','pais2'=> '','estado2'=> '','municipio2'=> '','localidad2'=> ''));
 			}
 		}
 		if($this->input->post('idCliente') && $this->input->post('idCliente') == '-1'){
-			$res = array(array('idCliente'=> '','codigoCliente'=> '','nombresCliente'=> '','apellidosCliente'=> '','emailCliente'=> '','telefonoCliente'=> '','fechaNacimientoCliente'=> '','edadCliente'=> '','rfcCliente'=> '','idCatConocio'=> '','fotoCliente'=> '','estatus'=> '','estatusFacturacion'=> '','idUsuario'=> '','fechaCaptura'=> '','ultimaModificacion'=> '','idDireccion'=> '','calle'=> '','calleInt'=> '','calleExt'=> '','colonia'=> '','referencia'=> '','cp'=> '','pais'=> '','estado'=> '','municipio'=> '','localidad'=> ''));
+			$res = array(array('idCliente'=> '','codigoCliente'=> '','nombresCliente'=> '','apellidosCliente'=> '','emailCliente'=> '','telefonoCliente'=> '','fechaNacimientoCliente'=> '','edadCliente'=> '','rfcCliente'=> '','idCatConocio'=> '','fotoCliente'=> '','estatus'=> '','estatusFacturacion'=> '','idUsuario'=> '','fechaCaptura'=> '','ultimaModificacion'=> '','idDireccion'=> '','calle'=> '','calleInt'=> '','calleExt'=> '','colonia'=> '','referencia'=> '','cp'=> '','pais'=> '','estado'=> '','municipio'=> '','localidad'=> '','idDireccion2'=> '','calle2'=> '','calleInt2'=> '','calleExt2'=> '','colonia2'=> '','referencia2'=> '','cp2'=> '','pais2'=> '','estado2'=> '','municipio2'=> '','localidad2'=> ''));
 		}
 	    return $res;
 	}
@@ -81,7 +73,7 @@ class modeloClientes extends CI_Model {
 				'edadCliente'=> $this->input->post('anos'),
 				'rfcCliente'=> $this->input->post('rfc'),
 				'idCatConocio'=> $this->input->post('conocioid'),
-				'estatusFacturacion'=> (($this->input->post('estatusFacturacion') && $this->input->post('estatusFacturacion') != '') ? '1' : 0),
+				'estatusFacturacion'=> $this->input->post('estatusFacturacion'),
 				'idUsuario'=> $idUsuario,
 				'fechaCaptura'=> date('Y-m-d H:i:s'),
 				);
@@ -97,7 +89,43 @@ class modeloClientes extends CI_Model {
 				'estado'=> $this->input->post('estado'),
 				'municipio'=> $this->input->post('municipio'),
 				'localidad'=> $this->input->post('localidad'),
+				'estatusFacturacion'=> 0,
 			);
+			if($this->input->post('estatusFacturacion') == 0){
+				$dataDireccion2 = array(
+					'calle'=> $this->input->post('calle2'),
+					'calleInt'=> $this->input->post('int2'),
+					'calleExt'=> $this->input->post('ext2'),
+					'colonia'=> $this->input->post('colonia2'),
+					'referencia'=> $this->input->post('referencia2'),
+					'cp'=> $this->input->post('codigopostal2'),
+					'pais'=> $this->input->post('pais2'),
+					'estado'=> $this->input->post('estado2'),
+					'municipio'=> $this->input->post('municipio2'),
+					'localidad'=> $this->input->post('localidad2'),
+					'estatusFacturacion'=> 1,
+				);
+			}
+			else{
+				$dataDireccion2 = array(
+					'calle'=>'',
+					'calleInt'=>'',
+					'calleExt'=>'',
+					'colonia'=>'',
+					'referencia'=>'',
+					'cp'=>'',
+					'pais'=>'',
+					'estado'=>'',
+					'municipio'=>'',
+					'localidad'=>'',
+					'estatusFacturacion'=> 0,
+				);
+			}
+			if($this->input->post('estatusFacturacion') == 1 && ($this->input->post('idDireccion2') != '' && $this->input->post('idDireccion2') != '0')){
+				$this->db->where('idDireccion', $this->input->post('idDireccion2'));
+				$this->db->where('estatusFacturacion', 1);
+				$this->db->delete('yoco_rel_clientes_direccion');
+			}
 			if($this->input->post('idCliente') != ''){
 				$this->db->where('idCliente', $this->input->post('idCliente'));
 				$this->db->update('yoco_clientes', $dataCliente);
@@ -113,6 +141,16 @@ class modeloClientes extends CI_Model {
 					$dataDireccion['idCliente'] = $this->input->post('idCliente');
 					$this->db->insert('yoco_rel_clientes_direccion', $dataDireccion);
 				}
+
+				if($this->input->post('idDireccion2') != ''){
+					$this->db->where('idDireccion', $this->input->post('idDireccion2'));
+					$this->db->where('estatusFacturacion', 1);
+					$this->db->update('yoco_rel_clientes_direccion', $dataDireccion2);
+				}
+				else{
+					$dataDireccion2['idCliente'] = $this->input->post('idCliente');
+					$this->db->insert('yoco_rel_clientes_direccion', $dataDireccion2);
+				}
 			}
 			else{
 				$this->db->insert('yoco_clientes', $dataCliente);
@@ -122,6 +160,12 @@ class modeloClientes extends CI_Model {
 				$fotoCliente = $this->guardarFotoCliente($idTienda, $dataDireccion['idCliente'], $_FILES);
 
 				$this->db->insert('yoco_rel_clientes_direccion', $dataDireccion);
+
+				if($this->input->post('estatusFacturacion') == 0){
+					$dataDireccion2['idCliente'] = $this->db->insert_id();
+					$this->db->insert('yoco_rel_clientes_direccion', $dataDireccion2);
+				}
+
 			}
 
 			return array('error'=>false,'HTML'=>'Exito');
