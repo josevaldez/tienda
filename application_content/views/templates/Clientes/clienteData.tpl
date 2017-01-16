@@ -8,12 +8,12 @@
     <div class="panelBody col-sm-12 col-md-11 col-lg-12">
     <form id="clienteForm" enctype="multipart/form-data">
     	<div class="col-md-3">
-        	<div class="row">
-	        	<span class="glyphicon glyphicon-barcode col-md-2"></span>
-	        	<input data-toggle="tooltip" data-placement="top" title="cliente" id="codigoCliente" value="{$CLIENTES['codigoCliente']}" class="under col-md-7 classNumber" type="text" name="codigoCliente" {if $CLIENTES['idCliente'] != ''}disabled{/if}>
+        	<div class="row" style="  border-bottom: 1px solid #bbb; padding-bottom: 0;">
+	        	<span class="glyphicon glyphicon-barcode" style="float: left;"></span>
+	        	<input style="border: none !important; margin-left:13px; " data-toggle="tooltip" data-placement="top" title="Cliente" id="codigoCliente" value="{$CLIENTES['codigoCliente']}" class="under col-md-9 classNumber" type="text" name="codigoCliente" {if $CLIENTES['idCliente'] != ''}disabled{/if}>
 	        	<input value="{$CLIENTES['idCliente']}" type="hidden" name="idCliente" id="idCliente">
 	        	<input value="{$token}" type="hidden" name="{$token_name}" id="token">
-	        	<span class="glyphicon glyphicon-pencil cursorHover editCodigo col-md-2"></span>
+	        	<span style="float: right; font-size: 14px;margin-top: 6px;text-align: right;" class="glyphicon glyphicon-pencil cursorHover editCodigo"></span>
 	        </div>
 	        <input type="file" name="foto" style="position: absolute; top: -1000px; left: -10000px" id="foto" accept='image/*'>
         	<div id="preview" class="profile mousehover glyphicon {if $CLIENTES['fotoCliente'] == ''}glyphicon-user{/if}"
@@ -27,11 +27,20 @@
 					<div class="col-md-1">
 						<span class="glyphicon glyphicon-user col-md-12"></span>
 					</div>
-					<div class="col-md-6">
+					<div class="col-md-3">
 						<input data-toggle="tooltip" data-placement="top" title="Nombre" class="under" type="text" name="nombre" id="nombre" placeholder="Nombre" value="{$CLIENTES['nombresCliente']}">
 					</div>
-					<div class="col-md-5">
+					<div class="col-md-3">
 						<input data-toggle="tooltip" data-placement="top" title="Apellidos" class="under" type="text" name="apellido" id="apellido" placeholder="Apellidos" value="{$CLIENTES['apellidosCliente']}">
+					</div>
+					<div class="col-md-1">
+						<span class="glyphicon glyphicon-calendar col-md-12"></span>
+					</div>
+					<div class="col-md-3">
+						<input data-toggle="tooltip" data-placement="top" title="Fecha de nacimiento" class="under"  type="text" placeholder="Fecha de nacimiento" name="fechaNac" id="fechaNac" value="{$CLIENTES['fechaNacimientoCliente']}">
+					</div>
+					<div class="col-md-1">
+						<input type="text" name="anos" id="anos" disabled="" placeholder="años" class="under classNumber" value="{$CLIENTES['edadCliente']}">
 					</div>
 				</div>
 				<div class="row">
@@ -44,21 +53,10 @@
 					<div class="col-md-1">
 						<span class="glyphicon glyphicon-earphone col-md-12"></span>
 					</div>
-					<div class="col-md-5">
+					<div class="col-md-2">
 						<input data-toggle="tooltip" data-placement="top" title="Teléfono" class="under classNumber" type="tel" name="telefono" id="telefono" placeholder="Teléfono" value="{$CLIENTES['telefonoCliente']}">
 					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-1">
-						<span class="glyphicon glyphicon-calendar col-md-12"></span>
-					</div>
-					<div class="col-md-4">
-						<input data-toggle="tooltip" data-placement="top" title="Fecha de nacimiento" class="under"  type="text" placeholder="Fecha de nacimiento" name="fechaNac" id="fechaNac" value="{$CLIENTES['fechaNacimientoCliente']}">
-					</div>
-					<div class="col-md-3">
-						<input type="text" name="anos" id="anos" disabled="" placeholder="años" class="under classNumber" value="{$CLIENTES['edadCliente']}">
-					</div>
-					<div class="dropdown col-md-4">
+					<div class="dropdown col-md-3">
 				 		<input type="hidden" id="conocioid" name="conocioid" value="{$CLIENTES['idCatConocio']}">
 					    <button class="btn trans dropdown-toggle" id="btnConocio" type="button" data-toggle="dropdown">
 					    {$c = 0}
@@ -78,6 +76,18 @@
 							{/foreach}
 					    </ul>
 					</div>
+				</div>
+				<div class="row" style="display: none;">
+					<div class="col-md-1">
+						<span class="glyphicon glyphicon-calendar col-md-12"></span>
+					</div>
+					<div class="col-md-4">
+						<input data-toggle="tooltip" data-placement="top" title="Fecha de nacimiento" class="under"  type="text" placeholder="Fecha de nacimiento" name="fechaNac" id="fechaNac" value="{$CLIENTES['fechaNacimientoCliente']}">
+					</div>
+					<div class="col-md-3">
+						<input type="text" name="anos" id="anos" disabled="" placeholder="años" class="under classNumber" value="{$CLIENTES['edadCliente']}">
+					</div>
+
 				</div>
 				<div class="col-md-12 nuevoDropMenu">
 				    <p style="  text-indent: -30px; font-size: 15px; cursor: pointer;" class="trans masDireccion" type="button"><b>Dirección</b>
@@ -461,3 +471,13 @@ function readURL(input) {
 	}
 }
 </script>{/literal}
+{literal}
+<style type="text/css">
+	#clienteForm input {
+    color: #777;
+    font-size: 13px !important;
+    line-height: 17px;
+}
+
+</style>
+{/literal}

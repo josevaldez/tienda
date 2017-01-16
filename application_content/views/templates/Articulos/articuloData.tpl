@@ -9,11 +9,11 @@
     <div class="panelBody col-sm-12 col-md-11 col-lg-12">
     	<form id="clienteForm">
     	<div class="col-md-3 ocultar">
-        	<div class="row">
-	        	<span class="glyphicon glyphicon-barcode col-md-2"></span>
-	        	<input class="" type="hidden" name="idArticulo" id="idArticulo" value="{$ARTICULOS['idArticulo']}">
-	        	<input data-toggle="tooltip" data-placement="top" title="Codigó" class="under col-md-7 classNumber" type="text" name="codigo" id="codigo" value="{$ARTICULOS['codigoArticulo']}" {if $ARTICULOS['idArticulo'] != ''}disabled{/if}>
-	        	<span class="glyphicon glyphicon-pencil cursorHover editCodigo col-md-2"></span>
+        	<div class="row" style="  border-bottom: 1px solid #bbb; padding-bottom: 0;">
+	        	<span class="glyphicon glyphicon-barcode" style="float: left;"></span>
+	        	<input style="border: none !important; margin-left:13px; " class="" type="hidden" name="idArticulo" id="idArticulo" value="{$ARTICULOS['idArticulo']}">
+	        	<input data-toggle="tooltip" data-placement="top" title="Codigó" class="under col-md-9 classNumber" type="text" name="codigo" id="codigo" value="{$ARTICULOS['codigoArticulo']}" {if $ARTICULOS['idArticulo'] != ''}disabled{/if}>
+	        	<span class="glyphicon glyphicon-pencil cursorHover editCodigo" style="float: right; font-size: 14px;margin-top: 6px;text-align: right;"></span>
 	        </div>
 
 
