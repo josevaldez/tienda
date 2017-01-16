@@ -128,19 +128,19 @@
     		<div class="row"><div class="col-md-12"><input data-toggle="tooltip" data-placement="top" title="Costo" placeholder="Costo $0" type="text" name="precioCosto" id="precioCosto" class="form-control" value="{$ARTICULOS['precioCompra']}"></div></div>
 
     		<div class="row">
-    			<div class="col-md-5"><input data-toggle="tooltip" data-placement="top" title="Ganancia +%" placeholder="Ganancia +0%" type="text" name="gananciaPorcentaje" id="gananciaPorcentaje" class="form-control" value="{$ARTICULOS['gananciaPorcentaje']}"></div>
-    			<div class="col-md-1">ó</div>
-    			<div class="col-md-6"><input data-toggle="tooltip" data-placement="top" title="Ganancia +$" placeholder="Ganancia +$0" type="text" name="gananciaPrecio" id="gananciaPrecio" class="form-control" value="{$ARTICULOS['gananciaPrecio']}"></div>
+    			<div class="col-md-12"><input data-toggle="tooltip" data-placement="top" title="Ganancia +%" placeholder="Ganancia +0%" type="text" name="gananciaPorcentaje" id="gananciaPorcentaje" class="form-control" value="{$ARTICULOS['gananciaPorcentaje']}"></div>
+    			<div class="col-md-1 hidden">ó</div>
+    			<div class="col-md-6 hidden"><input data-toggle="tooltip" data-placement="top" title="Ganancia +$" placeholder="Ganancia +$0" type="text" name="gananciaPrecio" id="gananciaPrecio" class="form-control" value="{$ARTICULOS['gananciaPrecio']}"></div>
     		</div>
     		<div class="row">
-    			<div class="col-md-5"><input data-toggle="tooltip" data-placement="top" title="Descuento -%" placeholder="Descuento -0%" type="text" name="descuentoPorcentaje" id="descuentoPorcentaje" class="form-control" value="{$ARTICULOS['descuentoPorcentaje']}"></div>
-    			<div class="col-md-1">ó</div>
-    			<div class="col-md-6"><input data-toggle="tooltip" data-placement="top" title="Descuento -$" placeholder="Descuento -$0" type="text" name="descuentoPrecio" id="descuentoPrecio" class="form-control" value="{$ARTICULOS['descuentoPrecio']}"></div>
+    			<div class="col-md-12"><input data-toggle="tooltip" data-placement="top" title="Descuento -%" placeholder="Descuento -0%" type="text" name="descuentoPorcentaje" id="descuentoPorcentaje" class="form-control" value="{$ARTICULOS['descuentoPorcentaje']}"></div>
+    			<div class="col-md-1 hidden">ó</div>
+    			<div class="col-md-6 hidden"><input data-toggle="tooltip" data-placement="top" title="Descuento -$" placeholder="Descuento -$0" type="text" name="descuentoPrecio" id="descuentoPrecio" class="form-control" value="{$ARTICULOS['descuentoPrecio']}"></div>
     		</div>
     		<div class="row">
-    			<div class="col-md-6"><input data-toggle="tooltip" data-placement="top" title="IVA %" placeholder="IVA 0%" type="text" name="ivaPorcentaje" id="ivaPorcentaje" class="form-control" value="{$ARTICULOS['ivaPorcentaje']}"></div>
+    			<div class="col-md-12"><input data-toggle="tooltip" data-placement="top" title="IVA %" placeholder="IVA 0%" type="text" name="ivaPorcentaje" id="ivaPorcentaje" class="form-control" value="{$ARTICULOS['ivaPorcentaje']}"></div>
 
-    			<div class="col-md-6"><input data-toggle="tooltip" data-placement="top" title="IVA $" placeholder="IVA $0" type="text" name="ivaPrecio" id="ivaPrecio" disabled="" class="form-control" value="{$ARTICULOS['ivaPrecio']}"></div>
+    			<div class="col-md-6 hidden"><input data-toggle="tooltip" data-placement="top" title="IVA $" placeholder="IVA $0" type="text" name="ivaPrecio" id="ivaPrecio" disabled="" class="form-control" value="{$ARTICULOS['ivaPrecio']}"></div>
     		</div>
     		<div class="row totalPrecioBack">
     			<div class="col-md-12"><input data-toggle="tooltip" data-placement="top" title="TOTAL $" placeholder="TOTAL $0" type="text" name="totalPrecio" id="totalPrecio" class="form-control" value="{$ARTICULOS['precioVenta']}" ></div>
@@ -673,27 +673,45 @@ $('#precioCosto').change(function(){
 		try {
 			precioVenta = parseFloat($.trim($(this).val()));
 			if($.trim($('#gananciaPorcentaje').val()) != '' && $.trim($('#gananciaPorcentaje').val()) != '0'){
-				gananciaPorcentaje  = parseFloat($.trim($('#precioCosto').val()))  * (parseFloat($.trim($('#gananciaPorcentaje').val())) / 100);
-				gananciaPorcentaje = gananciaPorcentaje.toFixed(2);
-				$('#gananciaPrecio').val(gananciaPorcentaje);
+				valor = $.trim($('#gananciaPorcentaje').val());
+				if(valor.indexOf('%') != -1){
+					gananciaPorcentaje  = parseFloat($.trim($('#precioCosto').val()))  * (parseFloat($.trim($('#gananciaPorcentaje').val())) / 100);
+					gananciaPorcentaje = gananciaPorcentaje.toFixed(2);
+					$('#gananciaPrecio').val(gananciaPorcentaje);
+				}
+				else{
+					$('#gananciaPrecio').val(valor);
+				}
 			}
 			if($.trim($('#gananciaPrecio').val()) != '' && $.trim($('#gananciaPrecio').val()) != '0'){
 				precioVenta  = parseFloat(precioVenta)  + parseFloat($.trim($('#gananciaPrecio').val()));
 			}
 
 			if($.trim($('#descuentoPorcentaje').val()) != '' && $.trim($('#descuentoPorcentaje').val()) != '0'){
-				descuentoPorcentaje  = (parseFloat($.trim($('#precioCosto').val())) + parseFloat($.trim($('#gananciaPrecio').val()))) * (parseFloat($.trim($('#descuentoPorcentaje').val())) / 100);
-				descuentoPorcentaje = descuentoPorcentaje.toFixed(2);
-				$('#descuentoPrecio').val(descuentoPorcentaje);
+				valor = $.trim($('#descuentoPorcentaje').val());
+				if(valor.indexOf('%') != -1){
+					descuentoPorcentaje  = (parseFloat($.trim($('#precioCosto').val())) + parseFloat($.trim($('#gananciaPrecio').val()))) * (parseFloat($.trim($('#descuentoPorcentaje').val())) / 100);
+					descuentoPorcentaje = descuentoPorcentaje.toFixed(2);
+					$('#descuentoPrecio').val(descuentoPorcentaje);
+				}
+				else{
+					$('#descuentoPrecio').val(valor);
+				}
 			}
 			if($.trim($('#descuentoPrecio').val()) != '' && $.trim($('#descuentoPrecio').val()) != '0'){
 				precioVenta  = parseFloat(precioVenta)  - parseFloat($.trim($('#descuentoPrecio').val()));
 			}
 
 			if($.trim($('#ivaPorcentaje').val()) != '' && $.trim($('#ivaPorcentaje').val()) != '0'){
-				ivaPorcentaje  = precioVenta  * (parseFloat($.trim($('#ivaPorcentaje').val())) / 100);
-				ivaPorcentaje = ivaPorcentaje.toFixed(2);
-				$('#ivaPrecio').val(ivaPorcentaje);
+				valor = $.trim($('#ivaPorcentaje').val());
+				if(valor.indexOf('%') != -1){
+					ivaPorcentaje  = precioVenta  * (parseFloat($.trim($('#ivaPorcentaje').val())) / 100);
+					ivaPorcentaje = ivaPorcentaje.toFixed(2);
+					$('#ivaPrecio').val(ivaPorcentaje);
+				}
+				else{
+					$('#ivaPrecio').val(valor);
+				}
 			}
 
 			if($.trim($('#ivaPrecio').val()) != '' && $.trim($('#ivaPrecio').val()) != '0'){
@@ -712,6 +730,7 @@ $('#precioCosto').change(function(){
 $('#gananciaPorcentaje').change(function(){
 	gananciaPorcentaje = 0;
 	if($.trim($(this).val()) != '' && $.trim($(this).val()) != '0'){
+		valor = $.trim($(this).val());
 		if(parseFloat($.trim($(this).val())) > 100){
 			$('#gananciaPrecio').val(gananciaPorcentaje);
 			$('#gananciaPorcentaje').val(gananciaPorcentaje);
@@ -719,9 +738,14 @@ $('#gananciaPorcentaje').change(function(){
 			return false;
 		}
 		try {
-			gananciaPorcentaje  = parseFloat($.trim($('#precioCosto').val()))  * (parseFloat($.trim($('#gananciaPorcentaje').val())) / 100);
-			gananciaPorcentaje = gananciaPorcentaje.toFixed(2);
-			$('#gananciaPrecio').val(gananciaPorcentaje);
+			if(valor.indexOf('%') != -1){
+				gananciaPorcentaje  = parseFloat($.trim($('#precioCosto').val()))  * (parseFloat($.trim($('#gananciaPorcentaje').val())) / 100);
+				gananciaPorcentaje = gananciaPorcentaje.toFixed(2);
+				$('#gananciaPrecio').val(gananciaPorcentaje);
+			}
+			else{
+				$('#gananciaPrecio').val(valor);
+			}
 		}
 		catch(err) {
 		}
@@ -731,15 +755,10 @@ $('#gananciaPorcentaje').change(function(){
 	}
 	$('#precioCosto').change();
 });
-
+/*
 $('#gananciaPrecio').change(function(){
 	gananciaPrecio = 0;
 	if($.trim($(this).val()) != '' && $.trim($(this).val()) != '0'){
-		/*if(parseFloat($.trim($(this).val())) > 100){
-			$('#gananciaPorcentaje').val(gananciaPrecio);
-			$('#precioCosto').change();
-			return false;
-		}*/
 		try {
 			gananciaPrecio = (parseFloat($.trim($('#gananciaPrecio').val())) * 100) / parseFloat($.trim($('#precioCosto').val()));
 			gananciaPrecio = gananciaPrecio.toFixed(2);
@@ -752,11 +771,12 @@ $('#gananciaPrecio').change(function(){
 		$('#gananciaPorcentaje').val(gananciaPrecio);
 	}
 	$('#precioCosto').change();
-});
+});*/
 
 $('#descuentoPorcentaje').change(function(){
 	descuentoPorcentaje = 0;
 	if($.trim($(this).val()) != '' && $.trim($(this).val()) != '0'){
+		valor = $.trim($(this).val());
 		if(parseFloat($.trim($(this).val())) > 100){
 			$('#descuentoPrecio').val(descuentoPorcentaje);
 			$('#descuentoPorcentaje').val(descuentoPorcentaje);
@@ -764,9 +784,14 @@ $('#descuentoPorcentaje').change(function(){
 			return false;
 		}
 		try {
-			descuentoPorcentaje  = (parseFloat($.trim($('#precioCosto').val())) + parseFloat($.trim($('#gananciaPrecio').val()))) * (parseFloat($.trim($('#descuentoPorcentaje').val())) / 100);
-			descuentoPorcentaje = descuentoPorcentaje.toFixed(2);
-			$('#descuentoPrecio').val(descuentoPorcentaje);
+			if(valor.indexOf('%') != -1){
+				descuentoPorcentaje  = (parseFloat($.trim($('#precioCosto').val())) + parseFloat($.trim($('#gananciaPrecio').val()))) * (parseFloat($.trim($('#descuentoPorcentaje').val())) / 100);
+				descuentoPorcentaje = descuentoPorcentaje.toFixed(2);
+				$('#descuentoPrecio').val(descuentoPorcentaje);
+			}
+			else{
+				$('#descuentoPrecio').val(valor);
+			}
 		}
 		catch(err) {
 		}
@@ -776,15 +801,10 @@ $('#descuentoPorcentaje').change(function(){
 	}
 	$('#precioCosto').change();
 });
-
+/*
 $('#descuentoPrecio').change(function(){
 	descuentoPrecio = 0;
 	if($.trim($(this).val()) != '' && $.trim($(this).val()) != '0'){
-		/*if(parseFloat($.trim($(this).val())) > 100){
-			$('#descuentoPorcentaje').val(descuentoPrecio);
-			$('#precioCosto').change();
-			return false;
-		}*/
 		try {
 			descuentoPrecio = (parseFloat($.trim($('#descuentoPrecio').val())) * 100) / (parseFloat($.trim($('#precioCosto').val())) + parseFloat($.trim($('#gananciaPrecio').val())) );
 			descuentoPrecio = descuentoPrecio.toFixed(2);
@@ -798,11 +818,12 @@ $('#descuentoPrecio').change(function(){
 	}
 	$('#precioCosto').change();
 });
-
+*/
 $('#ivaPorcentaje').change(function(){
 	ivaPorcentaje = 0;
 	precioVenta = 0;
 	if($.trim($(this).val()) != '' && $.trim($(this).val()) != '0'){
+		valor = $.trim($('#ivaPorcentaje').val());
 		if(parseFloat($.trim($(this).val())) > 100){
 			$('#ivaPrecio').val(ivaPorcentaje);
 			$('#ivaPorcentaje').val(ivaPorcentaje);
@@ -819,9 +840,14 @@ $('#ivaPorcentaje').change(function(){
 				precioVenta  = parseFloat(precioVenta)  - parseFloat($.trim($('#descuentoPrecio').val()));
 			}
 
-			ivaPorcentaje  = precioVenta  * (parseFloat($.trim($('#ivaPorcentaje').val())) / 100);
-			ivaPorcentaje = ivaPorcentaje.toFixed(2);
-			$('#ivaPrecio').val(ivaPorcentaje);
+			if(valor.indexOf('%') != -1){
+				ivaPorcentaje  = precioVenta  * (parseFloat($.trim($('#ivaPorcentaje').val())) / 100);
+				ivaPorcentaje = ivaPorcentaje.toFixed(2);
+				$('#ivaPrecio').val(ivaPorcentaje);
+			}
+			else{
+				$('#ivaPrecio').val(valor);
+			}
 		}
 		catch(err) {
 		}
