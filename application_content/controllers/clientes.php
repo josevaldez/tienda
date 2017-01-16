@@ -61,10 +61,10 @@ class clientes extends MY_Controller {
 		$data = $this->modeloadmin->catalogo($catalogo,$idBuscar);
 		$html = "";
 		if($catalogo == 'estados'){
-			$html = '<option value="0" selected="">Selecione el Estado</option>';
+			$html = '<option value="0" selected="">Seleccione el Estado</option>';
 		}
 		else{
-			$html = '<option value="0" selected="">Selecione el Municipio</option>';
+			$html = '<option value="0" selected="">Seleccione el Municipio</option>';
 		}
 		foreach ($data as $key => $arrData) {
 			$html .='<option value="'.$arrData['id'].'">'.$arrData['nombre'].'</option>';

@@ -131,7 +131,7 @@
 					    			{if $CLIENTES['estado'] != '' && $CLIENTES['estado'] != 0}
 					    				<option value="{$CLIENTES['estado']}" selected="">{$CLIENTES['nombreEstado']}</option>
 					    			{else}
-					    				<option value="0" selected="">Seleccione</option>
+					    				<option value="0" selected="">Seleccione el Estado</option>
 					    			{/if}
 					    		</select>
 					    	</div>
@@ -140,7 +140,7 @@
 					    			{if $CLIENTES['municipio'] != '' && $CLIENTES['municipio'] != 0}
 					    				<option value="{$CLIENTES['municipio']}" selected="">{$CLIENTES['nombreMunicipio']}</option>
 					    			{else}
-					    				<option value="0" selected="">Seleccione</option>
+					    				<option value="0" selected="">Seleccione el Municipio</option>
 					    			{/if}
 					    		</select>
 					    	</div>
