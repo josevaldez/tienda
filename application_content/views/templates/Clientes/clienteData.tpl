@@ -39,7 +39,7 @@
 					<div class="col-md-3">
 						<input data-toggle="tooltip" data-placement="top" title="Fecha de nacimiento" class="under"  type="text" placeholder="Fecha de nacimiento" name="fechaNac" id="fechaNac" value="{$CLIENTES['fechaNacimientoCliente']}">
 					</div>
-					<div class="col-md-1">
+					<div class="col-md-1" style="padding: 0">
 						<input type="text" name="anos" id="anos" disabled="" placeholder="años" class="under classNumber" value="{$CLIENTES['edadCliente']}">
 					</div>
 				</div>
