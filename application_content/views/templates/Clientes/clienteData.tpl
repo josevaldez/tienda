@@ -71,6 +71,7 @@
 					    {/if}
 					    <span class="caret"></span></button>
 					    <ul class="dropdown-menu trans">
+					    	<li><a href="javascript:void(0);" onclick="javascript:$('#conocioid').val(0); $('#btnConocio').html('Como nos Conocio? <span class=\'caret\'></span></button>');">Como nos Conocio?</a></li>
 							{foreach from=$CATCONOCIO key = kc item = arrCat}
 								<li><a href="javascript:void(0);" onclick="javascript:$('#conocioid').val({$arrCat['idConocio']}); $('#btnConocio').html('{$arrCat['descripcion']} <span class=\'caret\'></span></button>');">{$arrCat['descripcion']}</a></li>
 							{/foreach}
