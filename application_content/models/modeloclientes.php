@@ -64,7 +64,23 @@ class modeloClientes extends CI_Model {
 				$f = explode('/',$this->input->post('fechaNac'));
 				$fechaNac = $f[2]."-".$f[1]."-".$f[0];
 			}
-			echo $fechaNac;
+			//CHECAR QUE EL CODIGO DE CLIENTE NO EXISTA
+			if($this->input->post('idCliente') != ''){
+				$codigoClienteActual = $this->db->query("SELECT codigoCliente FROM yoco_clientes WHERE idTienda = ".$idTienda." AND idCliente = ".$this->input->post('idCliente')." LIMIT 1")->row()->codigoCliente;
+				if($codigoClienteActual != $this->input->post('codigoCliente')){
+					$data = $this->db->query("SELECT * FROM `yoco_clientes` WHERE codigoCliente = '".$this->input->post('codigoCliente')."' AND idTienda = ".$idTienda."");
+					if($data->num_rows() > 0){
+						return array('error'=>true,'HTML'=>'El código que intenta agregar ya Existe');
+					}
+				}
+			}
+			else{
+				$data = $this->db->query("SELECT * FROM `yoco_clientes` WHERE codigoCliente = '".$this->input->post('codigoCliente')."' AND idTienda = ".$idTienda."");
+				if($data->num_rows() > 0){
+					return array('error'=>true,'HTML'=>'El código que intenta agregar ya Existe');
+				}
+			}
+			//echo $fechaNac;
 			$dataCliente = array(
 				'idTienda'=> $idTienda,
 				'codigoCliente'=> $this->input->post('codigoCliente'),

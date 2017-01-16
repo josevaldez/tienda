@@ -238,3 +238,9 @@ select{
     -moz-transform: translate(-50%, 0%);
     -ms-transform: translate(-50%, 0%);
 }
+button[disabled], html input[disabled] {
+    background: #ccc !important;
+}
+.cursorHover{
+    cursor: pointer;
+}

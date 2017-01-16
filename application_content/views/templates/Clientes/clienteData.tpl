@@ -10,10 +10,10 @@
     	<div class="col-md-3">
         	<div class="row">
 	        	<span class="glyphicon glyphicon-barcode col-md-2"></span>
-	        	<input data-toggle="tooltip" data-placement="top" title="cliente" id="codigoCliente" value="{$CLIENTES['codigoCliente']}" class="under col-md-7 classNumber" type="text" name="codigoCliente">
+	        	<input data-toggle="tooltip" data-placement="top" title="cliente" id="codigoCliente" value="{$CLIENTES['codigoCliente']}" class="under col-md-7 classNumber" type="text" name="codigoCliente" {if $CLIENTES['idCliente'] != ''}disabled{/if}>
 	        	<input value="{$CLIENTES['idCliente']}" type="hidden" name="idCliente" id="idCliente">
 	        	<input value="{$token}" type="hidden" name="{$token_name}" id="token">
-	        	<span class="glyphicon glyphicon-pencil  col-md-2"></span>
+	        	<span class="glyphicon glyphicon-pencil cursorHover editCodigo col-md-2"></span>
 	        </div>
 	        <input type="file" name="foto" style="position: absolute; top: -1000px; left: -10000px" id="foto" accept='image/*'>
         	<div id="preview" class="profile mousehover glyphicon {if $CLIENTES['fotoCliente'] == ''}glyphicon-user{/if}"
@@ -56,7 +56,7 @@
 						<input data-toggle="tooltip" data-placement="top" title="Fecha de nacimiento" class="under"  type="text" placeholder="Fecha de nacimiento" name="fechaNac" id="fechaNac" value="{$CLIENTES['fechaNacimientoCliente']}">
 					</div>
 					<div class="col-md-3">
-						<input type="text" name="anos" id="anos" placeholder="años" class="under classNumber" value="{$CLIENTES['edadCliente']}">
+						<input type="text" name="anos" id="anos" disabled="" placeholder="años" class="under classNumber" value="{$CLIENTES['edadCliente']}">
 					</div>
 					<div class="dropdown col-md-4">
 				 		<input type="hidden" id="conocioid" name="conocioid" value="{$CLIENTES['idCatConocio']}">
@@ -226,6 +226,9 @@
 </div>
 {literal}
 <script type="text/javascript">
+$('.editCodigo').click(function(event) {
+	$('#codigoCliente').removeAttr('disabled');
+});
 $('#pais').change(function(event) {
 	idPais = $('#pais').val();
 	$.ajax({
@@ -325,9 +328,33 @@ $('#estatusFacturacion').change(function(){
 });
 
 $('[data-toggle="tooltip"]').tooltip();
-$('#fechaNac').datepicker({ dateFormat: 'dd/mm/yy'});
-$('.cerrar').on('click', function(){$('.overlay-container').fadeOut().end().find('.window-container').removeClass('window-container-visible');
+$('#fechaNac').datepicker({
+	dateFormat: 'dd/mm/yy',
+	currentText: 'Hoy',
+	changeMonth: true,
+	maxDate: '0',
+	yearRange: "-80:+0",
+	changeYear: true,
+	monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+	monthNamesShort: ['Ene','Feb','Mar','Abr', 'May','Jun','Jul','Ago','Sep', 'Oct','Nov','Dic'],
+	dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+	dayNamesShort: ['Dom','Lun','Mar','Mié','Juv','Vie','Sáb'],
+	dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sá'],
+	weekHeader: 'Sm',
+	onSelect: function (date) {
+		var birthDay = $('#fechaNac').val();
+		var farr = birthDay.split('/');
+		birthDay = farr[2]+"/"+farr[1]+"/"+farr[0];
+		var DOB = new Date(birthDay);
+		var today = new Date();
+		var age = today.getTime() - DOB.getTime();
+		age = Math.floor(age / (1000 * 60 * 60 * 24 * 365.25));
+		$('#anos').val(age);
+	}
+});
+$('.cerrar').on('click', function(){
 	if($.trim($('#codigoCliente').val()) != ''){
+		$('#loadData').show();
 		var dataForm = new FormData();
 		var _totalImg = $("[name='foto']")[0].files.length;
 		if(_totalImg > 0){
@@ -393,18 +420,24 @@ $('.cerrar').on('click', function(){$('.overlay-container').fadeOut().end().find
         	contentType: false,
         	cache: false,
 			dataType : "json", type: "POST",
-			beforeSend: function(){},
+			beforeSend: function(){$('#loadData').show();},
 			success: function(data){
+				$('#loadData').hide();
 				if(data.error){
-					$('#products').append('Intente mas Tarde.');
+					//$('#products').append('Intente mas Tarde.');
+					mensaje(data.HTML,'','ERROR');
 				}
 				else{
 					//mensaje('La Acción se realizo correctamente.');
 					cargarListado();
+					$('.overlay-container').fadeOut().end().find('.window-container').removeClass('window-container-visible');
 				}
 			},
-			error: function (){/*$(element).next('div').html('Intente mas Tarde.');*/}
+			error: function (){$('#loadData').hide();}
 		});
+	}
+	else{
+		$('.overlay-container').fadeOut().end().find('.window-container').removeClass('window-container-visible');
 	}
 });
 $('#preview').click(function(){

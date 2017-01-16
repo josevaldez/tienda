@@ -12,8 +12,8 @@
         	<div class="row">
 	        	<span class="glyphicon glyphicon-barcode col-md-2"></span>
 	        	<input class="" type="hidden" name="idArticulo" id="idArticulo" value="{$ARTICULOS['idArticulo']}">
-	        	<input data-toggle="tooltip" data-placement="top" title="Codigó" class="under col-md-7 classNumber" type="text" name="codigo" id="codigo" value="{$ARTICULOS['codigoArticulo']}">
-	        	<span class="glyphicon glyphicon-pencil  col-md-2"></span>
+	        	<input data-toggle="tooltip" data-placement="top" title="Codigó" class="under col-md-7 classNumber" type="text" name="codigo" id="codigo" value="{$ARTICULOS['codigoArticulo']}" {if $ARTICULOS['idArticulo'] != ''}disabled{/if}>
+	        	<span class="glyphicon glyphicon-pencil cursorHover editCodigo col-md-2"></span>
 	        </div>
 
 
@@ -188,6 +188,9 @@
 </style>
 
 <script type="text/javascript">
+$('.editCodigo').click(function(event) {
+	$('#codigo').removeAttr('disabled');
+});
 $('.btnNewImagen2').click(function(){
 	$('#foto').trigger('click');
 });
@@ -433,8 +436,9 @@ $('.cerrar').on('click', function(){
 		}
 		return false;
 	}
-	$('.overlay-container').fadeOut().end().find('.window-container').removeClass('window-container-visible');
+
 	if($.trim($('#codigo').val()) != ''){
+		$('#loadData').show();
 		var dataForm = new FormData();
 		/*var _totalImg = $("[name='foto']")[0].files.length;
 		if(_totalImg > 0){
@@ -477,18 +481,24 @@ $('.cerrar').on('click', function(){
         	contentType: false,
         	cache: false,
 			dataType : "json", type: "POST",
-			beforeSend: function(){},
+			beforeSend: function(){$('#loadData').show();},
 			success: function(data){
+				$('#loadData').hide();
 				if(data.error){
-					$('#products').append('Intente mas Tarde.');
+					//$('#products').append('Intente mas Tarde.');
+					mensaje(data.HTML,'','ERROR');
 				}
 				else{
 					//mensaje('La Acción se realizo correctamente.');
 					cargarListado();
+					$('.overlay-container').fadeOut().end().find('.window-container').removeClass('window-container-visible');
 				}
 			},
-			error: function (){/*$(element).next('div').html('Intente mas Tarde.');*/}
+			error: function (){$('#loadData').hide();/*$(element).next('div').html('Intente mas Tarde.');*/}
 		});
+	}
+	else{
+		$('.overlay-container').fadeOut().end().find('.window-container').removeClass('window-container-visible');
 	}
 });
 $('#preview').click(function(){

@@ -89,6 +89,23 @@ class modeloArticulos extends CI_Model {
 		$idUsuario = $this->session->userdata('idUsuario');
 		if($this->input->post('codigo') != '' && $this->input->post('nombre') != '' && $this->input->post('abreviatura') != '' && $this->input->post('descripcion') != ''){
 
+			//CHECAR QUE EL CODIGO DE CLIENTE NO EXISTA
+			if($this->input->post('idArticulo') != ''){
+				$codigoArticuloActual = $this->db->query("SELECT codigoArticulo FROM yoco_articulos WHERE idTienda = ".$idTienda." AND idArticulo = ".$this->input->post('idArticulo')." LIMIT 1")->row()->codigoArticulo;
+				if($codigoArticuloActual != $this->input->post('codigo')){
+					$data = $this->db->query("SELECT * FROM `yoco_articulos` WHERE codigoArticulo = '".$this->input->post('codigo')."' AND idTienda = ".$idTienda."");
+					if($data->num_rows() > 0){
+						return array('error'=>true,'HTML'=>'El código que intenta agregar ya Existe');
+					}
+				}
+			}
+			else{
+				$data = $this->db->query("SELECT * FROM `yoco_articulos` WHERE codigoArticulo = '".$this->input->post('codigo')."' AND idTienda = ".$idTienda."");
+				if($data->num_rows() > 0){
+					return array('error'=>true,'HTML'=>'El código que intenta agregar ya Existe');
+				}
+			}
+
 			$this->db->trans_start();
 			$dataCliente = array(
 				'idTienda'=> $idTienda,
