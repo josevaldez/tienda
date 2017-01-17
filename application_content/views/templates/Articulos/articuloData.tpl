@@ -12,7 +12,7 @@
         	<div class="row" style="  border-bottom: 1px solid #bbb; padding-bottom: 0;">
 	        	<span class="glyphicon glyphicon-barcode" style="float: left;"></span>
 	        	<input style="border: none !important; margin-left:13px; " class="" type="hidden" name="idArticulo" id="idArticulo" value="{$ARTICULOS['idArticulo']}">
-	        	<input data-toggle="tooltip" data-placement="top" title="Codigó" class="under col-md-9 classNumber" type="text" name="codigo" id="codigo" value="{$ARTICULOS['codigoArticulo']}" {if $ARTICULOS['idArticulo'] != ''}disabled{/if}>
+	        	<input style="border: none !important; margin-left:13px; "  data-toggle="tooltip" data-placement="top" title="Codigó" class="under col-md-9 classNumber" type="text" name="codigo" id="codigo" value="{$ARTICULOS['codigoArticulo']}" {if $ARTICULOS['idArticulo'] != ''}disabled{/if}>
 	        	<span class="glyphicon glyphicon-pencil cursorHover editCodigo" style="float: right; font-size: 14px;margin-top: 6px;text-align: right;"></span>
 	        </div>
 
@@ -859,3 +859,16 @@ $('#ivaPorcentaje').change(function(){
 });
 
 </script>{/literal}
+{literal}
+<style type="text/css">
+	#clienteForm input {
+    background: transparent none repeat scroll 0 0 !important;
+    color: #777 !important;
+    font-size: 13px !important;
+    height: 17px;
+    line-height: 17px;
+    margin-top: 10px;
+}
+
+</style>
+{/literal}

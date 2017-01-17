@@ -58,7 +58,7 @@
 					</div>
 					<div class="dropdown col-md-3">
 				 		<input type="hidden" id="conocioid" name="conocioid" value="{$CLIENTES['idCatConocio']}">
-					    <button class="btn trans dropdown-toggle" id="btnConocio" type="button" data-toggle="dropdown">
+					    <button style="margin-top: 8px; padding: 0;" class="btn trans dropdown-toggle" id="btnConocio" type="button" data-toggle="dropdown">
 					    {$c = 0}
 					    {foreach from=$CATCONOCIO key = kc item = arrCat}
 					    	{if $CLIENTES['idCatConocio'] == $arrCat['idConocio']}
@@ -103,15 +103,15 @@
 					    		<input data-toggle="tooltip" data-placement="top" title="Calle" class="under" type="text" name="calle" id="calle" placeholder="Calle" value="{$CLIENTES['calle']}">
 					    	</div>
 					    	<div class="col-md-3">
-					    		<input data-toggle="tooltip" data-placement="top" title="Número interior" class="under classNumber" type="text" name="int" id="int" placeholder="#int" value="{$CLIENTES['calleInt']}">
+					    		<input style="padding: 0px;" data-toggle="tooltip" data-placement="top" title="Número interior" class="under classNumber" type="text" name="int" id="int" placeholder="Número interior" value="{$CLIENTES['calleInt']}">
 					    	</div>
 					    	<div class="col-md-3">
-					    		<input data-toggle="tooltip" data-placement="top" title="Número exterior" class="under classNumber" type="text" name="ext" id="ext" placeholder="#ext" value="{$CLIENTES['calleExt']}">
+					    		<input style="padding: 0px;" data-toggle="tooltip" data-placement="top" title="Número exterior" class="under classNumber" type="text" name="ext" id="ext" placeholder="Número exterior" value="{$CLIENTES['calleExt']}">
 					    	</div>
-					    	<div class="col-md-6">
+					    	<div class="col-md-4">
 					    		<input data-toggle="tooltip" data-placement="top" title="Colonia" class="under" type="text" name="colonia" id="colonia" placeholder="Colonia" value="{$CLIENTES['colonia']}">
 					    	</div>
-					    	<div class="col-md-6">
+					    	<div class="col-md-4">
 					    		<input data-toggle="tooltip" data-placement="top" title="Referencia" class="under" type="text" name="referencia" id="referencia" placeholder="Referencia" value="{$CLIENTES['referencia']}">
 					    	</div>
 					    	<div class="col-md-4">
@@ -181,15 +181,15 @@
 					    		<input data-toggle="tooltip" data-placement="top" title="Calle" class="under" type="text" name="calle2" id="calle2" placeholder="Calle" value="{$CLIENTES['calle2']}">
 					    	</div>
 					    	<div class="col-md-3">
-					    		<input data-toggle="tooltip" data-placement="top" title="Número interior" class="under classNumber" type="text" name="int2" id="int2" placeholder="#int" value="{$CLIENTES['calleInt2']}">
+					    		<input style="padding: 0px;" data-toggle="tooltip" data-placement="top" title="Número interior" class="under classNumber" type="text" name="int2" id="int2" placeholder="Número interior" value="{$CLIENTES['calleInt2']}">
 					    	</div>
 					    	<div class="col-md-3">
-					    		<input data-toggle="tooltip" data-placement="top" title="Número exterior" class="under classNumber" type="text" name="ext2" id="ext2" placeholder="#ext" value="{$CLIENTES['calleExt2']}">
+					    		<input style="padding: 0px;" data-toggle="tooltip" data-placement="top" title="Número exterior" class="under classNumber" type="text" name="ext2" id="ext2" placeholder="Número exterior" value="{$CLIENTES['calleExt2']}">
 					    	</div>
-					    	<div class="col-md-6">
+					    	<div class="col-md-4">
 					    		<input data-toggle="tooltip" data-placement="top" title="Colonia" class="under" type="text" name="colonia2" id="colonia2" placeholder="Colonia" value="{$CLIENTES['colonia2']}">
 					    	</div>
-					    	<div class="col-md-6">
+					    	<div class="col-md-4">
 					    		<input data-toggle="tooltip" data-placement="top" title="Referencia" class="under" type="text" name="referencia2" id="referencia2" placeholder="Referencia" value="{$CLIENTES['referencia2']}">
 					    	</div>
 					    	<div class="col-md-4">
@@ -197,7 +197,7 @@
 					    	</div>
 					    	<div class="col-md-4">
 					    		<select data-toggle="tooltip" data-placement="top" title="País" class="under" name="pais2" id="pais2" placeholder="País">
-					    			<option value="0" selected="">Seleccione</option>
+					    			<option value="0" selected="">Seleccione el Pais</option>
 					    			{foreach from=$PAISES item = arrPais key = k}
 					    				<option value="{$arrPais['id']}" {if $CLIENTES['pais2'] == $arrPais['id']} selected="" {/if}>{$arrPais['nombre']}</option>
 					    			{/foreach}
@@ -208,7 +208,7 @@
 					    			{if $CLIENTES['estado2'] != '' && $CLIENTES['estado2'] != 0}
 					    				<option value="{$CLIENTES['estado2']}" selected="">{$CLIENTES['nombreEstado2']}</option>
 					    			{else}
-					    				<option value="0" selected="">Seleccione</option>
+					    				<option value="0" selected="">Seleccione el Estado</option>
 					    			{/if}
 					    		</select>
 					    	</div>
@@ -217,7 +217,7 @@
 					    			{if $CLIENTES['municipio2'] != '' && $CLIENTES['municipio2'] != 0}
 					    				<option value="{$CLIENTES['municipio2']}" selected="">{$CLIENTES['nombreMunicipio2']}</option>
 					    			{else}
-					    				<option value="0" selected="">Seleccione</option>
+					    				<option value="0" selected="">Seleccione el Municipio</option>
 					    			{/if}
 					    		</select>
 					    	</div>
@@ -256,7 +256,7 @@ $('#pais').change(function(event) {
 				$('#estado').find('option').remove();
 				$('#estado').append(data.HTML);
 				$('#municipio').find('option').remove();
-				$('#municipio').append('<option value="0" selected="">Selecione el Estado</option>')
+				$('#municipio').append('<option value="0" selected="">Selecione el Municipio</option>')
 			}
 		},
 		error: function (){/*$(element).next('div').html('Intente mas Tarde.');*/}
@@ -302,7 +302,7 @@ $('#pais2').change(function(event) {
 				$('#estado2').find('option').remove();
 				$('#estado2').append(data.HTML);
 				$('#municipio2').find('option').remove();
-				$('#municipio2').append('<option value="0" selected="">Selecione el Estado</option>')
+				$('#municipio2').append('<option value="0" selected="">Selecione el Municipio</option>')
 			}
 		},
 		error: function (){/*$(element).next('div').html('Intente mas Tarde.');*/}
@@ -474,9 +474,12 @@ function readURL(input) {
 {literal}
 <style type="text/css">
 	#clienteForm input {
-    color: #777;
+    background: transparent none repeat scroll 0 0 !important;
+    color: #777 !important;
     font-size: 13px !important;
+    height: 17px;
     line-height: 17px;
+    margin-top: 10px;
 }
 
 </style>
