@@ -3,13 +3,22 @@
 	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" id="clientBox">
 		<div class="panelClients cliente-grid">
 			<div class="panelHeader col-xs-12 col-sm-12 col-md-12 col-lg-12">
-				<span class="col-md-1 col-xs-12 np"><b>Clientes</b></span>
+				{*<span class="col-md-1 col-xs-12 np"><b>Clientes</b></span>
 				<form id="custom-search-form" class="form-search form-horizontal col-md-4 col-xs-8">
 	                <div id="search3" class="input-append span12">
 	                    <input style="color:#888; border:none;" type="text" id="inputSearch" class="search-query col-xs-10" placeholder="Buscar"/>
 	                    <button type="button" id="btnSearch" style="display: none;" class="col-xs-2 search2 btn glyphicon glyphicon-remove-circle"> </button>
 	                </div>
-	            </form>
+	            </form>*}
+	            <form class="form-inline col-sm-5">
+					<div class="form-group">
+						<label><b>Clientes</b></label>
+					</div>
+					<div id="search3" class="form-group input-append">
+						<input style="color:#888; border:none;" type="text" id="inputSearch" class="search-query col-xs-10" placeholder="Buscar"/>
+	                    <button type="button" id="btnSearch" style="display: none;" class="col-xs-2 search2 btn glyphicon glyphicon-remove-circle"> </button>
+					</div>
+				</form>
 	            <span class="list-style-buttons pull-right col-xs-7 text-right">
 	            	<a href="javascript:void(0);" onclick="deleteCliente(0);" id="deleteClientes" class="switcher hidden"><span class="glyphicon glyphicon-trash"></span> Eliminar</a>
 

@@ -225,7 +225,7 @@ select{
 /***********cambios***********/
     #btnSearch{ background-color: #transparent; float: right; font-size: 18px; margin-top: 11px; width: 19px;}
     #inputSearch{border: medium none;color: #000 !important;font-size: 17px;height: 18px !important;margin-top: 19px;line-height:17px;}
-    #search3{ border-bottom: 1px solid #bbb; display: table; margin-top: -10px;overflow: visible;}
+    #search3{ border-bottom: 1px solid #bbb; margin-top: -21px;overflow: visible;}
     .panelHeader{ font-family: montserrat; padding-left: 4px; }
     #clientBox{ margin: 10px; }
 
