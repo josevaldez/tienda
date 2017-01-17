@@ -30,6 +30,7 @@ body{
 button:hover{
 	background-color: #cb3a59;
 	/*border: none;*/
+	color: #fff !important;
 }
 button{
 	border-color: #777;

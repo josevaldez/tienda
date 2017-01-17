@@ -18,7 +18,7 @@
 	        <input type="file" name="foto" style="position: absolute; top: -1000px; left: -10000px" id="foto" accept='image/*'>
         	<div id="preview" class="profile mousehover glyphicon {if $CLIENTES['fotoCliente'] == ''}glyphicon-user{/if}"
         		{if $CLIENTES['fotoCliente'] != ''}
-        			style="background: url(resources/fotosClientes/{$idTienda}/{$CLIENTES['fotoCliente']});background-size: 100% 100%; background-repeat: no-repeat;"
+        			style="background: url(resources/fotosClientes/{$idTienda}/{$CLIENTES['fotoCliente']}); background-size: cover; background-position: center center; background-repeat: no-repeat;"
 				{/if} ></div>
     	</div>
     	<div class="col-md-1"></div>
@@ -462,8 +462,9 @@ function readURL(input) {
 		var reader = new FileReader();
 		reader.onload = function (e) {
 			$('#preview').css('background', 'url('+e.target.result+")");
-			$('#preview').css('background-size', '100% 100%');
+			$('#preview').css('background-size', 'cover');
 			$('#preview').css('background-repeat', 'no-repeat');
+			$('#preview').css('background-position', 'center center');
 			$('#preview').removeClass('glyphicon');
 			$('#preview').removeClass('glyphicon-user');
 		}

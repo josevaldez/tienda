@@ -19,6 +19,7 @@ $(function () {
 	$('#inputSearch').keydown(function(event) {
 		if($.trim($('#inputSearch').val()) != ''){
 			$('#btnSearch').show();
+			cargarListado();
 		}
 		else{
 			$('#btnSearch').hide();

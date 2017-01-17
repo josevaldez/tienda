@@ -19,7 +19,7 @@
 
         	<div id="preview" class="mousehover profile glyphicon {if $ARTICULOS['imagen'] == ''}glyphicon-picture{/if}"
         		{if $ARTICULOS['imagen'] != ''}
-        			style="background: url(resources/imagesArticulos/{$idTienda}/{$ARTICULOS['idArticulo']}/{$ARTICULOS['imagen']});background-size: 100% 100%; background-repeat: no-repeat;"
+        			style="background: url(resources/imagesArticulos/{$idTienda}/{$ARTICULOS['idArticulo']}/{$ARTICULOS['imagen']}); background-size: cover; background-position: center center; background-repeat: no-repeat;"
 				{/if}></div>
         	<div class="dropdown col-md-12">
 			    <button class="btn boton col-md-12 trans dropdown-toggle t3" id="btnPrecio" type="button"><label class="precioFinalLabel">${$ARTICULOS['precioVenta']}</label> <span class="caret"></span></button>
@@ -78,13 +78,13 @@
 					<span class="glyphicon glyphicon-th-large col-md-12"></span>
 				</div>
 				<div class="col-md-4">
-					<input data-toggle="tooltip" data-placement="top" title="Tamaño" class="under" type="text" name="tamano" placeholder="Tamaño" id="tamano">
+					<input data-toggle="tooltip" data-placement="top" title="Tamaño" class="under" type="text" name="tamano" placeholder="Tamaño" id="tamano" {if $ARTICULOS['tipoArticulo'] != 1}disabled{/if}>
 				</div>
 				<div class="col-md-1">
 					<span class="glyphicon glyphicon-tint col-md-12"></span>
 				</div>
 				<div class="col-md-4">
-					<input data-toggle="tooltip" data-placement="top" title="Colores" class="under" type="text" name="colores" placeholder="Colores" id="colores">
+					<input data-toggle="tooltip" data-placement="top" title="Colores" class="under" type="text" name="colores" placeholder="Colores" id="colores" {if $ARTICULOS['tipoArticulo'] != 1}disabled{/if}>
 				</div>
 
 			</div>
@@ -96,7 +96,7 @@
 					<span class="glyphicon glyphicon-time col-md-12"></span>
 				</div>
 				<div class="col-md-9">
-					<input data-toggle="tooltip" data-placement="top" title="Horario" class="under" type="text" name="horario" placeholder="Horario" id="horario">
+					<input data-toggle="tooltip" data-placement="top" title="Horario" class="under" type="text" name="horario" placeholder="Horario" id="horario" {if $ARTICULOS['tipoArticulo'] != 2}disabled{/if}>
 				</div>
 			</div>
 
@@ -119,7 +119,8 @@
 					<span class="glyphicon glyphicon-align-justify col-md-12"></span>
 				</div>
 				<div class="col-md-11">
-					<input data-toggle="tooltip" data-placement="top" title="Descripción" class="under" type="text" name="descripcion" placeholder="Descripción" id="descripcion" value="{$ARTICULOS['descripcionArticulo']}">
+					<textarea data-toggle="tooltip" data-placement="top" title="Descripción" class="under" name="descripcion" placeholder="Descripción" id="descripcion" style="min-height: 27px;width: 100%;">{$ARTICULOS['descripcionArticulo']}</textarea>
+					{*<input data-toggle="tooltip" data-placement="top" title="Descripción" class="under" type="text" name="descripcion" placeholder="Descripción" id="descripcion" value="{$ARTICULOS['descripcionArticulo']}" style="min-height: 27px;    width: 100%;    width: 100%;">*}
 				</div>
 			</div>
 		</div>
@@ -188,6 +189,12 @@
 </style>
 
 <script type="text/javascript">
+$('#clienteForm').on('change keyup keydown paste cut', '#descripcion', function () {
+        $(this).height(0).height(this.scrollHeight);
+    }).find('#descripcion').change();
+$(document).ready(function() {
+	setTimeout(function(){$('#descripcion').change();},500);
+});
 $('.editCodigo').click(function(event) {
 	$('#codigo').removeAttr('disabled');
 });
@@ -379,11 +386,20 @@ $('.btnProducto').click(function(event) {
 	$(this).find('span').removeClass('hidden');
 	$('.btnServicios').find('span').addClass('hidden');
 	$('#tipoArticulo').val(1);
+	$('#tamano').removeAttr('disabled');
+	$('#colores').removeAttr('disabled');
+	$('#horario').attr('disabled','disabled');
+	$('#horario').val('');
 });
 $('.btnServicios').click(function(event) {
 	$(this).find('span').removeClass('hidden');
 	$('.btnProducto').find('span').addClass('hidden');
 	$('#tipoArticulo').val(2);
+	$('#tamano').attr('disabled','disabled');
+	$('#tamano').val('');
+	$('#colores').attr('disabled','disabled');
+	$('#colores').val('');
+	$('#horario').removeAttr('disabled');
 });
 $('[data-toggle="tooltip"]').tooltip();
 //$('#fechaNac').datepicker({ format: 'DD/MM/YYYY'});
@@ -403,7 +419,8 @@ $('.cerrar').on('click', function(){
 /*ACTUALIZA LA PORTADA QUE ES LA IMAGEN QUE SE QUEDO EN EL CENTRO*/
 		if(idImagen != 0){
 			$('#preview').css('background', 'url('+urlImagen+")");
-			$('#preview').css('background-size', '100% 100%');
+			$('#preview').css('background-size', 'cover');
+			$('#preview').css('background-position', 'center center');
 			$('#preview').css('background-repeat', 'no-repeat');
 			$('#preview').removeClass('glyphicon');
 			$('#preview').removeClass('glyphicon-picture');
