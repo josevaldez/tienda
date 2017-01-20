@@ -129,22 +129,28 @@
     		<div class="row"><div class="col-md-12"><input data-toggle="tooltip" data-placement="top" title="Costo" placeholder="Costo $0" type="text" name="precioCosto" id="precioCosto" class="form-control" value="{$ARTICULOS['precioCompra']}"></div></div>
 
     		<div class="row">
-    			<div class="col-md-12"><input data-toggle="tooltip" data-placement="top" title="Ganancia +%" placeholder="Ganancia +0%" type="text" name="gananciaPorcentaje" id="gananciaPorcentaje" class="form-control" value="{$ARTICULOS['gananciaPorcentaje']}"></div>
+    			<div class="col-md-12"><input data-toggle="tooltip" data-placement="top" title="Ganancia + % ó $" placeholder="Ganancia + % ó $" type="text" name="gananciaPorcentaje" id="gananciaPorcentaje" class="form-control" value="{$ARTICULOS['gananciaPorcentaje']}"></div>
     			<div class="col-md-1 hidden">ó</div>
     			<div class="col-md-6 hidden"><input data-toggle="tooltip" data-placement="top" title="Ganancia +$" placeholder="Ganancia +$0" type="text" name="gananciaPrecio" id="gananciaPrecio" class="form-control" value="{$ARTICULOS['gananciaPrecio']}"></div>
     		</div>
     		<div class="row">
-    			<div class="col-md-12"><input data-toggle="tooltip" data-placement="top" title="Descuento -%" placeholder="Descuento -0%" type="text" name="descuentoPorcentaje" id="descuentoPorcentaje" class="form-control" value="{$ARTICULOS['descuentoPorcentaje']}"></div>
+    			<div class="col-md-12"><input data-toggle="tooltip" data-placement="top" title="Descuento - % ó $" placeholder="Descuento - % ó $" type="text" name="descuentoPorcentaje" id="descuentoPorcentaje" class="form-control" value="{$ARTICULOS['descuentoPorcentaje']}"></div>
     			<div class="col-md-1 hidden">ó</div>
     			<div class="col-md-6 hidden"><input data-toggle="tooltip" data-placement="top" title="Descuento -$" placeholder="Descuento -$0" type="text" name="descuentoPrecio" id="descuentoPrecio" class="form-control" value="{$ARTICULOS['descuentoPrecio']}"></div>
     		</div>
     		<div class="row">
-    			<div class="col-md-12"><input data-toggle="tooltip" data-placement="top" title="IVA %" placeholder="IVA 0%" type="text" name="ivaPorcentaje" id="ivaPorcentaje" class="form-control" value="{$ARTICULOS['ivaPorcentaje']}"></div>
+    			<div class="col-md-12">
+    				<select class="under" data-toggle="tooltip" data-placement="top" title="Impuesto" name="ivaPorcentaje" id="ivaPorcentaje">
+    					<option value="0" {if $ARTICULOS['ivaPrecio'] == 0}selected{/if}>Ninguno</option>
+    					<option value="16" {if $ARTICULOS['ivaPrecio'] == 16}selected{/if}>IVA 16%</option>
+    				</select>
+    				{*<input data-toggle="tooltip" data-placement="top" title="IVA % ó $" placeholder="IVA % ó $" type="text" name="ivaPorcentaje" id="ivaPorcentaje" class="form-control" value="{$ARTICULOS['ivaPorcentaje']}">*}
+    			</div>
 
     			<div class="col-md-6 hidden"><input data-toggle="tooltip" data-placement="top" title="IVA $" placeholder="IVA $0" type="text" name="ivaPrecio" id="ivaPrecio" disabled="" class="form-control" value="{$ARTICULOS['ivaPrecio']}"></div>
     		</div>
     		<div class="row totalPrecioBack">
-    			<div class="col-md-12"><input data-toggle="tooltip" data-placement="top" title="TOTAL $" placeholder="TOTAL $0" type="text" name="totalPrecio" id="totalPrecio" class="form-control" value="{$ARTICULOS['precioVenta']}" ></div>
+    			<div class="col-md-12"><input data-toggle="tooltip" data-placement="top" title="TOTAL $" placeholder="TOTAL $0" type="text" name="totalPrecio" id="totalPrecio" class="form-control" value="{$ARTICULOS['precioVenta']}" style="color:white!important"></div>
     		</div>
     	</div>
     	<div class="divTags hidden">

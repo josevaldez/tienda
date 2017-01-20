@@ -57,4 +57,5 @@
 </div>
 
 <script type="text/javascript" src="{$INDEX_YOCO}/resources/js/articulos.js"></script>
+<script type="text/javascript" src="{$INDEX_YOCO}/resources/js/autoNumeric.js"></script>
 {include file="footer.tpl"}
